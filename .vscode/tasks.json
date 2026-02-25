@@ -1,0 +1,51 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+        "label": "Generate Javadoc",
+        "type": "shell",
+        "command": "javadoc",
+      "linux": {
+        "args": [
+          "-public",
+          "-d", "javadocs",
+          "-sourcepath", "src/main/java",
+          "-subpackages", "app",
+          "--allow-script-in-comments",
+          "-encoding", "UTF-8",
+          "-tag", "doc.implNote:a:Design Notes:",
+          "-tag", "doc.testing:a:Testing Notes:",
+          "-tag", "doc.collaborators:a:Collaborator Notes:",
+          "--module-path", "${env:JAVAFX_JMODS}:${env:JAVAFX_HOME}/lib",
+          "--add-modules", "javafx.controls,javafx.graphics,javafx.base"
+        ]
+      },
+      "windows": {
+        "args": [
+            "-public",
+            "-d",
+            "javadocs",
+            "-sourcepath",
+            "src/main/java",
+            "-subpackages",
+            "app",
+            "-tag", "doc.implNote:a:Design Notes:",
+            "-tag", "doc.testing:a:Testing Notes:",
+            "-tag", "doc.collaborators:a:Collaborator Notes:",
+            "--allow-script-in-comments",
+            "--module-path",
+            "${env:JAVA_HOME}/jmods",
+            "--add-modules",
+            "javafx.controls,javafx.graphics,javafx.base"
+        ]
+      },
+              
+        "options": {
+            "cwd": "${workspaceFolder}"
+        },
+      "group": { "kind": "build", "isDefault": true },  // <— this makes Ctrl/Cmd+Shift+B run it
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true },
+        "problemMatcher": []
+    }
+]
+}

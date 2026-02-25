@@ -1,0 +1,11 @@
+{
+    "java.server.launchMode": "Standard",
+    "java.project.referencedLibraries": [
+        "/workspaces/javafx/javafx-sdk-current/lib/*.jar"
+    ],
+    "java.project.sourcePaths": [
+        "src/main/java",
+        "src/main/resources"
+    ],
+    "java.debug.settings.vmArgs": "--enable-native-access=javafx.graphics",
+}

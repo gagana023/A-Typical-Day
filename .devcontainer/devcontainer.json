@@ -1,0 +1,46 @@
+{
+  "name": "Java (JDK 25 via Feature)",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+
+  "features": {
+    "ghcr.io/devcontainers/features/desktop-lite:1": {
+      "version": "latest",
+      "webPort": 6080
+    },
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "25-tem", 
+      "jdkDistro": "tem",
+      "installMaven": false,
+      "installGradle": false
+    }
+  },
+  "onCreateCommand": "bash .devcontainer/setup-javafx.sh",
+  "remoteEnv": {
+    "DISPLAY": ":1",    
+    "JAVAFX_HOME": "/workspaces/javafx/javafx-sdk-current",
+    "JAVAFX_JMODS": "/workspaces/javafx/javafx-jmods-current"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "redhat.java",
+        "vscjava.vscode-java-debug",
+        "vscjava.vscode-java-test",
+        "vscjava.vscode-java-dependency"
+      ],
+      "settings": {
+        "java.project.referencedLibraries": [
+          "${env:JAVAFX_HOME}/lib/*.jar"
+        ],
+        "java.project.sourcePaths": [
+          "src/main/java"
+        ],
+        "github.copilot.chat.enabled": false
+      }
+    }
+  },
+  "portsAttributes": {
+    "6080": { "label": "Desktop (noVNC)", "onAutoForward": "openBrowser" }
+  },
+  "postCreateCommand": "java -version && echo Using JAVA_HOME=$JAVA_HOME"
+}
