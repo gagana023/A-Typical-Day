@@ -1,0 +1,8 @@
+| Finish phase 1 docs  | [Sreshta Namala](mailto:2015128@apps.nsd.org)       | Milestone | Completed | 2.00 | 3.17 | 1 | 4.75 | Write down objects we are planning to use and organize them into classes |
+| -------------------- | --------------------------------------------------- | --------- | --------- | ---- | ---- | - | ---- | ------------------------------------------------------------------------ |
+| Purpose & Motivation | [2015273@apps.nsd.org](mailto:2015273@apps.nsd.org) | Design    | Completed | 0.50 | 0.79 | 1 | 0.75 | Fill out purpose and motivation + prototype                              |
+| Project Features     | [Sreshta Namala](mailto:2015128@apps.nsd.org)       | Design    | Completed | 1.00 | 1.58 | 1 | 1.50 | Take objects and think of potential ways to organize classes             |
+| Project Description  | [Gagana Rudra Bodala](mailto:2010941@apps.nsd.org)  | Design    | Completed | 0.50 | 0.79 | 1 | 1.00 | Format into a class diagram and afterward, we can edit as needed         |
+| Prototype Features   | [2015273@apps.nsd.org](mailto:2015273@apps.nsd.org) | Design    | Completed | 0.50 | 0.79 | 1 | 0.50 |                                                                          |
+| Core Features        | [Gagana Rudra Bodala](mailto:2010941@apps.nsd.org)  | Design    | Completed | 0.50 | 0.79 | 1 | 0.50 |                                                                          |
+| Stretch Features     | [Sreshta Namala](mailto:2015128@apps.nsd.org)       | Design    | Completed | 1.00 | 1.58 | 1 | 0.50 |                                                                          |
