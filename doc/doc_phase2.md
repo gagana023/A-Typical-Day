@@ -42,7 +42,7 @@ An example for a testing strategy may be something like the following. **Note**:
 | Automated testing | We will create automated tests that check the following: \- sprites (player, NPCs, inanimate objects) do not overlap when in the same ‘layer’ of the scene \- picking a choice onscreen (a button) matches the correct choice (the text)/path associated with the choice \- a given choice causes a given thing to happen (similar to, but different from the previous test) \- in-game tasks are logged as completed when the player completes them |
 | *Other testing* | Any other type of testing you might be thinking of |
 
-## Screenshots of Wireframes (these entered in the other way around \-- the first wireframe starts at the bottom)
+## Screenshots of Wireframes (these entered in the other way around \-- the first wireframe starts at the bottom) // these images wont work, you can find them in the images tab under doc.
 
 ![][image1]![][image2]![][image3]![][image4]![][image5]![][image6]![][image7]![][image8]![][image9]![][image10]![][image11]![][image12]![][image13]![][image14]
 
