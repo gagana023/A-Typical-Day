@@ -102,6 +102,7 @@ classDiagram
 
 # **Our Class Diagram**
 
+```mermaid 
 classDiagram
     Person <|-- User
     Person <|-- NPC
@@ -332,6 +333,7 @@ classDiagram
     }
     class Classroom{
     }
+    ```
 
 
 # **Our Sequence Diagrams**
