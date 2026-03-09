@@ -44,8 +44,7 @@ You should take your task milestones and add tasks for each milestone that are w
 
 At a minimum you must create a class diagram (and details) and sequence diagram. You could consider using [Mermaid](https://mermaid.live/) to create them (you do not need an account; be sure to save your mermaid text though so you don't lose your work); search up what you can do at [this link\!](https://mermaid.js.org/intro/). There are also extensions for visual studio that you can try out and use for creating these diagrams using mermaid chart syntax (I personally like using [Markdown Preview Mermaid](https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid) so you can include mermaid content directly inline in your markdown document). 
 
-**Class Diagram:** This diagram illustrates the static structure of a system by showing its classes, attributes, operations, and the relationships among objects. It provides a clear blueprint of the system's architecture, essential for understanding how different components interact. There is an excellent reference and example on how to create class diagrams here. You can also read more about them on GeeksForGeeks.
-  
+**Class Diagram:** This diagram illustrates the static structure of a system by showing its classes, attributes, operations, and the relationships among objects. It provides a clear blueprint of the system's architecture, essential for understanding how different components interact. There is an excellent reference and example on how to create class diagrams here. You can also read more about them on GeeksForGeeks.  
 classDiagram  
     class User {  
         \-String userId  
@@ -337,7 +336,7 @@ classDiagram
 # **Our Sequence Diagrams**
 
 Story Part
-```mermaid
+
 sequenceDiagram  
     actor U as User  
     participant GE as GameEngine  
@@ -350,9 +349,9 @@ sequenceDiagram
     SI-\>\>U: showAlarmScreen()  
     SI-\>\>U: playStoryIntro()  
     GE-\>\>SP: setStartPosition()
-```
+
 Moving between Rooms
-```mermaid
+
 sequenceDiagram  
     actor U as User  
     participant GE as GameEngine  
@@ -363,7 +362,7 @@ sequenceDiagram
     R-\>\>GE: confirmRoomLoaded()
 
 Generic Convo w NPCs
-```mermaid
+
 sequenceDiagram  
     actor U as User  
     participant R as Room  
@@ -375,9 +374,9 @@ sequenceDiagram
     N-\>\>U: respondToPlayer()  
     U-\>\>T: checkOffTask()  
     U-\>\>B: updateSocialBar()
-```
+
 Teacher Conversations
-```mermaid
+
 sequenceDiagram  
     actor U as User  
     participant T as Teacher  
@@ -395,9 +394,9 @@ sequenceDiagram
         U-\>\>B: decreaseSocialBar(\-)  
     end  
     B-\>\>U: taskFail()
-```
+
 Bully Conversation
-```mermaid
+
 sequenceDiagram  
     actor U as User  
     participant C as Classmate  
@@ -411,9 +410,9 @@ sequenceDiagram
         C-\>\>U: bullying()  
         B-\>\>U: decreaseSocialStanding()  
     end
-```
+
 Study Group Conversations
-```mermaid
+
 sequenceDiagram  
     actor U as User  
     participant SG as StudyGroup  
@@ -429,9 +428,9 @@ sequenceDiagram
         SG-\>\>U: ignorePlayer()  
         U-\>\>B: decreaseSocialStanding()  
     end
-```
+
 Eating Group Conversations
-```mermaid
+
 sequenceDiagram  
     actor U as User  
     participant EG as EatingGroup  
@@ -447,9 +446,9 @@ sequenceDiagram
         EG-\>\>U: ignorePlayer()  
         U-\>\>B: decreaseSocialBar()  
     end
-```
+
 Task CheckOff Process
-```mermaid
+
 sequenceDiagram  
     actor U as User  
     participant TL as TaskList
@@ -461,9 +460,9 @@ sequenceDiagram
     else isTaskDone \== false  
         TL-\>\>U: taskFailed()  
     end
-```
+
 Update Bars
-```mermaid
+
 sequenceDiagram  
     actor U as User  
     participant B as Bars
@@ -479,9 +478,9 @@ sequenceDiagram
         B-\>\>U: updateStats()  
         B-\>\>U: updateStats()  
     end
-```
+
 Info Stuff Navigation
-```mermaid
+
 sequenceDiagram  
     actor U as User  
     participant M as Menu  
@@ -507,9 +506,9 @@ sequenceDiagram
     M-\>\>MS: accessImportantInfo()  
     MS-\>\>II: openInfo()  
     II-\>\>U: displayInfo()
-```
+
 Animations 
-```mermaid
+
 sequenceDiagram  
     actor GE as GameEngine  
     participant SP as StartPos  
@@ -521,9 +520,9 @@ sequenceDiagram
     GE-\>\>R: loadRoom()  
     R-\>\>A: startAnimation()  
     A-\>\>GE: updateAnimation()
-```
+
 Dialogue:
-```mermaid
+
 sequenceDiagram  
     actor U as User  
     participant N as NPC  
@@ -537,7 +536,7 @@ sequenceDiagram
     U-\>\>DE: requestDialogue()  
     DE-\>\>UD: chooseDialogueOptions()  
     UD-\>\>U: returnSelectedOption()
-```
+
 **Diagram Elements:**
 
 Boxes: Classes with their properties and methods  
