@@ -337,7 +337,7 @@ classDiagram
 # **Our Sequence Diagrams**
 
 Story Part
-
+```mermaid
 sequenceDiagram  
     actor U as User  
     participant GE as GameEngine  
@@ -350,9 +350,9 @@ sequenceDiagram
     SI-\>\>U: showAlarmScreen()  
     SI-\>\>U: playStoryIntro()  
     GE-\>\>SP: setStartPosition()
-
+```
 Moving between Rooms
-
+```mermaid
 sequenceDiagram  
     actor U as User  
     participant GE as GameEngine  
@@ -363,7 +363,7 @@ sequenceDiagram
     R-\>\>GE: confirmRoomLoaded()
 
 Generic Convo w NPCs
-
+```mermaid
 sequenceDiagram  
     actor U as User  
     participant R as Room  
@@ -375,9 +375,9 @@ sequenceDiagram
     N-\>\>U: respondToPlayer()  
     U-\>\>T: checkOffTask()  
     U-\>\>B: updateSocialBar()
-
+```
 Teacher Conversations
-
+```mermaid
 sequenceDiagram  
     actor U as User  
     participant T as Teacher  
@@ -395,9 +395,9 @@ sequenceDiagram
         U-\>\>B: decreaseSocialBar(\-)  
     end  
     B-\>\>U: taskFail()
-
+```
 Bully Conversation
-
+```mermaid
 sequenceDiagram  
     actor U as User  
     participant C as Classmate  
@@ -411,9 +411,9 @@ sequenceDiagram
         C-\>\>U: bullying()  
         B-\>\>U: decreaseSocialStanding()  
     end
-
+```
 Study Group Conversations
-
+```mermaid
 sequenceDiagram  
     actor U as User  
     participant SG as StudyGroup  
@@ -429,9 +429,9 @@ sequenceDiagram
         SG-\>\>U: ignorePlayer()  
         U-\>\>B: decreaseSocialStanding()  
     end
-
+```
 Eating Group Conversations
-
+```mermaid
 sequenceDiagram  
     actor U as User  
     participant EG as EatingGroup  
@@ -447,9 +447,9 @@ sequenceDiagram
         EG-\>\>U: ignorePlayer()  
         U-\>\>B: decreaseSocialBar()  
     end
-
+```
 Task CheckOff Process
-
+```mermaid
 sequenceDiagram  
     actor U as User  
     participant TL as TaskList
@@ -461,9 +461,9 @@ sequenceDiagram
     else isTaskDone \== false  
         TL-\>\>U: taskFailed()  
     end
-
+```
 Update Bars
-
+```mermaid
 sequenceDiagram  
     actor U as User  
     participant B as Bars
@@ -479,9 +479,9 @@ sequenceDiagram
         B-\>\>U: updateStats()  
         B-\>\>U: updateStats()  
     end
-
+```
 Info Stuff Navigation
-
+```mermaid
 sequenceDiagram  
     actor U as User  
     participant M as Menu  
@@ -507,9 +507,9 @@ sequenceDiagram
     M-\>\>MS: accessImportantInfo()  
     MS-\>\>II: openInfo()  
     II-\>\>U: displayInfo()
-
+```
 Animations 
-
+```mermaid
 sequenceDiagram  
     actor GE as GameEngine  
     participant SP as StartPos  
@@ -521,9 +521,9 @@ sequenceDiagram
     GE-\>\>R: loadRoom()  
     R-\>\>A: startAnimation()  
     A-\>\>GE: updateAnimation()
-
+```
 Dialogue:
-
+```mermaid
 sequenceDiagram  
     actor U as User  
     participant N as NPC  
@@ -537,7 +537,7 @@ sequenceDiagram
     U-\>\>DE: requestDialogue()  
     DE-\>\>UD: chooseDialogueOptions()  
     UD-\>\>U: returnSelectedOption()
-
+```
 **Diagram Elements:**
 
 Boxes: Classes with their properties and methods  
