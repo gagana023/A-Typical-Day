@@ -13,7 +13,7 @@ sequenceDiagram
     SI->>U: playStoryIntro()
     GE->>SP: setStartPosition()
 
-    ```
+```
 
 ```mermaid
 sequenceDiagram
@@ -26,7 +26,7 @@ sequenceDiagram
     GE->>R: loadRoom()
     R->>GE: confirmRoomLoaded()
 
-    ```
+```
 
 ```mermaid
 sequenceDiagram
@@ -42,7 +42,7 @@ sequenceDiagram
     U->>T: checkOffTask()
     U->>B: updateSocialBar()
 
-    ```
+```
 
 ```mermaid
 sequenceDiagram
@@ -57,13 +57,13 @@ sequenceDiagram
     alt extension
         Task->>U: checkOffTask()
         U->>B: increaseSocialBar(+)
-    else noExtentsion
+    else noExtension
         U->>T: yell()
         T->>U: condescending()
         U->>B: decreaseSocialBar(-)
     end
-    B->>U: taskFail()
-    ```
+    Task->>U: taskFail()
+```
 
 ```mermaid
 sequenceDiagram
@@ -81,7 +81,7 @@ sequenceDiagram
         B->>U: decreaseSocialStanding()
     end
 
-    ```
+```
 
 ```mermaid
 sequenceDiagram
@@ -101,7 +101,7 @@ sequenceDiagram
         U->>B: decreaseSocialStanding()
     end
 
-    ```
+```
 
 ```mermaid
 sequenceDiagram
@@ -121,7 +121,7 @@ sequenceDiagram
         U->>B: decreaseSocialBar()
     end
 
-    ```
+```
 
 ```mermaid
 sequenceDiagram
@@ -130,14 +130,14 @@ sequenceDiagram
 
 
     U->>TL: checkOffTask()
-    alt isTaskDone == true
+    alt taskDone
         TL->>U: markDone()
         U->>TL: allTasksDone()
-    else isTaskDone == false
+    else taskNotDone == false
         TL->>U: taskFailed()
     end
 
-    ```
+```
 
 ```mermaid
 sequenceDiagram
@@ -149,15 +149,13 @@ sequenceDiagram
         U->>B: increaseSocialBar()
         U->>B: increaseSocialStanding()
         B->>U: updateStats()
-        B->>U: updateStats()
     else badResponse
         U->>B: decreaseSocialBar()
         U->>B: decreaseSocialStanding()
         B->>U: updateStats()
-        B->>U: updateStats()
     end
 
-    ```
+```
 
 ```mermaid
 sequenceDiagram
@@ -206,7 +204,7 @@ sequenceDiagram
     R->>A: startAnimation()
     A->>GE: updateAnimation()
 
-    ```
+```
 
 ```mermaid
 sequenceDiagram
@@ -214,7 +212,7 @@ sequenceDiagram
     participant N as NPC
     participant ND as NPCDialogue
     participant DE as DialogueEngine
-    participant UD as playerChooserDialogue
+    participant UD as playerDialogueChooser
 
     U->>N: interact()
     N->>ND: requestDialogue()

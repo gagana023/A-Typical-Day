@@ -102,7 +102,8 @@ classDiagram
 
 # **Our Class Diagram**
 
-```mermaid 
+
+```mermaid
 classDiagram
     Person <|-- User
     Person <|-- NPC
@@ -129,6 +130,7 @@ classDiagram
     NPC: +reactToPlayer()
     NPC: +requestDialogue()
 
+
     Room <|-- Office
     Room <|-- Group
     Room <|-- Classroom
@@ -142,15 +144,23 @@ classDiagram
     DialogueEngine: +endDialogue()
     DialogueEngine: +provideResponse()
 
+
+
+
     NPCDialogue: -ArrayList<String>npcDialogue
     NPCDialogue: +getDialogue()
     NPCDialogue: +getRandomDialogue()
 
+
+
+
     playerDialogueChooser: +displayChoices()
     playerDialogueChooser: +getPlayerChoice()
    
+   
     Group <|--Cafeteria
     Group<|--Library
+
 
     StoryIntro --> Title
     StoryIntro --> Alarm
@@ -169,16 +179,21 @@ classDiagram
     }
     class playerDialogueChooser{
 
+
     }
    
     class DialogueEngine{
+
+
     }
     class NPCDialogue{
     }
 
+
     class Settings{
         +openSettings()
     }
+
 
     class Menu{
       +openMenu()
@@ -186,13 +201,22 @@ classDiagram
       +showSettings()
       +displayHelp()
       +displayInfo()
+
+
     }
+
 
     class Important_Info{
+
+
     }
 
+
     class Help{
+
+
     }
+
 
     class User{
       +move()
@@ -235,6 +259,7 @@ classDiagram
      
     }
 
+
     class Stats{
         -double socialBattery
         -double socialStanding
@@ -242,10 +267,13 @@ classDiagram
         +decreaseStanding()
         +increaseBattery()
         +decreaseBattery()
+
+
     }
 
+
     class TasksList{
-        -Array various_Tasks
+        -ArrayList<Task> various_Tasks
     }
 
 
@@ -269,6 +297,9 @@ classDiagram
       +yell()
     }
 
+
+
+
     class Classmate{
       -int bullyLevel
       -int respectLevel
@@ -286,6 +317,13 @@ classDiagram
       +panic()
     }
 
+
+
+
+
+
+
+
     class GameEngine{
         +Scene scene
         +Stage stage
@@ -297,18 +335,47 @@ classDiagram
         +enterRoom()
         +moveTo(Room)
         +confirmRoomLoaded()
-    }
 
+
+
+
+
+
+
+
+    }
     GameEngine <|-- StartPos
     GameEngine <|-- StoryIntro
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     class StoryIntro{
-        -loadStory()
-        -nextScene()
-        -showTitleScreen()
-        -showAlarmScreen()
-        -playStoryIntro()
+       -loadStory()
+       -nextScene()
+ -showTitleScreen()
+       -showAlarmScreen()
+       -playStoryIntro()
     }
+
+
+
+
+
+
+
 
     class EatingGroup{
       +boolean allowJoin
@@ -320,10 +387,17 @@ classDiagram
     }
 
 
-    class Animations{
-        +startAnimation()
-        +updateAnimation()
-    }
+class Animations{
++startAnimation()
++updateAnimation()
+}
+
+
+
+
+
+
+
 
     class Office{
     }
@@ -340,205 +414,248 @@ classDiagram
 
 Story Part
 
-sequenceDiagram  
-    actor U as User  
-    participant GE as GameEngine  
-    participant SI as StoryIntro  
+```mermaid
+sequenceDiagram
+    actor U as User
+    participant GE as GameEngine
+    participant SI as StoryIntro
     participant SP as StartPos
 
-    U-\>\>GE: startGame()  
-    GE-\>\>SI: loadStory()  
-    SI-\>\>U: showTitleScreen()  
-    SI-\>\>U: showAlarmScreen()  
-    SI-\>\>U: playStoryIntro()  
-    GE-\>\>SP: setStartPosition()
+
+    U->>GE: startGame()
+    GE->>SI: loadStory()
+    SI->>U: showTitleScreen()
+    SI->>U: showAlarmScreen()
+    SI->>U: playStoryIntro()
+    GE->>SP: setStartPosition()
+
+```
 
 Moving between Rooms
 
-sequenceDiagram  
-    actor U as User  
-    participant GE as GameEngine  
+```mermaid
+sequenceDiagram
+    actor U as User
+    participant GE as GameEngine
     participant R as Room
 
-    U-\>\>GE: moveTo(Room)  
-    GE-\>\>R: loadRoom()  
-    R-\>\>GE: confirmRoomLoaded()
+
+    U->>GE: moveTo(Room)
+    GE->>R: loadRoom()
+    R->>GE: confirmRoomLoaded()
+
+```
 
 Generic Convo w NPCs
 
-sequenceDiagram  
-    actor U as User  
-    participant R as Room  
-    participant N as NPC  
-    participant T as Tasks  
+```mermaid
+sequenceDiagram
+    actor U as User
+    participant R as Room
+    participant N as NPC
+    participant T as Tasks
     participant B as Bars
 
-    U-\>\>N: interact()  
-    N-\>\>U: respondToPlayer()  
-    U-\>\>T: checkOffTask()  
-    U-\>\>B: updateSocialBar()
+
+    U->>N: interact()
+    N->>U: respondToPlayer()
+    U->>T: checkOffTask()
+    U->>B: updateSocialBar()
+
+```
 
 Teacher Conversations
 
-sequenceDiagram  
-    actor U as User  
-    participant T as Teacher  
-    participant B as Bars  
+```mermaid
+sequenceDiagram
+    actor U as User
+    participant T as Teacher
+    participant B as Bars
     participant Task as Tasks
 
-    U-\>\>T: approachTeacher()  
-    U-\>\>T: askExtension()  
-    alt extension  
-        Task-\>\>U: checkOffTask()  
-        U-\>\>B: increaseSocialBar(\+)  
-    else noExtentsion  
-        U-\>\>T: yell()  
-        T-\>\>U: condescending()  
-        U-\>\>B: decreaseSocialBar(\-)  
-    end  
-    B-\>\>U: taskFail()
+
+    U->>T: approachTeacher()
+    U->>T: askExtension()
+    alt extension
+        Task->>U: checkOffTask()
+        U->>B: increaseSocialBar(+)
+    else noExtension
+        U->>T: yell()
+        T->>U: condescending()
+        U->>B: decreaseSocialBar(-)
+    end
+    Task->>U: taskFail()
+```
 
 Bully Conversation
 
-sequenceDiagram  
-    actor U as User  
-    participant C as Classmate  
+```mermaid
+sequenceDiagram
+    actor U as User
+    participant C as Classmate
     participant B as Bars
 
-    U-\>\>C: interact()  
-    C-\>\>U: bullying()  
-    alt respondWell  
-        B-\>\>U: increaseSocialStanding()  
-    else respondPoorly  
-        C-\>\>U: bullying()  
-        B-\>\>U: decreaseSocialStanding()  
+
+    U->>C: interact()
+    C->>U: bullying()
+    alt respondWell
+        B->>U: increaseSocialStanding()
+    else respondPoorly
+        C->>U: bullying()
+        B->>U: decreaseSocialStanding()
     end
+
+```
 
 Study Group Conversations
 
-sequenceDiagram  
-    actor U as User  
-    participant SG as StudyGroup  
+```mermaid
+sequenceDiagram
+    actor U as User
+    participant SG as StudyGroup
     participant B as Bars
 
-    U-\>\>SG: requestJoin()  
-    SG-\>\>U: respondToPlayer()  
-    alt allowed  
-        SG-\>\>U: allowJoin()  
-        U-\>\>B: increaseSocialStanding()  
-    else denied  
-        U-\>\>SG: panic()  
-        SG-\>\>U: ignorePlayer()  
-        U-\>\>B: decreaseSocialStanding()  
+
+    U->>SG: requestJoin()
+    SG->>U: respondToPlayer()
+    alt allowed
+        SG->>U: allowJoin()
+        U->>B: increaseSocialStanding()
+    else denied
+        U->>SG: panic()
+        SG->>U: ignorePlayer()
+        U->>B: decreaseSocialStanding()
     end
+
+```
 
 Eating Group Conversations
 
-sequenceDiagram  
-    actor U as User  
-    participant EG as EatingGroup  
+```mermaid
+sequenceDiagram
+    actor U as User
+    participant EG as EatingGroup
     participant B as Bars
 
-    U-\>\>EG: requestJoin()  
-    EG-\>\>U: respondToPlayer()  
-    alt allowed  
-        EG-\>\>U: joinGroup()  
-        U-\>\>B: increaseSocialBar()  
-    else denied  
-        U-\>\>EG: panic()  
-        EG-\>\>U: ignorePlayer()  
-        U-\>\>B: decreaseSocialBar()  
+
+    U->>EG: requestJoin()
+    EG->>U: respondToPlayer()
+    alt allowed
+        EG->>U: joinGroup()
+        U->>B: increaseSocialBar()
+    else denied
+        U->>EG: panic()
+        EG->>U: ignorePlayer()
+        U->>B: decreaseSocialBar()
     end
 
+```
 Task CheckOff Process
 
-sequenceDiagram  
-    actor U as User  
+```mermaid
+sequenceDiagram
+    actor U as User
     participant TL as TaskList
 
-    U-\>\>TL: checkOffTask()  
-    alt isTaskDone \== true  
-        TL-\>\>U: markDone()  
-        U-\>\>TL: allTasksDone()  
-    else isTaskDone \== false  
-        TL-\>\>U: taskFailed()  
+
+    U->>TL: checkOffTask()
+    alt taskDone
+        TL->>U: markDone()
+        U->>TL: allTasksDone()
+    else taskNotDone == false
+        TL->>U: taskFailed()
     end
 
-Update Bars
+```
 
-sequenceDiagram  
-    actor U as User  
+```mermaid
+sequenceDiagram
+    actor U as User
     participant B as Bars
 
-    alt goodResponse  
-        U-\>\>B: increaseSocialBar()  
-        U-\>\>B: increaseSocialStanding()  
-        B-\>\>U: updateStats()  
-        B-\>\>U: updateStats()  
-    else badResponse  
-        U-\>\>B: decreaseSocialBar()  
-        U-\>\>B: decreaseSocialStanding()  
-        B-\>\>U: updateStats()  
-        B-\>\>U: updateStats()  
+
+    alt goodResponse
+        U->>B: increaseSocialBar()
+        U->>B: increaseSocialStanding()
+        B->>U: updateStats()
+    else badResponse
+        U->>B: decreaseSocialBar()
+        U->>B: decreaseSocialStanding()
+        B->>U: updateStats()
     end
+
+```
 
 Info Stuff Navigation
 
-sequenceDiagram  
-    actor U as User  
-    participant M as Menu  
-    participant MS as MenuScreen  
-    participant S as Settings  
-    participant HI as Help  
-    participant II as Important\_Info
+```mermaid
+sequenceDiagram
+    actor U as User
+    participant M as Menu
+    participant MS as MenuScreen
+    participant S as Settings
+    participant HI as Help
+    participant II as Important_Info
 
-    U-\>\>M: openMenu()  
-    M-\>\>U: displayOptions()
 
-    U-\>\>M: selectSettings()  
-    M-\>\>MS: accessSettings()  
-    MS-\>\>S: openSettings()  
-    S-\>\>U: showSettings()
+    U->>M: openMenu()
+    M->>U: displayOptions()
 
-    U-\>\>M: selectHelp()  
-    M-\>\>MS: accessHelp()  
-    MS-\>\>HI: openHelp()  
-    HI-\>\>U: displayHelp()
 
-    U-\>\>M: selectImportantInfo()  
-    M-\>\>MS: accessImportantInfo()  
-    MS-\>\>II: openInfo()  
-    II-\>\>U: displayInfo()
+    U->>M: selectSettings()
+    M->>MS: accessSettings()
+    MS->>S: openSettings()
+    S->>U: showSettings()
+
+
+    U->>M: selectHelp()
+    M->>MS: accessHelp()
+    MS->>HI: openHelp()
+    HI->>U: displayHelp()
+
+
+    U->>M: selectImportantInfo()
+    M->>MS: accessImportantInfo()
+    MS->>II: openInfo()
+    II->>U: displayInfo()
+```
 
 Animations 
 
-sequenceDiagram  
-    actor GE as GameEngine  
-    participant SP as StartPos  
-    participant R as Room  
+```mermaid
+sequenceDiagram
+    actor GE as GameEngine
+    participant SP as StartPos
+    participant R as Room
     participant A as Animations
 
-    GE-\>\>SP: setStartPosition()  
-    SP-\>\>GE: isPlayerReady()  
-    GE-\>\>R: loadRoom()  
-    R-\>\>A: startAnimation()  
-    A-\>\>GE: updateAnimation()
+
+    GE->>SP: setStartPosition()
+    SP->>GE: isPlayerReady()
+    GE->>R: loadRoom()
+    R->>A: startAnimation()
+    A->>GE: updateAnimation()
+
+```
 
 Dialogue:
 
-sequenceDiagram  
-    actor U as User  
-    participant N as NPC  
-    participant ND as NPCDialogue  
-    participant DE as DialogueEngine  
-    participant UD as playerChooserDialogue
+```mermaid
+sequenceDiagram
+    actor U as User
+    participant N as NPC
+    participant ND as NPCDialogue
+    participant DE as DialogueEngine
+    participant UD as playerDialogueChooser
 
-    U-\>\>N: interact()  
-    N-\>\>ND: requestDialogue()  
-    ND-\>\>DE: pickNPCResponse()  
-    U-\>\>DE: requestDialogue()  
-    DE-\>\>UD: chooseDialogueOptions()  
-    UD-\>\>U: returnSelectedOption()
+    U->>N: interact()
+    N->>ND: requestDialogue()
+    ND->>DE: pickNPCResponse()
+    U->>DE: requestDialogue()
+    DE->>UD: chooseDialogueOptions()
+    UD->>U: returnSelectedOption()
+```
+
 
 **Diagram Elements:**
 
