@@ -1,4 +1,3 @@
-
 ```mermaid
 classDiagram
     Person <|-- User
@@ -57,9 +56,9 @@ classDiagram
     }
 
     Room <|-- Office
-    Room <|-- Group
-    Group <|--Cafeteria
-    Group <|--Library
+    Room <|-- FindGroupHere
+    FindGroupHere <|--Cafeteria
+    FindGroupHere <|--Library
     Room <|-- Classroom
     class Room{
         +double width
