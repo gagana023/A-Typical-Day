@@ -3,67 +3,49 @@
 classDiagram
     Person <|-- User
     Person <|-- NPC
-    NPC <|-- Teacher
-    NPC <|-- Classmate
-    NPC <|-- StudyGroup
-    NPC <|-- EatingGroup
-    NPC -->NPCDialogue
-    User --> Tasks
-    User --> Bars
-    User --> Stats
-    MenuScreen <|-- Settings
-    MenuScreen <|-- Important_Info
-    MenuScreen <|-- Menu
-    MenuScreen <|-- Help
     Person : +int age
     Person : +String gender
     Person: -double xPosition
     Person: -double yPosition
     Person: +Sprite sprite
+
+    NPC <|-- Teacher
+    NPC <|-- Classmate
+    NPC <|-- StudyGroup
+    NPC <|-- EatingGroup
+    NPC --> NPCDialogue
     NPC : -NPCDialogue dialogue
     NPC: -showResponse()
     NPC: +startDialogue()
     NPC: +reactToPlayer()
     NPC: +requestDialogue()
+    class NPC{
+      +random_Movement()
+      +bullying()
+      +allowJoin()
+      +ignorePlayer()
+      +joinGroup()
+    }
 
-
-    Room <|-- Office
-    Room <|-- Group
-    Room <|-- Classroom
-    DialogueEngine --> playerDialogueChooser
-    DialogueEngine --> NPCDialogue
-    DialogueEngine: +startDialogue()
-    DialogueEngine: +processChoice()
-    DialogueEngine: +updateStats()
-    DialogueEngine: +batteryImpact()
-    DialogueEngine: +standingImpact()
-    DialogueEngine: +endDialogue()
-    DialogueEngine: +provideResponse()
-
-
-
-
-    NPCDialogue: -ArrayList<String>npcDialogue
-    NPCDialogue: +getDialogue()
-    NPCDialogue: +getRandomDialogue()
-
-
-
-
-    playerDialogueChooser: +displayChoices()
-    playerDialogueChooser: +getPlayerChoice()
-   
-   
-    Group <|--Cafeteria
-    Group<|--Library
-
-
-    StoryIntro --> Title
-    StoryIntro --> Alarm
-    StoryIntro --> Story
-   
-    class StartPos{
-        setStartPosition()
+    MenuScreen <|-- Settings
+    class Settings{
+        +openSettings()
+    }
+    MenuScreen <|-- Important_Info
+    class Important_Info{
+      -Text textInfo
+    }
+    MenuScreen <|-- Menu
+    class Menu{
+      +openMenu()
+      +displayOptions()
+      +showSettings()
+      +displayHelp()
+      +displayInfo()
+    }
+    MenuScreen <|-- Help
+    class Help{
+      -Text helpInfo
     }
     class MenuScreen{
         +show()
@@ -73,66 +55,82 @@ classDiagram
         +selectHelp()
         +selectImportantInfo()
     }
-    class playerDialogueChooser{
 
-
-    }
-   
-    class DialogueEngine{
-
-
-    }
-    class NPCDialogue{
-    }
-
-
-    class Settings{
-        +openSettings()
-    }
-
-
-    class Menu{
-      +openMenu()
-      +displayOptions()
-      +showSettings()
-      +displayHelp()
-      +displayInfo()
-
-
+    Room <|-- Office
+    Room <|-- Group
+    Group <|--Cafeteria
+    Group <|--Library
+    Room <|-- Classroom
+    class Room{
+        +double width
+        +double height
+        +ArrayList<NPC> npcs
+        +ArrayList<Task> tasks
+        +String roomName
+        +Sprite background
+        +loadRoom()
     }
 
-
-    class Important_Info{
-
-
+    class Office{
+      +Teacher counselor
+    }
+    class Library{
+      +StudyGroup studyGroup
+    }
+    class Cafeteria{
+      +EatingGroup eatingGroup
+    }
+    class Classroom{
+      +Teacher teacher
     }
 
-
-    class Help{
-
-
+    class Teacher{
+      -int trustLevel
+      +condescending()
+      +evaluateStudent()
+      +approachTeacher()
+      +askExtension()
+      +yell()
     }
 
-
-    class User{
-      +move()
-      +select()
-      +interact()
-      +respondToPlayer()
-      -ArrayList<Task> tasks
-      +taskFail()
-      +taskSucceed()
-      
-    }
-    class NPC{
-      +random_Movement()
+    class Classmate{
+      -int bullyLevel
+      -int respectLevel
       +bullying()
-      +allowJoin()
-      +ignorePlayer()
-      +joinGroup()
+      +interact()
     }
 
+    class StudyGroup{
+      +boolean allowJoin
+      -ignorePlayer()
+      +evaluatePlayer()
+      +interact()
+      +requestJoin()
+      +panic()
+    }
 
+    class EatingGroup{
+      +boolean allowJoin
+      -ignorePlayer()
+      +interact()
+      +requestJoin()
+      +panic()
+    }
+
+    User --> Tasks
+    class Tasks{
+      +boolean allTasksDone
+      -boolean isTaskDone
+      +checkOffTask()
+      +markDone()
+      +taskFailed()
+    }
+
+    class TasksList{
+        -ArrayList<Task> various_Tasks
+    }
+
+    User --> Bars
     class Bars{
         -int socialBar
         -int socialStanding
@@ -144,81 +142,74 @@ classDiagram
         +getSocialStanding()
         +renderBar()
     }
-
-
-    class Tasks{
-      +boolean allTasksDone
-      -boolean isTaskDone
-      +checkOffTask()
-      +markDone()
-      +taskFailed()
-     
-    }
-
-
-    class Stats{
+    User --> Stats
+    class Stats {
         -double socialBattery
         -double socialStanding
         +increaseStanding()
         +decreaseStanding()
         +increaseBattery()
         +decreaseBattery()
-
-
     }
-
-
-    class TasksList{
-        -ArrayList<Task> various_Tasks
-    }
-
-
-    class Room{
-        +double width
-        +double height
-        +ArrayList<NPC> npcs
-        +ArrayList<Task> tasks
-        +String roomName
-        +Sprite background
-        +loadRoom()
-    }
-
-
-    class Teacher{
-      -int trustLevel
-      +condescending()
-      +evaluateStudent()
-      +approachTeacher()
-      +askExtension()
-      +yell()
-    }
-
-
-
-
-    class Classmate{
-      -int bullyLevel
-      -int respectLevel
-      +bullying()
+    class User{
+      +move()
+      +select()
       +interact()
+      +respondToPlayer()
+      -ArrayList<Task> tasks
+      +taskFail()
+      +taskSucceed()
     }
 
+    NPCDialogue: -ArrayList<String>npcDialogue
+    NPCDialogue: +getDialogue()
+    NPCDialogue: +getRandomDialogue()
 
-    class StudyGroup{
-      +boolean allowJoin
-      -ignorePlayer()
-      +evaluatePlayer()
-      +interact()
-      +requestJoin()
-      +panic()
+    DialogueEngine --> playerDialogueChooser
+    DialogueEngine --> NPCDialogue
+    DialogueEngine: +startDialogue()
+    DialogueEngine: +processChoice()
+    DialogueEngine: +updateStats()
+    DialogueEngine: +batteryImpact()
+    DialogueEngine: +standingImpact()
+    DialogueEngine: +endDialogue()
+    DialogueEngine: +provideResponse()
+
+    playerDialogueChooser: +displayChoices()
+    playerDialogueChooser: +getPlayerChoice()
+
+    StoryIntro --> Title
+    StoryIntro --> Alarm
+    StoryIntro --> Story
+    class StoryIntro {
+       -loadStory()
+       -nextScene()
+       -showTitleScreen()
+       -showAlarmScreen()
+       -playStoryIntro()
+     }
+   
+    class playerDialogueChooser{
+      +chooseDialogueOptions()
+      +returnSelectedOption()
+    }
+   
+    class DialogueEngine{
+      -ArrayList npcDialogue
+      -ArrayList userDialogue
     }
 
+    class NPCDialogue{
+      +requestDialogue()
+      +pickNPCResponse()
+    }
 
+    class StartPos{
+        setStartPosition()
+    }
 
-
-
-
-
+    GameEngine <|-- StartPos
+    GameEngine <|-- StoryIntro
 
     class GameEngine{
         +Scene scene
@@ -231,76 +222,11 @@ classDiagram
         +enterRoom()
         +moveTo(Room)
         +confirmRoomLoaded()
-
-
-
-
-
-
-
-
     }
-    GameEngine <|-- StartPos
-    GameEngine <|-- StoryIntro
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    class StoryIntro{
-       -loadStory()
-       -nextScene()
- -showTitleScreen()
-       -showAlarmScreen()
-       -playStoryIntro()
+    
+    class Animations{
+      +startAnimation()
+      +updateAnimation()
     }
 
-
-
-
-
-
-
-
-    class EatingGroup{
-      +boolean allowJoin
-      -ignorePlayer()
-      +interact()
-      +requestJoin()
-      +panic()
-     
-    }
-
-
-class Animations{
-+startAnimation()
-+updateAnimation()
-}
-
-
-
-
-
-
-
-
-    class Office{
-    }
-    class Library{
-    }
-    class Cafeteria{
-    }
-    class Classroom{
-    }
     ```
