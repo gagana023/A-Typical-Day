@@ -1,5 +1,6 @@
 package app;
 
+<<<<<<< HEAD
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -72,4 +73,8 @@ public class GameEngine extends Application {
     public static void main(String[] args) {
         launch();
     }
+=======
+public class GameEngine {
+    
+>>>>>>> b099020 (classes)
 }
