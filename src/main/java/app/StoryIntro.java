@@ -1,5 +1,5 @@
 package app;
 
-public class StoryIntro extends GameEngine{
+public class StoryIntro extends HelloWorld{
     
 }
