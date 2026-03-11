@@ -1,9 +1,11 @@
 package app;
 
 import javafx.application.Application;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -12,12 +14,12 @@ import javafx.stage.Stage;
  * A simple JavaFX application that displays a "Hello World" message
  * with the current Java and JavaFX versions.
  */
-public class GameEngine extends Application {
+public class HelloWorld extends Application {
 
     /**
      * Default constructor for the HelloWorld application.
      */
-    public GameEngine() {
+    public HelloWorld() {
         // Default constructor
     }
 

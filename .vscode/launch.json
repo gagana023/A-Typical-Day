@@ -6,14 +6,23 @@
     "configurations": [
         {
             "type": "java",
+            "name": "GameEngine",
+            "request": "launch",
+            "mainClass": "app.GameEngine",
+            "projectName": "apt-final-project-v2-gaganab-sreshtan-aadib_12c484e4"
+        },
+        {
+            "type": "java",
             "name": "Main",
             "request": "launch",
             "mainClass": "app.HelloWorld",
             "projectName": "",
             "linux": {
                 "vmArgs": "--module-path ${env:JAVAFX_JMODS}:${env:JAVAFX_HOME}/lib --add-modules javafx.controls,javafx.graphics,javafx.base --enable-native-access=javafx.graphics",
-                "env": { "DISPLAY": ":1" }   // ensured by desktop-lite, but this makes it explicit
-            }                
+                "env": {
+                    "DISPLAY": ":1"
+                }
+            }
         }
     ]
 }
