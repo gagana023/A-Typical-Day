@@ -1,11 +1,9 @@
 package app;
 
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -57,12 +55,16 @@ public class HelloWorld extends Application {
         AnchorPane.setBottomAnchor(botR, 75.0);
         AnchorPane.setRightAnchor(botR, 75.0);
 
+        topL.setOnMouseClicked(e -> stage.setScene(new Scene(new Label("Top Left"), 800, 600)));
+        topR.setOnMouseClicked(e -> stage.setScene(new Scene(new Label("Top Right"), 800, 600)));
+        botL.setOnMouseClicked(e -> stage.setScene(new Scene(new Label("Bottom Left"), 800, 600)));
+        botR.setOnMouseClicked(e -> stage.setScene(new Scene(new Label("Bottom Right"), 800, 600)));
+
         root.getChildren().addAll(topL, topR, botL, botR);
         Scene scene = new Scene(root, 800, 600);
 
-        // Optional: Set the fill color
         stage.setScene(scene);
-        stage.setTitle("Hello World!");
+        stage.setTitle("Starting Position");
         stage.show();
     }
 
