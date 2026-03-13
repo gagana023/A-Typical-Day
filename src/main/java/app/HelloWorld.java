@@ -43,8 +43,11 @@ public class HelloWorld extends Application {
             stage.setScene(officeScene);
         });
 
+        // doesn't work when inside setOnMouseClicked
+        Library library = new Library();
+
         topR.setOnMouseClicked(e ->
-                stage.setScene(new Scene(new Label("Top Right Room"), 800, 600))
+                stage.setScene(library.buildPrototypeLibrary())
         );
 
         botL.setOnMouseClicked(e -> {
@@ -52,9 +55,12 @@ public class HelloWorld extends Application {
             Scene classroomScene = new Scene(classroom.getRoot(stage), 800, 600);
             stage.setScene(classroomScene);
         });
+        
+        // doesn't work when inside setOnMouseClicked
+        Cafeteria cafeteria = new Cafeteria();
 
         botR.setOnMouseClicked(e ->
-                stage.setScene(new Scene(new Label("Bottom Right Room"), 800, 600))
+                stage.setScene(cafeteria.buildPrototypeCafeteria())
         );
 
         root.getChildren().addAll(topL, topR, botL, botR);
