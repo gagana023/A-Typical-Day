@@ -24,6 +24,7 @@ public class HelloWorld extends Application {
         Rectangle topR = new Rectangle(size, size + 30, Color.BURLYWOOD);
         Rectangle botL = new Rectangle(size, size + 30, Color.BURLYWOOD);
         Rectangle botR = new Rectangle(size, size + 30, Color.BURLYWOOD);
+        Button stats = new Button("Stats");
 
         AnchorPane.setTopAnchor(topL, 75.0);
         AnchorPane.setLeftAnchor(topL, 75.0);
@@ -37,6 +38,9 @@ public class HelloWorld extends Application {
         AnchorPane.setBottomAnchor(botR, 75.0);
         AnchorPane.setRightAnchor(botR, 75.0);
 
+        AnchorPane.setTopAnchor(stats, 20.0);
+        AnchorPane.setRightAnchor(stats, 20.0);
+
         topL.setOnMouseClicked(e -> {
             Office office = new Office();
             Scene officeScene = new Scene(office.getRoot(stage), 800, 600);
@@ -47,7 +51,7 @@ public class HelloWorld extends Application {
         Library library = new Library();
 
         topR.setOnMouseClicked(e ->
-                stage.setScene(library.buildPrototypeLibrary())
+                stage.setScene(library.buildPrototypeLibrary(stage))
         );
 
         botL.setOnMouseClicked(e -> {
@@ -60,10 +64,10 @@ public class HelloWorld extends Application {
         Cafeteria cafeteria = new Cafeteria();
 
         botR.setOnMouseClicked(e ->
-                stage.setScene(cafeteria.buildPrototypeCafeteria())
+                stage.setScene(cafeteria.buildPrototypeCafeteria(stage))
         );
 
-        root.getChildren().addAll(topL, topR, botL, botR);
+        root.getChildren().addAll(topL, topR, botL, botR, stats);
 
         scene = new Scene(root, 800, 600);
 
@@ -71,7 +75,6 @@ public class HelloWorld extends Application {
         Label title = new Label("My App");
 
         Button start = new Button("Start");
-        Button stats = new Button("Stats");
 
         Stats s = new Stats();
 
