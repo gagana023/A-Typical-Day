@@ -2,8 +2,10 @@ package app;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -63,8 +65,14 @@ public class HelloWorld extends Application {
         root.getChildren().addAll(topL, topR, botL, botR);
         Scene scene = new Scene(root, 800, 600);
 
-        stage.setScene(scene);
+        Label title = new Label("My App");
+        Button start = new Button("Start");
+        VBox titleRoot = new VBox(20, title, start);
+        Scene titleScene = new Scene(titleRoot, 800, 600);
+        start.setOnAction(e -> stage.setScene(scene));
+        stage.setScene(titleScene);
         stage.setTitle("Starting Position");
+        
         stage.show();
     }
 
