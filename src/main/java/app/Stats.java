@@ -19,12 +19,13 @@ public class Stats extends User {
         AnchorPane.setTopAnchor(menuBox, 120.0);
         AnchorPane.setLeftAnchor(menuBox, 50.0);
 
-        StackPane section1 = createSection("Tasks");
-        StackPane section2 = createBarSection("Health Bar");
-        StackPane section3 = createBarSection("Social Standing");
-        StackPane section4 = createSection("Time");
+        StackPane section1 = createSection("GAME STATS");
+        StackPane section2 = createSection("Tasks");
+        StackPane section3 = createBarSection("Health Bar");
+        StackPane section4 = createBarSection("Social Standing");
+        StackPane section5 = createSection("Time");
 
-        menuBox.getChildren().addAll(section1, section2, section3, section4);
+        menuBox.getChildren().addAll(section1, section2, section3, section4, section5);
 
         return menuBox;
     }
