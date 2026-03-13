@@ -212,12 +212,33 @@ sequenceDiagram
     participant N as NPC
     participant ND as NPCDialogue
     participant DE as DialogueEngine
-    participant UD as playerDialogueChooser
+    participant UD as PlayerChooserDialogue
+    participant B as Bars
 
     U->>N: interact()
     N->>ND: requestDialogue()
+
     ND->>DE: pickNPCResponse()
+    DE->>U: displayNPCDialogue()
+
     U->>DE: requestDialogue()
     DE->>UD: chooseDialogueOptions()
+
     UD->>U: returnSelectedOption()
+    U->>DE: submitPlayerChoice()
+
+    DE->>ND: evaluatePlayerResponse()
+
+    alt positiveResponse
+        ND->>B: increaseSocialBar()
+        ND->>B: increaseSocialStanding()
+    else neutralResponse
+        ND->>B: smallIncrease()
+    else negativeResponse
+        ND->>B: decreaseSocialBar()
+        ND->>B: decreaseSocialStanding()
+    end
+
+    B->>U: updateStats()
+    ND->>N: updateNPCBehavior()
 ```
