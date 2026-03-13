@@ -25,6 +25,8 @@ public class HelloWorld extends Application {
         Rectangle botL = new Rectangle(size, size + 30, Color.BURLYWOOD);
         Rectangle botR = new Rectangle(size, size + 30, Color.BURLYWOOD);
         Button stats = new Button("Stats");
+        stats.setLayoutX(20);
+        stats.setLayoutY(20);
 
         AnchorPane.setTopAnchor(topL, 75.0);
         AnchorPane.setLeftAnchor(topL, 75.0);
