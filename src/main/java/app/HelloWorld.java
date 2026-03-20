@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -43,6 +44,13 @@ public class HelloWorld extends Application {
         AnchorPane.setTopAnchor(stats, 20.0);
         AnchorPane.setRightAnchor(stats, 20.0);
 
+        User user = new User();
+        root.getChildren().addAll(topL, topR, botL, botR, stats, user.getInAddAllForm());
+
+        scene = new Scene(root, 800, 600);
+
+        user.connect(scene);
+
         topL.setOnMouseClicked(e -> {
             Office office = new Office();
             Scene officeScene = new Scene(office.getRoot(stage), 800, 600);
@@ -69,11 +77,6 @@ public class HelloWorld extends Application {
                 stage.setScene(cafeteria.buildPrototypeCafeteria(stage))
         );
 
-        root.getChildren().addAll(topL, topR, botL, botR, stats);
-
-        scene = new Scene(root, 800, 600);
-
-
         Label title = new Label("My App");
 
         Button start = new Button("Start");
@@ -85,10 +88,15 @@ public class HelloWorld extends Application {
 
         Scene titleScene = new Scene(titleRoot, 800, 600);
 
-        start.setOnAction(e -> stage.setScene(scene));
+        start.setOnAction(e -> {
+            stage.setScene(scene);
+            user.start();
+            scene.getRoot().requestFocus();
+        });
 
         stats.setOnAction(e -> {
             Scene statsScene = new Scene(s.getMenu(), 800, 600);
+            user.stop();
             stage.setScene(statsScene);
         });
 
