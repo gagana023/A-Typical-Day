@@ -20,31 +20,32 @@ public class HelloWorld extends Application {
 
         AnchorPane root = new AnchorPane();
         double size = 100;
+        User user = new User();
 
         Rectangle topL = new Rectangle(size, size + 30, Color.BURLYWOOD);
         Rectangle topR = new Rectangle(size, size + 30, Color.BURLYWOOD);
         Rectangle botL = new Rectangle(size, size + 30, Color.BURLYWOOD);
         Rectangle botR = new Rectangle(size, size + 30, Color.BURLYWOOD);
+        user.setRooms(topL, topR, botL, botR, stage);
         Button stats = new Button("Stats");
         stats.setLayoutX(20);
         stats.setLayoutY(20);
 
-        AnchorPane.setTopAnchor(topL, 75.0);
-        AnchorPane.setLeftAnchor(topL, 75.0);
+        AnchorPane.setTopAnchor(topL, 100.0);
+        AnchorPane.setLeftAnchor(topL, 100.0);
 
-        AnchorPane.setTopAnchor(topR, 75.0);
-        AnchorPane.setRightAnchor(topR, 75.0);
+        AnchorPane.setLeftAnchor(topR, 550.0);
+        AnchorPane.setTopAnchor(topR, 100.0);
 
-        AnchorPane.setBottomAnchor(botL, 75.0);
-        AnchorPane.setLeftAnchor(botL, 75.0);
+        AnchorPane.setLeftAnchor(botL, 100.0);
+        AnchorPane.setTopAnchor(botL, 400.0);
 
-        AnchorPane.setBottomAnchor(botR, 75.0);
-        AnchorPane.setRightAnchor(botR, 75.0);
+        AnchorPane.setLeftAnchor(botR, 550.0);
+        AnchorPane.setTopAnchor(botR, 400.0);
 
         AnchorPane.setTopAnchor(stats, 20.0);
         AnchorPane.setRightAnchor(stats, 20.0);
 
-        User user = new User();
         root.getChildren().addAll(topL, topR, botL, botR, stats, user.getInAddAllForm());
 
         scene = new Scene(root, 800, 600);
