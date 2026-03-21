@@ -27,8 +27,11 @@ public class Cafeteria extends JoinGroupHere{
        back.setLayoutX(20);
        back.setLayoutY(20);
 
-       back.setOnAction(e -> stage.setScene(HelloWorld.scene));
-
+        back.setOnAction(e ->{
+            stage.setScene(HelloWorld.scene);
+            HelloWorld.user.stop();
+            HelloWorld.user.resume(HelloWorld.scene);
+        });
        Group group = new Group(l1, l2, l3, l4, l5, l6, l7, l8, table1, tableLegs1, table2, tableLegs2, back);
        Scene scene = new Scene(group, 800, 600);
 

@@ -19,6 +19,7 @@ public class User extends Person{
     private Rectangle sprite;
     private AnimationTimer timer;
     private boolean canEnter = true;
+    
 
     public User()
     {
@@ -27,6 +28,17 @@ public class User extends Person{
 
     public Rectangle getInAddAllForm() {
         return sprite;
+    }
+
+    public void resume(Scene scene){
+        stopMovement();
+        playerPosX = 350;
+        playerPosY = 250;
+        AnchorPane.setLeftAnchor(sprite, playerPosX);
+        AnchorPane.setRightAnchor(sprite, playerPosY);
+        start();
+        canEnter = true;
+        scene.getRoot().requestFocus();
     }
 
     public void connect(Scene scene)
@@ -128,7 +140,6 @@ public class User extends Person{
         double boxW = box.getWidth();
         double boxH = box.getHeight();
 
-        System.out.println("topR: " + AnchorPane.getLeftAnchor(topR) + ", " + AnchorPane.getTopAnchor(topR));
         return (playerX < boxX + boxW &&
                 playerX + playerW > boxX &&
                 playerY < boxY + boxH &&
@@ -141,6 +152,13 @@ public class User extends Person{
         this.botR = botR;
         this.botL = botL;
         this.stage = stage;
+    }
+
+    public void stopMovement(){
+        wPressed = false;
+        aPressed = false;
+        sPressed = false;
+        dPressed = false;
     }
 
     private void enterOffice(){

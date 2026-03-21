@@ -14,19 +14,20 @@ import javafx.stage.Stage;
 public class HelloWorld extends Application {
 
     public static Scene scene;
+    public static User user;
 
     @Override
     public void start(Stage stage) {
 
         AnchorPane root = new AnchorPane();
         double size = 100;
-        User user = new User();
+        user = new User();
 
         Rectangle topL = new Rectangle(size, size + 30, Color.BURLYWOOD);
         Rectangle topR = new Rectangle(size, size + 30, Color.BURLYWOOD);
         Rectangle botL = new Rectangle(size, size + 30, Color.BURLYWOOD);
         Rectangle botR = new Rectangle(size, size + 30, Color.BURLYWOOD);
-        user.setRooms(topL, topR, botL, botR, stage);
+        user.setRooms(topL, botL, topR, botR, stage);
         Button stats = new Button("Stats");
         stats.setLayoutX(20);
         stats.setLayoutY(20);

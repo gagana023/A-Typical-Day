@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class Classroom extends Room {
+    
 
     public AnchorPane getRoot(Stage stage) {
 
@@ -62,7 +63,11 @@ public class Classroom extends Room {
         AnchorPane.setTopAnchor(leg4, 390.0);
         AnchorPane.setLeftAnchor(leg4, 560.0);
 
-        back.setOnAction(e -> stage.setScene(HelloWorld.scene));
+        back.setOnAction(e ->{
+            stage.setScene(HelloWorld.scene);
+            HelloWorld.user.stop();
+            HelloWorld.user.resume(HelloWorld.scene);
+        });
 
         root.getChildren().addAll(
                 label,

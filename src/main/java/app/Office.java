@@ -69,8 +69,12 @@ public class Office extends Room {
         AnchorPane.setTopAnchor(registrar, 360.0);
         AnchorPane.setLeftAnchor(registrar, 350.0);
 
-        back.setOnAction(e -> stage.setScene(HelloWorld.scene));
-
+        back.setOnAction(e ->{
+            System.out.println("Back Clicked");
+            stage.setScene(HelloWorld.scene);
+            HelloWorld.user.stop();
+            HelloWorld.user.resume(HelloWorld.scene);
+        });
         root.getChildren().addAll(
                 label,
                 back,
