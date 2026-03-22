@@ -2,6 +2,8 @@ package app;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -16,26 +18,38 @@ public class User extends Person{
     private Rectangle topL, botL, topR, botR;
     private Stage stage;
 
-    private Rectangle sprite;
+    private Sprite sprite;
+    private Canvas canvas;
     private AnimationTimer timer;
     private boolean canEnter = true;
-    
+    private final int FRAME_DELAY = 8;
+    private int frameTick = 0;
 
     public User()
     {
-        sprite = new Rectangle(150, 100, Color.BLACK);
+        sprite = new Sprite("/blinkdrop.png", 3,3,9);
+        canvas = new Canvas(sprite.getFrameWidth(), sprite.getFrameHeight());
+        renderFrame();
     }
 
-    public Rectangle getInAddAllForm() {
-        return sprite;
+    private void renderFrame()
+    {
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        sprite.setPosition(0, 0);
+        sprite.renderCurrent(gc);
+    }
+
+    public Canvas getInAddAllForm() {
+        return canvas;
     }
 
     public void resume(Scene scene){
         stopMovement();
         playerPosX = 350;
         playerPosY = 250;
-        AnchorPane.setLeftAnchor(sprite, playerPosX);
-        AnchorPane.setRightAnchor(sprite, playerPosY);
+        AnchorPane.setLeftAnchor(canvas, playerPosX);
+        AnchorPane.setTopAnchor(canvas, playerPosY);
         start();
         canEnter = true;
         scene.getRoot().requestFocus();
@@ -43,8 +57,8 @@ public class User extends Person{
 
     public void connect(Scene scene)
     {
-        AnchorPane.setLeftAnchor(sprite, playerPosX);
-        AnchorPane.setTopAnchor(sprite, playerPosY);
+        AnchorPane.setLeftAnchor(canvas, playerPosX);
+        AnchorPane.setTopAnchor(canvas, playerPosY);
 
         scene.setOnKeyPressed(e->
         {
@@ -92,17 +106,28 @@ public class User extends Person{
                     dx +=1;
                 }
 
-                playerPosX += dx * SPEED;
-                playerPosY += dy * SPEED;
-                double minX = 0;
-                double minY = 0;
-                double maxX = scene.getWidth() - sprite.getWidth();
-                double maxY = scene.getHeight() - sprite.getHeight();
+                boolean moving = dx != 0 || dy != 0;
+                if (moving)
+                {
+                    playerPosX += dx * SPEED;
+                    playerPosY += dy * SPEED;
+                    double maxX = scene.getWidth() - canvas.getWidth();
+                    double maxY = scene.getHeight() - canvas.getHeight();
+                    playerPosX = Math.max(0, Math.min(playerPosX, maxX));
+                    playerPosY = Math.max(0, Math.min(playerPosY, maxY));
 
-                double newX = sprite.getLayoutX() + dx;
-                double newY = sprite.getLayoutY() + dy;
-                playerPosX = Math.max(minX, Math.min(playerPosX, maxX));
-                playerPosY = Math.max(minY, Math.min(playerPosY, maxY));
+                    frameTick++;
+                    if (frameTick >= FRAME_DELAY)
+                    {
+                        sprite.nextFrame();
+                        frameTick = 0;
+                    }
+                }
+                else
+                {
+                    frameTick = 0;
+                }
+                renderFrame();
 
                 if(canEnter && isColliding(topL)){
                     canEnter = false;
@@ -120,16 +145,16 @@ public class User extends Person{
                     canEnter = false;
                     enterCafeteria();
                 }
-                AnchorPane.setLeftAnchor(sprite, playerPosX);
-                AnchorPane.setTopAnchor(sprite, playerPosY);
+                AnchorPane.setLeftAnchor(canvas, playerPosX);
+                AnchorPane.setTopAnchor(canvas, playerPosY);
             }
         };
     }
     public boolean isColliding(Rectangle box){
         double playerX = playerPosX;
         double playerY = playerPosY;
-        double playerW = sprite.getWidth();
-        double playerH = sprite.getHeight();
+        double playerW = canvas.getWidth();
+        double playerH = canvas.getHeight();
 
         Double boxXObj = AnchorPane.getLeftAnchor(box);
         Double boxYObj = AnchorPane.getTopAnchor(box);
