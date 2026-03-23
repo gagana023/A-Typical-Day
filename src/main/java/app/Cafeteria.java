@@ -3,9 +3,12 @@ package app;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import java.util.Random;
 
 
 public class Cafeteria extends JoinGroupHere{
@@ -27,12 +30,25 @@ public class Cafeteria extends JoinGroupHere{
        back.setLayoutX(20);
        back.setLayoutY(20);
 
+       Rectangle npc = new Rectangle(40, 60, Color.BLUE);
+        Random rand = new Random();
+        double minX = 100;
+        double maxX = 700;
+        double minY = 150;
+        double maxY = 500;
+
+        double randomX = minX + rand.nextDouble() * (maxX - minX);
+        double randomY = minY + rand.nextDouble() * (maxY - minY);
+
+        AnchorPane.setLeftAnchor(npc, randomX);
+        AnchorPane.setTopAnchor(npc, randomY);
+
         back.setOnAction(e ->{
             stage.setScene(HelloWorld.scene);
             HelloWorld.user.stop();
             HelloWorld.user.resume(HelloWorld.scene);
         });
-       Group group = new Group(l1, l2, l3, l4, l5, l6, l7, l8, table1, tableLegs1, table2, tableLegs2, back);
+       Group group = new Group(l1, l2, l3, l4, l5, l6, l7, l8, table1, tableLegs1, table2, tableLegs2, back, npc);
        Scene scene = new Scene(group, 800, 600);
 
 

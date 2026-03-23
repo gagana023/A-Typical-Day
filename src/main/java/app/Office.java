@@ -6,6 +6,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import java.util.Random;
 
 public class Office extends Room {
 
@@ -69,6 +70,19 @@ public class Office extends Room {
         AnchorPane.setTopAnchor(registrar, 360.0);
         AnchorPane.setLeftAnchor(registrar, 350.0);
 
+        Rectangle npc = new Rectangle(40, 60, Color.BLUE);
+        Random rand = new Random();
+        double minX = 100;
+        double maxX = 700;
+        double minY = 150;
+        double maxY = 500;
+
+        double randomX = minX + rand.nextDouble() * (maxX - minX);
+        double randomY = minY + rand.nextDouble() * (maxY - minY);
+
+        AnchorPane.setLeftAnchor(npc, randomX);
+        AnchorPane.setTopAnchor(npc, randomY);
+
         back.setOnAction(e ->{
             System.out.println("Back Clicked");
             stage.setScene(HelloWorld.scene);
@@ -86,7 +100,8 @@ public class Office extends Room {
                 monitor,
                 stand,
                 base,
-                registrar
+                registrar,
+                npc
         );
 
         return root;
