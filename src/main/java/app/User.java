@@ -5,17 +5,15 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class User extends Person{
     
-    private double playerPosX = 250.0, playerPosY = 250.0;
+    private double playerPosX = 350.0, playerPosY = 300.0;
     private final double SPEED = 5;
     private boolean wPressed, aPressed, sPressed, dPressed;
-    private Rectangle topL, botL, topR, botR;
+    private Canvas topL, botL, topR, botR;
     private Stage stage;
 
     private Sprite sprite;
@@ -150,7 +148,7 @@ public class User extends Person{
             }
         };
     }
-    public boolean isColliding(Rectangle box){
+    public boolean isColliding(Canvas box){
         double playerX = playerPosX;
         double playerY = playerPosY;
         double playerW = canvas.getWidth();
@@ -171,11 +169,11 @@ public class User extends Person{
                 playerY + playerH > boxY);
     }
 
-    public void setRooms(Rectangle topL, Rectangle botL, Rectangle topR, Rectangle botR, Stage stage){
-        this.topL = topL;
-        this.topR = topR;
-        this.botR = botR;
-        this.botL = botL;
+    public void setRooms(NPC topL2, NPC botL2, NPC topR2, NPC botR2, Stage stage){
+        this.topL = topL2;
+        this.topR = topR2;
+        this.botR = botR2;
+        this.botL = botL2;
         this.stage = stage;
     }
 

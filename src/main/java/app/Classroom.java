@@ -64,7 +64,7 @@ public class Classroom extends Room {
         AnchorPane.setTopAnchor(leg4, 390.0);
         AnchorPane.setLeftAnchor(leg4, 560.0);
 
-        Rectangle npc = new Rectangle(40, 60, Color.BLUE);
+        NPC npc = new NPC("/student_sprite.png");
         Random rand = new Random();
         double minX = 100;
         double maxX = 700;
@@ -74,6 +74,7 @@ public class Classroom extends Room {
         double randomX = minX + rand.nextDouble() * (maxX - minX);
         double randomY = minY + rand.nextDouble() * (maxY - minY);
 
+        npc.setPosition(randomX, randomY);
         AnchorPane.setLeftAnchor(npc, randomX);
         AnchorPane.setTopAnchor(npc, randomY);
         back.setOnAction(e ->{

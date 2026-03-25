@@ -27,8 +27,8 @@ public class Library extends JoinGroupHere{
       back.setLayoutX(20);
       back.setLayoutY(20);
 
-      Rectangle npc = new Rectangle(40, 60, Color.BLUE);
-        Random rand = new Random();
+      NPC npc = new NPC("/student_sprite.png");
+      Random rand = new Random();
         double minX = 100;
         double maxX = 700;
         double minY = 150;
@@ -36,7 +36,7 @@ public class Library extends JoinGroupHere{
 
         double randomX = minX + rand.nextDouble() * (maxX - minX);
         double randomY = minY + rand.nextDouble() * (maxY - minY);
-
+        npc.setPosition(randomX,randomY);
         AnchorPane.setLeftAnchor(npc, randomX);
         AnchorPane.setTopAnchor(npc, randomY);
 

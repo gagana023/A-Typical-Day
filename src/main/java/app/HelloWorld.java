@@ -20,13 +20,16 @@ public class HelloWorld extends Application {
     public void start(Stage stage) {
 
         AnchorPane root = new AnchorPane();
-        double size = 100;
         user = new User();
 
-        Rectangle topL = new Rectangle(size, size + 30, Color.BURLYWOOD);
-        Rectangle topR = new Rectangle(size, size + 30, Color.BURLYWOOD);
-        Rectangle botL = new Rectangle(size, size + 30, Color.BURLYWOOD);
-        Rectangle botR = new Rectangle(size, size + 30, Color.BURLYWOOD);
+        //Rectangle topL = new Rectangle(size, size + 30, Color.BURLYWOOD);
+        NPC topL = new NPC("/door.png");
+        NPC topR = new NPC("/door.png");
+        NPC botL = new NPC("/door.png");
+        NPC botR = new NPC("/door.png");
+        //Rectangle topR = new Rectangle(size, size + 30, Color.BURLYWOOD);
+        //Rectangle botL = new Rectangle(size, size + 30, Color.BURLYWOOD);
+        //Rectangle botR = new Rectangle(size, size + 30, Color.BURLYWOOD);
         user.setRooms(topL, botL, topR, botR, stage);
         Button stats = new Button("Stats");
         stats.setLayoutX(20);
