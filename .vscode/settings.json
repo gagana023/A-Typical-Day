@@ -1,11 +1,23 @@
 {
     "java.server.launchMode": "Standard",
     "java.project.referencedLibraries": [
-        "/workspaces/javafx/javafx-sdk-current/lib/*.jar"
+        "/workspaces/javafx/javafx-sdk-current/lib/javafx.media.jar",
+        "/workspaces/javafx/javafx-sdk-current/lib/javafx.graphics.jar",
+        "/workspaces/javafx/javafx-sdk-current/lib/javafx.swing.jar",
+        "/workspaces/javafx/javafx-sdk-current/lib/jfx.incubator.richtext.jar",
+        "/workspaces/javafx/javafx-sdk-current/lib/javafx.web.jar",
+        "/workspaces/javafx/javafx-sdk-current/lib/javafx.base.jar",
+        "/workspaces/javafx/javafx-sdk-current/lib/javafx.fxml.jar",
+        "/workspaces/javafx/javafx-sdk-current/lib/jfx.incubator.input.jar",
+        "/workspaces/javafx/javafx-sdk-current/lib/jdk.jsobject.jar",
+        "/workspaces/javafx/javafx-sdk-current/lib/javafx-swt.jar",
+        "/workspaces/apt-final-project-v2-gaganab-sreshtan-aadib/test-lib/junit-platform-console-standalone-1.13.0-M3.jar",
+        "/workspaces/javafx/javafx-sdk-current/lib/javafx.controls.jar"
     ],
     "java.project.sourcePaths": [
         "src/main/java",
-        "src/main/resources"
+        "src/main/resources",
+        "src/main/test"
     ],
     "java.debug.settings.vmArgs": "--enable-native-access=javafx.graphics",
 }

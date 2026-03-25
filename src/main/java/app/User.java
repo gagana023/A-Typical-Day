@@ -109,10 +109,7 @@ public class User extends Person{
                 {
                     playerPosX += dx * SPEED;
                     playerPosY += dy * SPEED;
-                    double maxX = scene.getWidth() - canvas.getWidth();
-                    double maxY = scene.getHeight() - canvas.getHeight();
-                    playerPosX = Math.max(0, Math.min(playerPosX, maxX));
-                    playerPosY = Math.max(0, Math.min(playerPosY, maxY));
+                    stayInBoundaries(scene);
 
                     frameTick++;
                     if (frameTick >= FRAME_DELAY)
@@ -219,5 +216,21 @@ public class User extends Person{
 
     public void stop() {
         timer.stop();
+    }
+
+    public void setCoordinates(double x, double y) {
+        setX(x);
+        setY(y);
+    }
+
+    public void setX(double x) { playerPosX = x; }
+
+    public void setY(double y) { playerPosY = y; }
+
+    public void stayInBoundaries(Scene scene) {
+        double maxX = scene.getWidth() - canvas.getWidth();
+        double maxY = scene.getHeight() - canvas.getHeight();
+        playerPosX = Math.max(0, Math.min(playerPosX, maxX));
+        playerPosY = Math.max(0, Math.min(playerPosY, maxY));
     }
 }
