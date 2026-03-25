@@ -49,7 +49,7 @@ public class Library extends JoinGroupHere{
             stage.setScene(HelloWorld.scene);
             HelloWorld.user.stop();
             HelloWorld.user.resume(HelloWorld.scene);
-      });       
+      });
         
         
       Group group = new Group(l1, l2, l3, l4, l5, table, tableLegs, back, npc);

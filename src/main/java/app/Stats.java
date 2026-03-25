@@ -1,27 +1,69 @@
 package app;
 
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Ellipse;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+
 import java.util.Random;
 
 public class Stats extends User {
 
     Random rand = new Random();
 
+    public Scene buildPrototypeHomeAndStats(Stage stage) {
+        stage.setTitle("Home");
+        // TODO: aadi - fix the perspective on the lines. - aadi
+        // FIXME: anyone - Line l1 goes through stats box. need to fix this. not sure of cause. - aadi
+        Line l1 = new Line(0, 100, 600, 100);
+        Line l2 = new Line(800, 0, 600, 100);
+        Line l3 = new Line(600, 400, 600, 100);
+        Line l4 = new Line(800, 500, 600, 400);
+        Line l5 = new Line(600, 400, 300, 400);
+        Line l6 = new Line(300, 400, 100, 500);
+        Line l7 = new Line(100, 500, 100, 400);
+        Line l8 = new Line(100, 400, 300, 300);
+        Line l9 = new Line(300, 300, 300, 400);
+        Line l10 = new Line(300, 300, 600, 300);
+        Line l11 = new Line(100, 500, 50, 500);
+        Line l12 = new Line(100, 400, 50, 400);
+        Line l13 = new Line(50, 500, 50, 400);
+        Line l14 = new Line(50, 400, 300, 275);
+        Line l15 = new Line(300, 275, 600, 275);
+        Button back = new Button("Back");
+        back.setLayoutX(20);
+        back.setLayoutY(20);
+        back.setOnAction(e ->{
+            stage.setScene(HelloWorld.scene);
+            HelloWorld.user.stop();
+            HelloWorld.user.resume(HelloWorld.scene);
+        });
+        Pane menuBox = getMenu();
+        Group group = new Group(menuBox, l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12, l13, l14, l15);
+        Scene scene = new Scene(group, 800, 600);
+        return scene;
+    }
+
     public Pane getMenu() {
 
         VBox menuBox = new VBox();
         menuBox.setPrefSize(200, 200);
 
+        // TODO: anyone (aadi, if time available) - check if an AnchorPane needs to be made in other classes; could inadvertently be creating logic errors. - aadi
         AnchorPane anchorPane = new AnchorPane();
         anchorPane.getChildren().add(menuBox);
+        // FIXME: anyone - for whatever reason, despite anchoring the VBox to the bottom left, it sits in the top left. has to be fixed; not sure what's wrong. - aadi
         AnchorPane.setBottomAnchor(menuBox, 0.0);
-        //AnchorPane.setLeftAnchor(menuBox, 0.0);
-
+        
         StackPane section1 = createSection("GAME STATS");
         StackPane section2 = createSection("Tasks");
         StackPane section3 = createBarSection("Health Bar");

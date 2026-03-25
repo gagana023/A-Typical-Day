@@ -111,7 +111,7 @@ public class HelloWorld extends Application {
         });
 
         stats.setOnAction(e -> {
-            Scene statsScene = new Scene(s.getMenu(), 800, 600);
+            Scene statsScene = s.buildPrototypeHomeAndStats(stage);
             user.stop();
             stage.setScene(statsScene);
         });
