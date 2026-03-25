@@ -3,6 +3,7 @@ package app;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import java.util.Random;
@@ -11,13 +12,15 @@ public class Stats extends User {
 
     Random rand = new Random();
 
-    public VBox getMenu() {
+    public Pane getMenu() {
 
         VBox menuBox = new VBox();
         menuBox.setPrefSize(200, 200);
 
-        AnchorPane.setTopAnchor(menuBox, 120.0);
-        AnchorPane.setLeftAnchor(menuBox, 50.0);
+        AnchorPane anchorPane = new AnchorPane();
+        anchorPane.getChildren().add(menuBox);
+        AnchorPane.setBottomAnchor(menuBox, 0.0);
+        //AnchorPane.setLeftAnchor(menuBox, 0.0);
 
         StackPane section1 = createSection("GAME STATS");
         StackPane section2 = createSection("Tasks");
@@ -27,7 +30,7 @@ public class Stats extends User {
 
         menuBox.getChildren().addAll(section1, section2, section3, section4, section5);
 
-        return menuBox;
+        return anchorPane;
     }
 
     public StackPane createSection(String text) {
@@ -65,4 +68,5 @@ public class Stats extends User {
 
         return pane;
     }
+    
 }
