@@ -31,12 +31,8 @@ public class HelloWorld extends Application {
         //Rectangle botL = new Rectangle(size, size + 30, Color.BURLYWOOD);
         //Rectangle botR = new Rectangle(size, size + 30, Color.BURLYWOOD);
         user.setRooms(topL, botL, topR, botR, stage);
-<<<<<<< HEAD
-        Button stats = new Button("Go Home");
-=======
         Button stats = new Button("Stats");
         Button help = new Button("Help");
->>>>>>> af6a5a2 (help pane)
         stats.setLayoutX(20);
         stats.setLayoutY(20);
         help.setLayoutX(20);
