@@ -1,5 +1,7 @@
 package app;
 
-public class MenuScreen {
+import javafx.scene.layout.VBox;
+
+public class MenuScreen extends VBox{
     
 }

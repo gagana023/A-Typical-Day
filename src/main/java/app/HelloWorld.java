@@ -31,9 +31,16 @@ public class HelloWorld extends Application {
         //Rectangle botL = new Rectangle(size, size + 30, Color.BURLYWOOD);
         //Rectangle botR = new Rectangle(size, size + 30, Color.BURLYWOOD);
         user.setRooms(topL, botL, topR, botR, stage);
+<<<<<<< HEAD
         Button stats = new Button("Go Home");
+=======
+        Button stats = new Button("Stats");
+        Button help = new Button("Help");
+>>>>>>> af6a5a2 (help pane)
         stats.setLayoutX(20);
         stats.setLayoutY(20);
+        help.setLayoutX(20);
+        help.setLayoutX(45);
 
         AnchorPane.setTopAnchor(topL, 100.0);
         AnchorPane.setLeftAnchor(topL, 100.0);
@@ -49,6 +56,9 @@ public class HelloWorld extends Application {
 
         AnchorPane.setTopAnchor(stats, 20.0);
         AnchorPane.setRightAnchor(stats, 20.0);
+
+        AnchorPane.setTopAnchor(help, 40.0);
+        AnchorPane.setRightAnchor(help, 20.0);
 
         root.getChildren().addAll(topL, topR, botL, botR, stats, user.getInAddAllForm());
 
@@ -87,8 +97,9 @@ public class HelloWorld extends Application {
         Button start = new Button("Start");
 
         Stats s = new Stats();
+        Help h = new Help();
 
-        VBox titleRoot = new VBox(20, title, start, stats);
+        VBox titleRoot = new VBox(20, title, start, stats, help);
         titleRoot.setStyle("-fx-alignment: center;");
 
         Scene titleScene = new Scene(titleRoot, 800, 600);
@@ -103,6 +114,11 @@ public class HelloWorld extends Application {
             Scene statsScene = new Scene(s.getMenu(), 800, 600);
             user.stop();
             stage.setScene(statsScene);
+        });
+
+        help.setOnAction(e -> {
+            user.stop();
+            stage.setScene(h.getHelp(stage));
         });
 
         stage.setScene(titleScene);
