@@ -37,9 +37,7 @@ public class HelloWorld extends Application {
         NPC topR = new NPC("/door.png");
         NPC botL = new NPC("/door.png");
         NPC botR = new NPC("/door.png");
-        //Rectangle topR = new Rectangle(size, size + 30, Color.BURLYWOOD);
-        //Rectangle botL = new Rectangle(size, size + 30, Color.BURLYWOOD);
-        //Rectangle botR = new Rectangle(size, size + 30, Color.BURLYWOOD);
+        
         user.setRooms(topL, botL, topR, botR, stage);
 
         Button stats = new Button("Stats");
@@ -47,7 +45,6 @@ public class HelloWorld extends Application {
 
         AnchorPane.setTopAnchor(topL, 100.0);
         AnchorPane.setLeftAnchor(topL, 100.0);
-        //topL.setFitWidth(120.0);
         topL.setWidth(100);
         topL.setHeight(160);
 
@@ -161,8 +158,8 @@ public class HelloWorld extends Application {
         //t1.setStrikethrough(Tasks.officeTaskDone);
         t1.setStyle(Tasks.officeTaskDone ? "-fx-strikethrough: true;" : "");
 
-        t2.setText("Go to Classroom and turn in homework");
-        t2.setStyle(Tasks.classroomTaskDone ? "-fx-strikethrough: true;" : "");
+        // t2.setText("Go to Classroom and turn in homework");
+        // t2.setStyle(Tasks.classroomTaskDone ? "-fx-strikethrough: true;" : "");
         //t2.setStrikethrough(Tasks.classroomTaskDone);
 
         if (Tasks.officeTaskDone) {
@@ -171,11 +168,11 @@ public class HelloWorld extends Application {
             t1.setTextFill(Color.WHITE);
         }
 
-        if (Tasks.classroomTaskDone) {
-            t2.setTextFill(Color.GRAY);
-        } else {
-            t2.setTextFill(Color.WHITE);
-        }
+        // if (Tasks.classroomTaskDone) {
+        //     t2.setTextFill(Color.GRAY);
+        // } else {
+        //     t2.setTextFill(Color.WHITE);
+        // }
     }
     
 }

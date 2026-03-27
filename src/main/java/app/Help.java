@@ -99,51 +99,17 @@ public class Help extends MenuScreen {
      * as we add requirements for each pane.
      */
     private static final String DEFAULT_TEXT = """
-            JavaFX Animation Project - Help
+                Our game is raising awareness for students with special needs and
+                how challening it can be to go through a school day.
 
+                For our prototype, we currently have one dummy task, ask for extension
 
-            This tab is for project directions and notes.
+                The classroom room (bottom left) still does not work so don't click on that door.
 
+                Your job is to go through the three working rooms, and find the room with the
+                button "ask for extension". You can click on any of the two buttons, the one that 
+                fades fast and the one that doesn't. 
 
-            BallPane
-            --------
-
-
-            My ball pane added the following two requirements:
-                1. Bounces off the walls
-                2. Changes color and size when bounce
-                3. New Balls are added when you click
-
-
-            Fill Pane:
-                1. When Clicked, shape fills in
-                2. Background Fills diagonally
-
-
-            Sprite Pane:
-                1. Sprite moves (blooming flower)
-                2. Moves from left to right side from side to side.
-
-
-            SparkPane
-                1. When you click on the screen, a spark appears. This spark is multiple different colors.
-                2. Spark Lasts for few seconds.
-
-
-            Custom Pane
-                1. When you click on the screen, the water bucket tips to water flower
-                2. When the flower blooms, rain falls
-                3. When flower blooms, number of flowers bloomed increases
-
-
-                Required features: Text Animation, 2 sprites that do different things from sprite pane,
-                    balls that do different things from ball pane. Random Colored balls vs blue rain represented by balls
-
-
-                    User interaction: When click mouse, flower is watered
-
-
-                    Attributes: Sprite Sheet Animation and Movement and Physics for Rain Balls
             """
             ;
 
