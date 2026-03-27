@@ -39,12 +39,9 @@ public class HelloWorld extends Application {
         //Rectangle botL = new Rectangle(size, size + 30, Color.BURLYWOOD);
         //Rectangle botR = new Rectangle(size, size + 30, Color.BURLYWOOD);
         user.setRooms(topL, botL, topR, botR, stage);
+
         Button stats = new Button("Stats");
         Button help = new Button("Help");
-        stats.setLayoutX(20);
-        stats.setLayoutY(20);
-        help.setLayoutX(20);
-        help.setLayoutX(45);
 
         AnchorPane.setTopAnchor(topL, 100.0);
         AnchorPane.setLeftAnchor(topL, 100.0);
@@ -67,14 +64,16 @@ public class HelloWorld extends Application {
         botR.setWidth(100);
         botR.setHeight(160);
 
-        AnchorPane.setTopAnchor(stats, 20.0);
+        AnchorPane.setTopAnchor(stats, 500.0);
         AnchorPane.setRightAnchor(stats, 20.0);
 
-        AnchorPane.setTopAnchor(help, 40.0);
+        AnchorPane.setTopAnchor(help, 450.0);
         AnchorPane.setRightAnchor(help, 20.0);
 
-        root.getChildren().addAll(bgCanvas, topL, topR, botL, botR, stats, user.getInAddAllForm());
-
+        root.getChildren().addAll(bgCanvas, topL, topR, botL, botR, user.getInAddAllForm(), stats, help);
+        //stats.toFront();
+        //help.toFront();
+        
         scene = new Scene(root, 800, 600);
 
         user.connect(scene);
@@ -104,24 +103,22 @@ public class HelloWorld extends Application {
         botR.setOnMouseClicked(e ->
                 stage.setScene(cafeteria.buildPrototypeCafeteria(stage))
         );
-
+/* 
         Label title = new Label("My App");
 
         Button start = new Button("Start");
-
+*/
         Stats s = new Stats();
         Help h = new Help(stage);
-
+/* 
         VBox titleRoot = new VBox(20, title, start, stats, help);
         titleRoot.setStyle("-fx-alignment: center;");
-
-        Scene titleScene = new Scene(titleRoot, 800, 600);
 
         start.setOnAction(e -> {
             stage.setScene(scene);
             user.start();
             scene.getRoot().requestFocus();
-        });
+        });*/
 
         stats.setOnAction(e -> {
             Scene statsScene = s.buildPrototypeHomeAndStats(stage);
@@ -134,9 +131,12 @@ public class HelloWorld extends Application {
             stage.setScene(h.getHelp(stage));
         });
 
-        stage.setScene(titleScene);
+        stage.setScene(scene);
         stage.setTitle("Starting Position");
         stage.show();
+
+        user.start();
+        scene.getRoot().requestFocus();
     }
 
     public static void main(String[] args) {
