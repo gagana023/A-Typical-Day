@@ -40,7 +40,7 @@ public class Stats extends User {
         Line l14 = new Line(50, 400, 300, 275);
         Line l15 = new Line(300, 275, 600, 275);
         Button back = new Button("Back");
-        back.setLayoutX(20);
+        back.setLayoutX(730);
         back.setLayoutY(20);
         back.setOnAction(e ->{
             stage.setScene(HelloWorld.scene);
@@ -48,7 +48,7 @@ public class Stats extends User {
             HelloWorld.user.resume(HelloWorld.scene);
         });
         Pane menuBox = getMenu();
-        Group group = new Group(menuBox, l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12, l13, l14, l15);
+        Group group = new Group(menuBox, l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12, l13, l14, l15, back);
         Scene scene = new Scene(group, 800, 600);
         return scene;
     }

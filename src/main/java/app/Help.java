@@ -2,6 +2,7 @@ package app;
 
 
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Priority;
@@ -29,7 +30,7 @@ public class Help extends MenuScreen {
      * Students can update the DEFAULT_TEXT constant or use
      * setHelpText(...) in code to customize instructions.
      */
-    public Help() {
+    public Help(Stage stage) {
         this.helpArea = new TextArea();
 
 
@@ -49,9 +50,20 @@ public class Help extends MenuScreen {
         scrollPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         helpArea.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
+        Button back = new Button("Back");
+        back.setLayoutX(20);
+        back.setLayoutY(20);
 
         // setPadding(new Insets(10));
+        getChildren().add(back);
         getChildren().add(scrollPane);
+
+        back.setOnAction(e->
+            {
+                stage.setScene(HelloWorld.scene);
+                HelloWorld.user.stop();
+                HelloWorld.user.resume(HelloWorld.scene);
+            });
     }
 
 

@@ -110,7 +110,7 @@ public class HelloWorld extends Application {
         Button start = new Button("Start");
 
         Stats s = new Stats();
-        Help h = new Help();
+        Help h = new Help(stage);
 
         VBox titleRoot = new VBox(20, title, start, stats, help);
         titleRoot.setStyle("-fx-alignment: center;");
