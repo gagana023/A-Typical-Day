@@ -18,7 +18,7 @@ public class NPC extends Canvas {
     {
         sprite = new Sprite(spritePath, 1,1,1);
         
-        sprite.setFrameSize(200, 200);
+        sprite.setFrameSize(100, 160);
 
         setWidth(sprite.getFrameWidth());
         setHeight(sprite.getFrameHeight());

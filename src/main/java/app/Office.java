@@ -71,19 +71,7 @@ public class Office extends Room {
         AnchorPane.setLeftAnchor(registrar, 350.0);
 
         NPC npc = new NPC("/student_sprite.png");
-        // Random rand = new Random();
-        // double minX = 100;
-        // double maxX = 700;
-        // double minY = 150;
-        // double maxY = 500;
-
-        // double randomX = minX + rand.nextDouble() * (maxX - minX);
-        // double randomY = minY + rand.nextDouble() * (maxY - minY);
-
-        // npc.setPosition(randomX, randomY);
-        // AnchorPane.setLeftAnchor(npc, randomX);
-        // AnchorPane.setTopAnchor(npc, randomY);
-
+        
         npc.setPosition(100,315);
         AnchorPane.setLeftAnchor(npc, 100.0);
         AnchorPane.setTopAnchor(npc, 315.0);

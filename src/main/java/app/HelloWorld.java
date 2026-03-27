@@ -2,6 +2,8 @@ package app;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -20,6 +22,12 @@ public class HelloWorld extends Application {
     public void start(Stage stage) {
 
         AnchorPane root = new AnchorPane();
+        Canvas bgCanvas = new Canvas(800, 600);
+        GraphicsContext gc = bgCanvas.getGraphicsContext2D();
+        Sprite bgSprite = new Sprite("/hallway_background.png", 1, 1, 1);
+        bgSprite.setPosition(0, 0);
+        bgSprite.setFrameSize(800, 600);
+        bgSprite.renderCurrent(gc);
         user = new User();
 
         //Rectangle topL = new Rectangle(size, size + 30, Color.BURLYWOOD);
@@ -40,15 +48,24 @@ public class HelloWorld extends Application {
 
         AnchorPane.setTopAnchor(topL, 100.0);
         AnchorPane.setLeftAnchor(topL, 100.0);
+        //topL.setFitWidth(120.0);
+        topL.setWidth(100);
+        topL.setHeight(160);
 
         AnchorPane.setLeftAnchor(topR, 550.0);
         AnchorPane.setTopAnchor(topR, 100.0);
+        topR.setWidth(100);
+        topR.setHeight(160);
 
         AnchorPane.setLeftAnchor(botL, 100.0);
         AnchorPane.setTopAnchor(botL, 400.0);
+        botL.setWidth(100);
+        botL.setHeight(160);
 
         AnchorPane.setLeftAnchor(botR, 550.0);
         AnchorPane.setTopAnchor(botR, 400.0);
+        botR.setWidth(100);
+        botR.setHeight(160);
 
         AnchorPane.setTopAnchor(stats, 20.0);
         AnchorPane.setRightAnchor(stats, 20.0);
@@ -56,7 +73,7 @@ public class HelloWorld extends Application {
         AnchorPane.setTopAnchor(help, 40.0);
         AnchorPane.setRightAnchor(help, 20.0);
 
-        root.getChildren().addAll(topL, topR, botL, botR, stats, user.getInAddAllForm());
+        root.getChildren().addAll(bgCanvas, topL, topR, botL, botR, stats, user.getInAddAllForm());
 
         scene = new Scene(root, 800, 600);
 
@@ -67,7 +84,7 @@ public class HelloWorld extends Application {
             Scene officeScene = new Scene(office.getRoot(stage), 800, 600);
             stage.setScene(officeScene);
         });
-
+   
         // doesn't work when inside setOnMouseClicked
         Library library = new Library();
 
