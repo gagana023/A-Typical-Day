@@ -17,6 +17,8 @@ public class HelloWorld extends Application {
 
     public static Scene scene;
     public static User user;
+    public static Label task1;
+    public static Label task2;
 
     @Override
     public void start(Stage stage) {
@@ -69,8 +71,32 @@ public class HelloWorld extends Application {
 
         AnchorPane.setTopAnchor(help, 450.0);
         AnchorPane.setRightAnchor(help, 20.0);
+        VBox taskBar = new VBox(5);
+        taskBar.setStyle("-fx-background-color: rgba(0,0,0,0.8); -fx-padding: 10;");
+        Label title = new Label("Tasks");
 
-        root.getChildren().addAll(bgCanvas, topL, topR, botL, botR, user.getInAddAllForm(), stats, help);
+        title.setTextFill(Color.WHITE);
+        task1 = new Label();
+        task2 = new Label();
+
+        task1.setTextFill(Color.WHITE);
+        task2.setTextFill(Color.WHITE);
+
+        updateTasks(task1, task2);
+        Button toggle = new Button("▼");
+        toggle.setOnAction(e -> {
+            taskBar.setVisible(!taskBar.isVisible());
+        });
+
+        taskBar.getChildren().addAll(title, task1, task2);
+
+        AnchorPane.setTopAnchor(taskBar, 0.0);
+        AnchorPane.setLeftAnchor(taskBar, 0.0);
+
+        AnchorPane.setTopAnchor(toggle, 0.0);
+        AnchorPane.setRightAnchor(toggle, 10.0);
+
+        root.getChildren().addAll(bgCanvas, topL, topR, botL, botR, user.getInAddAllForm(), stats, help, taskBar, toggle);
         //stats.toFront();
         //help.toFront();
         
@@ -103,22 +129,9 @@ public class HelloWorld extends Application {
         botR.setOnMouseClicked(e ->
                 stage.setScene(cafeteria.buildPrototypeCafeteria(stage))
         );
-/* 
-        Label title = new Label("My App");
 
-        Button start = new Button("Start");
-*/
         Stats s = new Stats();
         Help h = new Help(stage);
-/* 
-        VBox titleRoot = new VBox(20, title, start, stats, help);
-        titleRoot.setStyle("-fx-alignment: center;");
-
-        start.setOnAction(e -> {
-            stage.setScene(scene);
-            user.start();
-            scene.getRoot().requestFocus();
-        });*/
 
         stats.setOnAction(e -> {
             Scene statsScene = s.buildPrototypeHomeAndStats(stage);
@@ -142,4 +155,27 @@ public class HelloWorld extends Application {
     public static void main(String[] args) {
         launch();
     }
+
+    public static void updateTasks(Label t1, Label t2) {
+        t1.setText("Go to Office and ask for extension");
+        //t1.setStrikethrough(Tasks.officeTaskDone);
+        t1.setStyle(Tasks.officeTaskDone ? "-fx-strikethrough: true;" : "");
+
+        t2.setText("Go to Classroom and turn in homework");
+        t2.setStyle(Tasks.classroomTaskDone ? "-fx-strikethrough: true;" : "");
+        //t2.setStrikethrough(Tasks.classroomTaskDone);
+
+        if (Tasks.officeTaskDone) {
+            t1.setTextFill(Color.GRAY);
+        } else {
+            t1.setTextFill(Color.WHITE);
+        }
+
+        if (Tasks.classroomTaskDone) {
+            t2.setTextFill(Color.GRAY);
+        } else {
+            t2.setTextFill(Color.WHITE);
+        }
+    }
+    
 }

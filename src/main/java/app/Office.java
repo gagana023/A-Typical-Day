@@ -7,6 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import java.util.Random;
+import javafx.animation.FadeTransition;
+import javafx.util.Duration;
 
 public class Office extends Room {
 
@@ -76,11 +78,36 @@ public class Office extends Room {
         AnchorPane.setLeftAnchor(npc, 100.0);
         AnchorPane.setTopAnchor(npc, 315.0);
 
+        Button option1 = new Button("Ask for extension");
+        Button option2 = new Button("Ask for extension");
+        root.getChildren().addAll(option1, option2);
+
+         FadeTransition fastFade = new FadeTransition(Duration.seconds(3.5), option1);
+            fastFade.setToValue(0);
+            fastFade.play();
+
+
+        option1.setOnAction(e -> {
+            Tasks.completeOfficeTask();
+            HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2);
+        });
+
+        option2.setOnAction(e -> {
+            Tasks.completeOfficeTask();
+            HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2);
+        });
+        AnchorPane.setTopAnchor(option1, 200.0);
+        AnchorPane.setLeftAnchor(option1, 300.0);
+
+        AnchorPane.setTopAnchor(option2, 250.0);
+        AnchorPane.setLeftAnchor(option2, 300.0);
+
         back.setOnAction(e ->{
             System.out.println("Back Clicked");
             stage.setScene(HelloWorld.scene);
             HelloWorld.user.stop();
             HelloWorld.user.resume(HelloWorld.scene);
+            HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2);
         });
         root.getChildren().addAll(
                 label,
