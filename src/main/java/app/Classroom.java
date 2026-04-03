@@ -9,6 +9,8 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import javafx.util.Duration;
+
+import java.util.List;
 import java.util.Random;
 
 public class Classroom extends Room {
@@ -73,14 +75,20 @@ public class Classroom extends Room {
         AnchorPane.setLeftAnchor(npc, 100.0);
         AnchorPane.setTopAnchor(npc, 380.0);
 
-        Button option1 = new Button("Turn in homework");
-        Button option2 = new Button("Turn in homework");
+        List<String> options = DialogueEngine.getOptions(DialogueEngine.Room.CLASSROOM);
+
+        Button option1 = new Button(options.get(0));
+        Button option2 = new Button(options.get(1));
+        Button option3 = new Button(options.get(2));
         //root.getChildren().addAll(option1, option2);
 
-        FadeTransition fastFade = new FadeTransition(Duration.seconds(3.5), option2);
+        FadeTransition fastFade = new FadeTransition(Duration.seconds(3.5), option1);
             fastFade.setToValue(0);
             fastFade.play();
 
+        FadeTransition mediumFade = new FadeTransition(Duration.seconds(7), option2);
+            mediumFade.setToValue(0);
+            mediumFade.play();
 
         option1.setOnAction(e -> {
             Tasks.completeClassroomTask();
@@ -91,13 +99,20 @@ public class Classroom extends Room {
             Tasks.completeClassroomTask();
             HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
         });
-        
+
+        option3.setOnAction(e -> {
+            Tasks.completeClassroomTask();
+            HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+        });
+
         AnchorPane.setTopAnchor(option1, 200.0);
         AnchorPane.setLeftAnchor(option1, 300.0);
 
         AnchorPane.setTopAnchor(option2, 250.0);
         AnchorPane.setLeftAnchor(option2, 300.0);
 
+        AnchorPane.setTopAnchor(option3, 300.0);
+        AnchorPane.setLeftAnchor(option3, 300.0);
 
         back.setOnAction(e ->{
             stage.setScene(HelloWorld.scene);
@@ -118,7 +133,8 @@ public class Classroom extends Room {
                 leg4,
                 npc,
                 option1,
-                option2
+                option2, 
+                option3
         );
 
         return root;

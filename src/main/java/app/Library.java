@@ -1,6 +1,5 @@
 package app;
 
-
 import javafx.animation.FadeTransition;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -33,17 +32,28 @@ public class Library extends JoinGroupHere{
       back.setLayoutY(20);
 
       NPC npc = new NPC("/student_sprite.png");
+      // Random rand = new Random();
+      //   double minX = 100;
+      //   double maxX = 700;
+      //   double minY = 150;
+      //   double maxY = 500;
+
+      //   double randomX = minX + rand.nextDouble() * (maxX - minX);
+      //   double randomY = minY + rand.nextDouble() * (maxY - minY);
+      //   npc.setPosition(randomX,randomY);
+      //   AnchorPane.setLeftAnchor(npc, randomX);
+      //   AnchorPane.setTopAnchor(npc, randomY);
 
       npc.setPosition(320, 310);
         AnchorPane.setLeftAnchor(npc, 320.0);
         AnchorPane.setTopAnchor(npc, 310.0);
 
-      List<String> options = DialogueEngine.getOptions(DialogueEngine.Room.OFFICE);
+      List<String> options = DialogueEngine.getOptions(DialogueEngine.Room.LIBRARY);
 
         Button option1 = new Button(options.get(0));
         Button option2 = new Button(options.get(1));
         Button option3 = new Button(options.get(2));
-        root.getChildren().addAll(option1, option2, option3);
+        //root.getChildren().addAll(option1, option2, option3);
 
         FadeTransition fastFade = new FadeTransition(Duration.seconds(3.5), option1);
             fastFade.setToValue(0);
@@ -84,9 +94,8 @@ public class Library extends JoinGroupHere{
             HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
       });
         
-        
-      Group group = new Group(l1, l2, l3, l4, l5, table, tableLegs, back, npc, option1, option2, option3);
-      Scene scene = new Scene(group, 800, 600);
-      return scene;
+      root.getChildren().addAll(l1, l2, l3, l4, l5, table, tableLegs, back, npc, option1, option2, option3);
+      
+      return new Scene(root, 800, 600);
    }
 }

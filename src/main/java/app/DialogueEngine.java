@@ -24,9 +24,14 @@ public class DialogueEngine {
             "I don't know you but, can I join your study group?"
         ),
         Room.CAFETERIA, List.of(
-            "What's on the menu today?",
-            "Is there a vegetarian option?",
-            "Can I get extra napkins?"
+            "Hey! Today, I'll have...actually, is there anything you reccommend that's vegetarian?",
+            "Sorry, can I get a little more time to look at the options?",
+            "I don't like your food. I'd like something prepackaged."
+        ),
+        Room.CLASSROOM, List.of(
+            "Hey Mr. White! I'm sorry but I'm not sure I'll be able to do the assignment by tomorrow. Do you think I could get an extension just until Monday?",
+            "May I please get an extension on this? I have a lot going on this week.",
+            "No, I can't do this assignment."
         )
     );
 

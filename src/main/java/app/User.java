@@ -20,6 +20,10 @@ public class User extends Person{
     private Canvas canvas;
     private AnimationTimer timer;
     private boolean canEnter = true;
+    private boolean enteringOffice = false;
+    private boolean enteringCafeteria = false;
+    private boolean enteringClassroom = false;
+    private boolean enteringLibrary = false;
     private final int FRAME_DELAY = 8;
     private int frameTick = 0;
 
@@ -50,6 +54,10 @@ public class User extends Person{
         AnchorPane.setTopAnchor(canvas, playerPosY);
         start();
         canEnter = true;
+        enteringCafeteria = false;
+        enteringClassroom = false;
+        enteringLibrary = false;
+        enteringOffice = false;
         scene.getRoot().requestFocus();
     }
 
@@ -182,6 +190,8 @@ public class User extends Person{
     }
 
     private void enterOffice(){
+        if (enteringOffice) return;   
+        enteringOffice = true;    
         stop();
         Office office = new Office();
         Scene officeScene = new Scene(office.getRoot(stage), 800,600);
@@ -189,6 +199,8 @@ public class User extends Person{
     }
 
     private void enterClassroom(){
+        if (enteringClassroom) return;
+        enteringClassroom = true;
         stop();
         Classroom classroom = new Classroom();
         Scene classroomScene = new Scene(classroom.getRoot(stage), 800,600);
@@ -198,6 +210,8 @@ public class User extends Person{
     }
 
     private void enterLibrary(){
+        if (enteringLibrary) return;
+        enteringLibrary = true;
         stop();
         Library library = new Library();
         stage.setScene(library.buildPrototypeLibrary(stage));
@@ -205,6 +219,8 @@ public class User extends Person{
     }
 
     private void enterCafeteria(){
+        if (enteringCafeteria) return;
+        enteringCafeteria = true;
         stop();
         Cafeteria cafeteria = new Cafeteria();
         stage.setScene(cafeteria.buildPrototypeCafeteria(stage));
