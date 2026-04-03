@@ -75,22 +75,23 @@ public class Classroom extends Room {
 
         Button option1 = new Button("Turn in homework");
         Button option2 = new Button("Turn in homework");
-        root.getChildren().addAll(option1, option2);
+        //root.getChildren().addAll(option1, option2);
 
-         FadeTransition fastFade = new FadeTransition(Duration.seconds(3.5), option2);
+        FadeTransition fastFade = new FadeTransition(Duration.seconds(3.5), option2);
             fastFade.setToValue(0);
             fastFade.play();
 
 
         option1.setOnAction(e -> {
-            Tasks.completeOfficeTask();
-            HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2);
+            Tasks.completeClassroomTask();
+            HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
         });
 
         option2.setOnAction(e -> {
-            Tasks.completeOfficeTask();
-            HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2);
+            Tasks.completeClassroomTask();
+            HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
         });
+        
         AnchorPane.setTopAnchor(option1, 200.0);
         AnchorPane.setLeftAnchor(option1, 300.0);
 
@@ -102,7 +103,7 @@ public class Classroom extends Room {
             stage.setScene(HelloWorld.scene);
             HelloWorld.user.stop();
             HelloWorld.user.resume(HelloWorld.scene);
-            HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2);
+            HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
         });
 
         root.getChildren().addAll(

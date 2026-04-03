@@ -19,6 +19,7 @@ public class HelloWorld extends Application {
     public static User user;
     public static Label task1;
     public static Label task2;
+    public static Label task3;
 
     @Override
     public void start(Stage stage) {
@@ -75,17 +76,19 @@ public class HelloWorld extends Application {
         title.setTextFill(Color.WHITE);
         task1 = new Label();
         task2 = new Label();
+        task3 = new Label();
 
         task1.setTextFill(Color.WHITE);
         task2.setTextFill(Color.WHITE);
+        task3.setTextFill(Color.WHITE);
 
-        updateTasks(task1, task2);
+        updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
         Button toggle = new Button("▼");
         toggle.setOnAction(e -> {
             taskBar.setVisible(!taskBar.isVisible());
         });
 
-        taskBar.getChildren().addAll(title, task1, task2);
+        taskBar.getChildren().addAll(title, task1, task2, task3);
 
         AnchorPane.setTopAnchor(taskBar, 0.0);
         AnchorPane.setLeftAnchor(taskBar, 0.0);
@@ -158,9 +161,16 @@ public class HelloWorld extends Application {
         //t1.setStrikethrough(Tasks.officeTaskDone);
         t1.setStyle(Tasks.officeTaskDone ? "-fx-strikethrough: true;" : "");
 
-        // t2.setText("Go to Classroom and turn in homework");
-        // t2.setStyle(Tasks.classroomTaskDone ? "-fx-strikethrough: true;" : "");
-        //t2.setStrikethrough(Tasks.classroomTaskDone);
+    public static void updateTasks(Label t1, Label t2, Label t3) {
+        t1.setText("Go to Office and ask for extension");
+        t1.setStyle(Tasks.officeTaskDone 
+        ? "-fx-strikethrough: true; -fx-text-fill: gray;" 
+        : "-fx-strikethrough: false; -fx-text-fill: white;");
+
+        t2.setText("Go to Classroom and turn in homework");
+        t2.setStyle(Tasks.classroomTaskDone 
+        ? "-fx-strikethrough: true; -fx-text-fill: gray;" 
+        : "-fx-strikethrough: false; -fx-text-fill: white;");
 
         if (Tasks.officeTaskDone) {
             t1.setTextFill(Color.GRAY);
@@ -168,11 +178,11 @@ public class HelloWorld extends Application {
             t1.setTextFill(Color.WHITE);
         }
 
-        // if (Tasks.classroomTaskDone) {
-        //     t2.setTextFill(Color.GRAY);
-        // } else {
-        //     t2.setTextFill(Color.WHITE);
-        // }
+         if (Tasks.classroomTaskDone) {
+             t2.setTextFill(Color.GRAY);
+         } else {
+             t2.setTextFill(Color.WHITE);
+        }
     }
     
 }
