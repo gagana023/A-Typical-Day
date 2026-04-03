@@ -69,11 +69,17 @@ public class Classroom extends Room {
         AnchorPane.setTopAnchor(leg4, 390.0);
         AnchorPane.setLeftAnchor(leg4, 560.0);
 
-        NPC npc = new NPC("/student_sprite.png");
+        NPC classmate = new NPC("/student_sprite.png");
+        classmate.setPosition(100, 380);
 
-        npc.setPosition(100, 380);
-        AnchorPane.setLeftAnchor(npc, 100.0);
-        AnchorPane.setTopAnchor(npc, 380.0);
+        AnchorPane.setLeftAnchor(classmate, 100.0);
+        AnchorPane.setTopAnchor(classmate, 380.0);
+
+        NPC teacher = new NPC("/teacher_sprite.png");
+        teacher.setPosition(175, 250);
+
+        AnchorPane.setLeftAnchor(teacher, 175.0);
+        AnchorPane.setTopAnchor(teacher, 250.0);
 
         List<String> options = DialogueEngine.getOptions(DialogueEngine.Room.CLASSROOM);
 
@@ -131,7 +137,8 @@ public class Classroom extends Room {
                 leg2,
                 leg3,
                 leg4,
-                npc,
+                classmate,
+                teacher,
                 option1,
                 option2, 
                 option3
