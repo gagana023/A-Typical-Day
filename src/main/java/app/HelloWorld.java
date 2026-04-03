@@ -73,6 +73,8 @@ public class HelloWorld extends Application {
         taskBar.setStyle("-fx-background-color: rgba(0,0,0,0.8); -fx-padding: 10;");
         Label title = new Label("Tasks");
 
+
+
         title.setTextFill(Color.WHITE);
         task1 = new Label();
         task2 = new Label();
@@ -96,7 +98,6 @@ public class HelloWorld extends Application {
         AnchorPane.setTopAnchor(toggle, 0.0);
         AnchorPane.setRightAnchor(toggle, 10.0);
 
-        root.getChildren().addAll(bgCanvas, topL, topR, botL, botR, user.getInAddAllForm(), stats, help, taskBar, toggle);
         //stats.toFront();
         //help.toFront();
         
@@ -131,6 +132,17 @@ public class HelloWorld extends Application {
         );
 
         Stats s = new Stats();
+
+        VBox topStatsMenu = new VBox(5);
+        topStatsMenu.getChildren().addAll(
+            s.createBarSection("Health Bar"),
+            s.createBarSection("Social Standing")
+        );
+
+        AnchorPane.setTopAnchor(topStatsMenu, 0.0);
+        AnchorPane.setLeftAnchor(topStatsMenu, 315.0);
+        topStatsMenu.setStyle("-fx-background-color: white; -fx-padding: 10; -fx-border-color: black; -fx-border-width: 1;");
+        
         Help h = new Help(stage);
 
         stats.setOnAction(e -> {
@@ -150,6 +162,9 @@ public class HelloWorld extends Application {
 
         user.start();
         scene.getRoot().requestFocus();
+
+        root.getChildren().addAll(bgCanvas, topL, topR, botL, botR, user.getInAddAllForm(), stats, help, taskBar, toggle, topStatsMenu);
+
     }
 
     public static void main(String[] args) {
