@@ -154,7 +154,7 @@ public class HelloWorld extends Application {
     }
 
     public static void updateTasks(Label t1, Label t2) {
-        t1.setText("Go to Office and ask for extension");
+        t1.setText("Go to Office (top left room) and ask for extension");
         //t1.setStrikethrough(Tasks.officeTaskDone);
         t1.setStyle(Tasks.officeTaskDone ? "-fx-strikethrough: true;" : "");
 

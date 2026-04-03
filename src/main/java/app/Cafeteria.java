@@ -33,18 +33,6 @@ public class Cafeteria extends JoinGroupHere{
         //Rectangle npc = new Rectangle(40, 60, Color.BLUE);
         NPC npc = new NPC("/student_sprite.png");
         
-        // Random rand = new Random();
-        // double minX = 100;
-        // double maxX = 700;
-        // double minY = 150;
-        // double maxY = 500;
-
-        // double randomX = minX + rand.nextDouble() * (maxX - minX);
-        // double randomY = minY + rand.nextDouble() * (maxY - minY);
-        
-        // npc.setPosition(randomX,randomY);
-        // AnchorPane.setLeftAnchor(npc, randomX);
-        // AnchorPane.setTopAnchor(npc, randomY);
 
         npc.setPosition(210, 380);
         AnchorPane.setLeftAnchor(npc, 210.0);
