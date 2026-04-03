@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 
 import java.util.Random;
 
-public class Stats extends User {
+public class Stats {
 
     Random rand = new Random();
 
@@ -52,6 +52,8 @@ public class Stats extends User {
         Scene scene = new Scene(group, 800, 600);
         return scene;
     }
+
+    
 
     public Pane getMenu() {
 
@@ -101,8 +103,14 @@ public class Stats extends User {
         ProgressBar bar = new ProgressBar();
         bar.setPrefWidth(150);
 
-        double randomValue = rand.nextDouble();
-        bar.setProgress(randomValue);
+        // double randomValue = rand.nextDouble();
+        // bar.setProgress(randomValue);
+        if(text.equals("Health Bar")){
+            bar.setProgress(HelloWorld.user.getHealth());
+        }
+        else if(text.equals("Social Standing")){
+            bar.setProgress(HelloWorld.user.getSocial());
+        }
 
         content.getChildren().addAll(label, bar);
 

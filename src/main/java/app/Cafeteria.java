@@ -58,18 +58,27 @@ public class Cafeteria extends JoinGroupHere{
             mediumFade.play();
 
         option1.setOnAction(e -> {
+                System.out.println("Clicked option 1"); // DEBUG
+
+            HelloWorld.user.changeStats(1);
             Tasks.completeOfficeTask();
             HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+            stage.setScene(new Stats().buildPrototypeHomeAndStats(stage));
         });
 
         option2.setOnAction(e -> {
+            
+            HelloWorld.user.changeStats(2);
             Tasks.completeOfficeTask();
             HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+            stage.setScene(new Stats().buildPrototypeHomeAndStats(stage));
         });
 
         option3.setOnAction(e -> {
+            HelloWorld.user.changeStats(3);
             Tasks.completeOfficeTask();
-            HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);        
+            HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3); 
+            stage.setScene(new Stats().buildPrototypeHomeAndStats(stage));
         });
 
         AnchorPane.setTopAnchor(option1, 200.0);

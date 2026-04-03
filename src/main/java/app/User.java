@@ -26,6 +26,8 @@ public class User extends Person{
     private boolean enteringLibrary = false;
     private final int FRAME_DELAY = 8;
     private int frameTick = 0;
+    private double health = 1.0;
+    private double social = 1.0;
 
     public User()
     {
@@ -153,6 +155,41 @@ public class User extends Person{
             }
         };
     }
+
+    
+
+    public void changeStats(int optionType) {
+        System.out.println("Health: " + health + " Social: " + social);
+        switch (optionType) {
+            
+            case 1:
+                social += 0.1;
+                health -= 0.05;
+                break;
+            case 2:
+                social -= 0.05;
+                health -= 0.05;
+                break;
+            case 3:
+                social -= 0.1;
+                health -= 0.1;
+                break;
+        }
+
+        // clamp values between 0 and 1
+        health = Math.max(0, Math.min(1, health));
+        social = Math.max(0, Math.min(1, social));
+    }
+
+    public double getHealth() {
+        return health;
+    }
+
+    public double getSocial() {
+        return social;
+    }
+
+
     public boolean isColliding(Canvas box){
         double playerX = playerPosX;
         double playerY = playerPosY;
