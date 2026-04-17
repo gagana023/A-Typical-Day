@@ -1,6 +1,7 @@
 {
     "java.server.launchMode": "Standard",
     "java.project.referencedLibraries": [
+        "lib/**/*.jar",
         "/workspaces/javafx/javafx-sdk-current/lib/javafx.media.jar",
         "/workspaces/javafx/javafx-sdk-current/lib/javafx.graphics.jar",
         "/workspaces/javafx/javafx-sdk-current/lib/javafx.swing.jar",
@@ -16,6 +17,7 @@
         "test-lib\\**\\*.jar"
     ],
     "java.project.sourcePaths": [
+        "src/test/java/",
         "src/main/java",
         "src/main/resources",
         "src/main/test"
