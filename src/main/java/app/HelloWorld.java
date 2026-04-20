@@ -20,13 +20,14 @@ public class HelloWorld extends Application {
     public static Label task1;
     public static Label task2;
     public static Label task3;
-    canvas.setId("gameCanvas");
+    // canvas.setId("gameCanvas");
 
     @Override
     public void start(Stage stage) {
 
         AnchorPane root = new AnchorPane();
         Canvas bgCanvas = new Canvas(800, 600);
+        bgCanvas.setId("gameCanvas");
         GraphicsContext gc = bgCanvas.getGraphicsContext2D();
         Sprite bgSprite = new Sprite("/hallway_background.png", 1, 1, 1);
         bgSprite.setPosition(0, 0);
