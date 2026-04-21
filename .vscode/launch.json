@@ -20,7 +20,7 @@
         },
         {
             "type": "java",
-            "name": "Main",
+            "name": "Run Jar File",
             "request": "launch",
             "mainClass": "app.HelloWorld",
             "classPaths": [

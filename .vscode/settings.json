@@ -8,7 +8,6 @@
         "src/test/java/",
         "src/main/java",
         "src/main/resources",
-        "src/main/test"
     ],
     "java.debug.settings.vmArgs": "--enable-native-access=javafx.graphics",
 }
