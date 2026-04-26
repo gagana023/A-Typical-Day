@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -75,8 +76,7 @@ public class HelloWorld extends Application {
         taskBar.setStyle("-fx-background-color: rgba(0,0,0,0.8); -fx-padding: 10;");
         Label title = new Label("Tasks");
 
-
-
+        
         title.setTextFill(Color.WHITE);
         task1 = new Label();
         task2 = new Label();
@@ -109,6 +109,7 @@ public class HelloWorld extends Application {
 
         topL.setOnMouseClicked(e -> {
             Office office = new Office();
+            topL.setId("topLeft");
             Scene officeScene = new Scene(office.getRoot(stage), 800, 600);
             stage.setScene(officeScene);
         });

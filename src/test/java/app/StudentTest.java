@@ -14,13 +14,6 @@ import org.testfx.api.FxAssert;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.matcher.base.WindowMatchers;
 
-/**
- * TODO: Replace the test code in this file with your own tests
- *
- * <p>You can use the test code in this file as a starting point, but you should feel free to modify
- * it as needed to test your own code. You can also add more test methods to this class to test
- * different aspects of your game. See the example rubric for what tests you should be writing here.
- */
 public class StudentTest extends ApplicationTest {
 
   private HelloWorld game;
@@ -40,23 +33,24 @@ public class StudentTest extends ApplicationTest {
     verifyThat("#gameCanvas", isVisible());
   }
 
-  // @Test
-  // public void clickingRelativeLocation_ShouldShowDialog() {
-  //   // 1. Move to the node, then move by a specific offset (x: 10, y: 10 from center)
-  //   // By default, clickOn targets the center of the node.
-  //   moveTo(
-  //       point("#gameCanvas")
-  //           .atPosition(Pos.TOP_LEFT)); // default is center, so we move to top-left first
-  //   moveBy(110, 110);
-  //   clickOn();
+  @Test
+  public void clickingRelativeLocation_ShouldChangePanes() {
+    // 1. Move to the node, then move by a specific offset (x: 10, y: 10 from center)
+    // By default, clickOn targets the center of the node.
+    moveTo(
+        point("#gameCanvas")
+            .atPosition(Pos.TOP_LEFT)); // default is center, so we move to top-left first
+    moveBy(110, 110);
+    clickOn();
+    sleep(10000);
+    // 2. Verify the Alert window is actually visible
+    // We look for the window by its title or just check if a window is focused
+    //FxAssert.verifyThat(window("Message"), WindowMatchers.isShowing());
+    FxAssert.verifyThat("#topLeft", isVisible());
 
-  //   // 2. Verify the Alert window is actually visible
-  //   // We look for the window by its title or just check if a window is focused
-  //   FxAssert.verifyThat(window("Message"), WindowMatchers.isShowing());
-
-  //   // 3. Close the dialog to clean up the test state
-  //   clickOn("OK");
-  // }
+    // 3. Close the dialog to clean up the test state
+    //clickOn("OK");
+  }
 
     @Test
 public void testCollisionTopLeft() {
