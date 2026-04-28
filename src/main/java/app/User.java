@@ -8,7 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-public class User extends Person{
+public class User {
     
     private double playerPosX = 350.0, playerPosY = 300.0;
     private final double SPEED = 5;

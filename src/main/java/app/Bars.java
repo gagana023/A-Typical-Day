@@ -1,5 +1,5 @@
 package app;
 
-public class Bars extends User {
+public class Bars {
     
 }
