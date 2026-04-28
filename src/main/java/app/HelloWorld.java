@@ -159,11 +159,38 @@ public class HelloWorld extends Application {
             stage.setScene(h.getHelp(stage));
         });
 
-        stage.setScene(scene);
-        stage.setTitle("Starting Position");
-        stage.show();
+        // stage.setScene(scene);
+        // stage.setTitle("Starting Position");
+        // stage.show();
 
-        user.start();
+        // user.start();
+        VBox introLayout = new VBox(20);
+        introLayout.setStyle("-fx-background-color: black; -fx-alignment: center;");
+
+        Label story = new Label(
+            "To see what it is like for someone with special needs to make it through a day of school\n\n" +
+            "Four doors stand before you.\n" +
+            "Each one holds a task.\n\n" +
+            "Complete your tasks before time runs out."
+        );
+        story.setTextFill(Color.WHITE);
+        story.setStyle("-fx-font-size: 18px; -fx-text-alignment: center;");
+
+        Button nextBtn = new Button("Next");
+
+        nextBtn.setOnAction(e -> {
+            stage.setScene(scene); 
+            user.start();
+            scene.getRoot().requestFocus();
+        });
+
+        introLayout.getChildren().addAll(story, nextBtn);
+
+        Scene introScene = new Scene(introLayout, 800, 600);
+
+        stage.setScene(introScene);
+        stage.setTitle("Story Intro");
+        stage.show();
         scene.getRoot().requestFocus();
 
         root.getChildren().addAll(bgCanvas, topL, topR, botL, botR, user.getInAddAllForm(), stats, help, taskBar, toggle, topStatsMenu);
