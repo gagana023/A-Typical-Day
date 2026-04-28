@@ -86,6 +86,7 @@ public class Library extends JoinGroupHere{
 
         AnchorPane.setTopAnchor(option3, 300.0);
         AnchorPane.setLeftAnchor(option3, 300.0);
+        
 
       back.setOnAction(e ->{
             stage.setScene(HelloWorld.scene);
