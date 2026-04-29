@@ -1,18 +1,15 @@
 package app;
 
 import javafx.animation.FadeTransition;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.util.List;
-import java.util.Random;
 
 
 public class Cafeteria extends JoinGroupHere{

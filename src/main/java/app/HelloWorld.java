@@ -4,14 +4,11 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class HelloWorld extends Application {
@@ -164,38 +161,25 @@ public class HelloWorld extends Application {
         // stage.show();
 
         // user.start();
-        VBox introLayout = new VBox(20);
-        introLayout.setStyle("-fx-background-color: black; -fx-alignment: center;");
-
-        Label story = new Label(
-            "To see what it is like for someone with special needs to make it through a day of school\n\n" +
-            "Four doors stand before you.\n" +
-            "Each one holds a task.\n\n" +
-            "Complete your tasks before time runs out."
-        );
-        story.setTextFill(Color.WHITE);
-        story.setStyle("-fx-font-size: 18px; -fx-text-alignment: center;");
-
-        Button nextBtn = new Button("Next");
-
-        nextBtn.setOnAction(e -> {
-            stage.setScene(scene); 
-            user.start();
-            scene.getRoot().requestFocus();
-        });
-
-        introLayout.getChildren().addAll(story, nextBtn);
-
-        Scene introScene = new Scene(introLayout, 800, 600);
+        StoryIntro intro = new StoryIntro();
+        Scene introScene = intro.build(stage, null, null);
 
         stage.setScene(introScene);
-        stage.setTitle("Story Intro");
+        stage.setTitle("ATypical Day");
         stage.show();
-        scene.getRoot().requestFocus();
 
-        root.getChildren().addAll(bgCanvas, topL, topR, botL, botR, user.getInAddAllForm(), stats, help, taskBar, toggle, topStatsMenu);
+        introScene.setOnMouseClicked(e ->
+            {
+                scene = new Scene(root, 800, 600);
+                root.getChildren().addAll(bgCanvas, topL, topR, botL, botR, user.getInAddAllForm(), stats, help, taskBar, toggle, topStatsMenu);
+            }
+        );
 
     }
+
+    /*
+
+    */
 
     public static void main(String[] args) {
         launch();
