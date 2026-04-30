@@ -26,11 +26,7 @@ public class HelloWorld extends Application {
         AnchorPane root = new AnchorPane();
         Canvas bgCanvas = new Canvas(800, 600);
         bgCanvas.setId("gameCanvas");
-        GraphicsContext gc = bgCanvas.getGraphicsContext2D();
-        Sprite bgSprite = new Sprite("/hallway_background.png", 1, 1, 1);
-        bgSprite.setPosition(0, 0);
-        bgSprite.setFrameSize(800, 600);
-        bgSprite.renderCurrent(gc);
+        root.setStyle("-fx-background-image: url('/hallway_background.png')");
         user = new User();
 
         //Rectangle topL = new Rectangle(size, size + 30, Color.BURLYWOOD);
@@ -156,22 +152,26 @@ public class HelloWorld extends Application {
             stage.setScene(h.getHelp(stage));
         });
 
-        // stage.setScene(scene);
-        // stage.setTitle("Starting Position");
-        // stage.show();
+        root.getChildren().addAll(bgCanvas,
+            topL, topR, botL, botR,
+            user.getInAddAllForm(),
+            stats, help,
+            taskBar, toggle,
+            topStatsMenu
+        );
 
-        // user.start();
         StoryIntro intro = new StoryIntro();
-        Scene introScene = intro.build(stage, null, null);
+        Scene introScene = intro.build(stage, scene, user);
 
         stage.setScene(introScene);
         stage.setTitle("ATypical Day");
         stage.show();
-
+        intro.play();
+        
         introScene.setOnMouseClicked(e ->
             {
-                scene = new Scene(root, 800, 600);
-                root.getChildren().addAll(bgCanvas, topL, topR, botL, botR, user.getInAddAllForm(), stats, help, taskBar, toggle, topStatsMenu);
+                stage.setScene(scene);
+                user.start();
             }
         );
 

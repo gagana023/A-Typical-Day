@@ -8,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.util.List;
-import java.util.Random;
 import javafx.animation.FadeTransition;
 import javafx.util.Duration;
 
