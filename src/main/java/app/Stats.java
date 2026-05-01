@@ -66,7 +66,7 @@ public class Stats {
         
         StackPane section1 = createSection("GAME STATS");
         StackPane section2 = createSection("Tasks");
-        StackPane section3 = createBarSection("Health Bar");
+        StackPane section3 = createBarSection("Social Battery");
         StackPane section4 = createBarSection("Social Standing");
         StackPane section5 = createSection("Time");
 
@@ -98,12 +98,12 @@ public class Stats {
 
         Label label = new Label(text);
 
-        ProgressBar bar = new ProgressBar();
+        ProgressBar bar = new ProgressBar(0);
         bar.setPrefWidth(150);
 
         // double randomValue = rand.nextDouble();
         // bar.setProgress(randomValue);
-        if(text.equals("Health Bar")){
+        if(text.equals("Social Battery")){
             bar.setProgress(HelloWorld.user.getHealth());
         }
         else if(text.equals("Social Standing")){

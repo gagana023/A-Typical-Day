@@ -159,26 +159,29 @@ public class User {
     
 
     public void changeStats(int optionType) {
-        System.out.println("Health: " + health + " Social: " + social);
+        System.out.println("Before - Health: " + health + " Social: " + social);
+
         switch (optionType) {
-            
             case 1:
-                social += 0.1;
-                health -= 0.05;
-                break;
-            case 2:
-                social -= 0.05;
-                health -= 0.05;
-                break;
-            case 3:
-                social -= 0.1;
                 health -= 0.1;
+                social += 0.1;
+                break;
+
+            case 2:
+                health += 0.1;
+                social -= 0.1;
+                break;
+
+            case 3:
+                health -= 0.1;
+                social -= 0.1;
                 break;
         }
 
-        // clamp values between 0 and 1
         health = Math.max(0, Math.min(1, health));
         social = Math.max(0, Math.min(1, social));
+
+        System.out.println("After - Health: " + health + " Social: " + social);
     }
 
     public double getHealth() {
