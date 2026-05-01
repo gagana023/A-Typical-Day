@@ -3,7 +3,7 @@ package app;
 import java.util.List;
 import java.util.Map;
 
-public class DialogueEngine {
+public class UserDialogueEngine {
 
     public enum Room {
         OFFICE,
