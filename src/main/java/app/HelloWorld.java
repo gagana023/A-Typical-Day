@@ -22,6 +22,7 @@ public class HelloWorld extends Application {
     @Override
     public void start(Stage stage) {
 
+        Tasks.chooseRandomTasks(3);
         AnchorPane root = new AnchorPane();
         Canvas bgCanvas = new Canvas(800, 600);
         bgCanvas.setId("gameCanvas");
@@ -184,34 +185,26 @@ public class HelloWorld extends Application {
         launch();
     }
 
-    public static void updateTasks(Label t1, Label t2) {
-        t1.setText("Go to Office (top left room) and ask for extension");
-        //t1.setStrikethrough(Tasks.officeTaskDone);
-        t1.setStyle(Tasks.officeTaskDone ? "-fx-strikethrough: true;" : "");
-    }
-
     public static void updateTasks(Label t1, Label t2, Label t3) {
-        t1.setText("Go to Office and ask for extension");
-        t1.setStyle(Tasks.officeTaskDone 
-        ? "-fx-strikethrough: true; -fx-text-fill: gray;" 
-        : "-fx-strikethrough: false; -fx-text-fill: white;");
+    Label[] labels = {t1, t2, t3};
 
-        t2.setText("Go to Classroom and turn in homework");
-        t2.setStyle(Tasks.classroomTaskDone 
-        ? "-fx-strikethrough: true; -fx-text-fill: gray;" 
-        : "-fx-strikethrough: false; -fx-text-fill: white;");
+    for (int i = 0; i < labels.length; i++) {
+        if (i < Tasks.getActiveTasks().size()) {
+            Tasks.Task task = Tasks.getActiveTasks().get(i);
 
-        if (Tasks.officeTaskDone) {
-            t1.setTextFill(Color.GRAY);
+            labels[i].setText(task.getDescription());
+
+            if (task.isDone()) {
+                labels[i].setStyle("-fx-strikethrough: true; -fx-text-fill: gray;");
+                labels[i].setTextFill(Color.GRAY);
+            } else {
+                labels[i].setStyle("-fx-strikethrough: false; -fx-text-fill: white;");
+                labels[i].setTextFill(Color.WHITE);
+            }
         } else {
-            t1.setTextFill(Color.WHITE);
-        }
-
-         if (Tasks.classroomTaskDone) {
-             t2.setTextFill(Color.GRAY);
-         } else {
-             t2.setTextFill(Color.WHITE);
+            labels[i].setText("");
         }
     }
+}
     
 }

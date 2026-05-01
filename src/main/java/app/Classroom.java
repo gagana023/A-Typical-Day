@@ -8,6 +8,8 @@ import javafx.scene.text.Text;
 import javafx.animation.FadeTransition;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import javafx.util.Duration;
@@ -20,6 +22,17 @@ public class Classroom extends Room {
     public AnchorPane getRoot(Stage stage) {
 
         AnchorPane root = new AnchorPane();
+
+        Image cafeteriaImg = new Image(getClass().getResource("/classroom.jpg").toExternalForm());
+        ImageView background = new ImageView(cafeteriaImg);
+
+        background.setFitWidth(800);
+        background.setFitHeight(600);
+        background.setPreserveRatio(false);
+
+        root.getChildren().add(background);
+
+        
 
         Label label = new Label("Welcome to the Classroom");
         Button back = new Button("Back");
@@ -145,19 +158,19 @@ public class Classroom extends Room {
 
         option1.setOnAction(e -> {
             op1.setVisible(true);
-            Tasks.completeClassroomTask();
+            Tasks.completeTask("classroom_homework");
             HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
         });
 
         option2.setOnAction(e -> {
             op2.setVisible(true);
-            Tasks.completeClassroomTask();
+            Tasks.completeTask("classroom_homework");
             HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
         });
 
         option3.setOnAction(e -> {
             op3.setVisible(true);
-            Tasks.completeClassroomTask();
+            Tasks.completeTask("classroom_homework");
             HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
         });
 
@@ -178,20 +191,13 @@ public class Classroom extends Room {
         });
 
         root.getChildren().addAll(
-                label,
-                back,
-                blackBoard,
-                mathProblem,
-                desk,
-                leg1,
-                leg2,
-                leg3,
-                leg4,
-                classmate,
-                teacher,
-                option1,
-                option2, 
-                option3, op1, op2, op3
+        back,
+        option1,
+        option2,
+        option3,
+        op1,
+        op2,
+        op3
         );
 
         return root;

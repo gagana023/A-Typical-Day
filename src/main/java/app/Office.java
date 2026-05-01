@@ -7,6 +7,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -18,6 +20,15 @@ public class Office extends Room {
     public AnchorPane getRoot(Stage stage) {
 
         AnchorPane root = new AnchorPane();
+
+        Image cafeteriaImg = new Image(getClass().getResource("/office-image.jpg").toExternalForm());
+        ImageView background = new ImageView(cafeteriaImg);
+
+        background.setFitWidth(800);
+        background.setFitHeight(600);
+        background.setPreserveRatio(false);
+
+        root.getChildren().add(background);
 
         Label label = new Label("Welcome to the Office");
         Button back = new Button("Back");
@@ -141,19 +152,19 @@ public class Office extends Room {
 
         option1.setOnAction(e -> {
             op1.setVisible(true);
-            Tasks.completeOfficeTask();
+            Tasks.completeTask("office_extension");
             HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
         });
 
         option2.setOnAction(e -> {
             op2.setVisible(true);
-            Tasks.completeOfficeTask();
+            Tasks.completeTask("office_extension");
             HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
         });
 
         option3.setOnAction(e -> {
             op3.setVisible(true);
-            Tasks.completeOfficeTask();
+            Tasks.completeTask("office_extension");
             HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);        
         });
         AnchorPane.setTopAnchor(option1, 200.0);
@@ -172,18 +183,37 @@ public class Office extends Room {
             HelloWorld.user.resume(HelloWorld.scene);
             HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
         });
+        // root.getChildren().addAll(
+        //         label,
+        //         back,
+        //         desk,
+        //         leg1,
+        //         leg2,
+        //         leg3,
+        //         leg4,
+        //         monitor,
+        //         stand,
+        //         base,
+        //         registrar,
+        //         npc,
+        //         option1,
+        //         option2,
+        //         option3, 
+        //         op1, op2, op3
+        // );
+
         root.getChildren().addAll(
                 label,
                 back,
-                desk,
-                leg1,
-                leg2,
-                leg3,
-                leg4,
-                monitor,
-                stand,
-                base,
-                registrar,
+                // desk,
+                // leg1,
+                // leg2,
+                // leg3,
+                // leg4,
+                // monitor,
+                // stand,
+                // base,
+                // registrar,
                 npc,
                 option1,
                 option2,

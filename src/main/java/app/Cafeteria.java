@@ -3,6 +3,8 @@ package app;
 import javafx.animation.FadeTransition;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -18,19 +20,20 @@ import java.util.List;
 public class Cafeteria extends JoinGroupHere{
    public Scene buildPrototypeCafeteria(Stage stage) {
        AnchorPane root = new AnchorPane();
+
+
+        Image cafeteriaImg = new Image(getClass().getResource("/cafeteria.jpg").toExternalForm());
+        ImageView background = new ImageView(cafeteriaImg);
+
+        background.setFitWidth(800);
+        background.setFitHeight(600);
+        background.setPreserveRatio(false);
+
+        root.getChildren().add(background);
+
+
        stage.setTitle("Cafeteria");
-       Line l1 = new Line(0, 0, 150, 50);
-       Line l2 = new Line(800, 0, 650, 50);
-       Line l3 = new Line(0, 450, 150, 400);
-       Line l4 = new Line(800, 450, 650, 400);
-       Line l5 = new Line(150, 50, 650, 50);
-       Line l6 = new Line(150, 50, 150, 400);
-       Line l7 = new Line(650, 50, 650, 400);
-       Line l8 = new Line(650, 400, 150, 400);
-       Rectangle table1 = new Rectangle(25, 450, 200, 50);
-       Rectangle tableLegs1 = new Rectangle(115, 450, 20, 75);
-       Rectangle table2 = new Rectangle(375, 400, 200, 50);
-       Rectangle tableLegs2 = new Rectangle(465, 400, 20, 75);
+       
        Button back = new Button("Back");
        back.setLayoutX(20);
        back.setLayoutY(20);
@@ -106,7 +109,7 @@ public class Cafeteria extends JoinGroupHere{
                 System.out.println("Clicked option 1"); // DEBUG
             op1.setVisible(true);
             HelloWorld.user.changeStats(1);
-            Tasks.completeOfficeTask();
+            Tasks.completeTask("cafeteria_lunch");
             HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
             //stage.setScene(new Stats().buildPrototypeHomeAndStats(stage));
         });
@@ -114,7 +117,7 @@ public class Cafeteria extends JoinGroupHere{
         option2.setOnAction(e -> {
             op2.setVisible(true);
             HelloWorld.user.changeStats(2);
-            Tasks.completeOfficeTask();
+            Tasks.completeTask("cafeteria_lunch");
             HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
             //stage.setScene(new Stats().buildPrototypeHomeAndStats(stage));
         });
@@ -122,7 +125,7 @@ public class Cafeteria extends JoinGroupHere{
         option3.setOnAction(e -> {
             op3.setVisible(true);
             HelloWorld.user.changeStats(3);
-            Tasks.completeOfficeTask();
+            Tasks.completeTask("cafeteria_lunch");
             HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3); 
             //stage.setScene(new Stats().buildPrototypeHomeAndStats(stage));
         });
@@ -143,8 +146,7 @@ public class Cafeteria extends JoinGroupHere{
             HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
         });
 
-       root.getChildren().addAll(l1, l2, l3, l4, l5, l6, l7, l8, table1, tableLegs1, table2, tableLegs2, back, npc, option1, option2, option3, op1, op2, op3);       
-
+        root.getChildren().addAll(back, npc, option1, option2, option3, op1, op2, op3);
        return new Scene(root, 800, 600);
    }
 
