@@ -98,6 +98,22 @@ public class Office extends Room {
         Button option1 = new Button(options.get(0));
         Button option2 = new Button(options.get(1));
         Button option3 = new Button(options.get(2));
+
+        option1.setVisible(false);
+        option2.setVisible(false);
+        option3.setVisible(false);
+
+        Button askExtensionButton = new Button("Ask for Extension");
+        askExtensionButton.setVisible(Tasks.isTaskActive("office_extension"));
+
+        AnchorPane.setLeftAnchor(askExtensionButton, 20.0);
+        AnchorPane.setTopAnchor(askExtensionButton, 520.0);
+
+        askExtensionButton.setOnAction(e -> {
+            option1.setVisible(true);
+            option2.setVisible(true);
+            option3.setVisible(true);
+        });
         //root.getChildren().addAll(option1, option2, option3);
         Text op1Text = new Text(npcOptions.get(0));
         Text op2Text = new Text(npcOptions.get(1));
@@ -152,20 +168,41 @@ public class Office extends Room {
 
         option1.setOnAction(e -> {
             op1.setVisible(true);
+
             Tasks.completeTask("office_extension");
+
+            option1.setVisible(false);
+            option2.setVisible(false);
+            option3.setVisible(false);
+            askExtensionButton.setVisible(false);
+
             HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
         });
 
         option2.setOnAction(e -> {
             op2.setVisible(true);
+
             Tasks.completeTask("office_extension");
+
+            option1.setVisible(false);
+            option2.setVisible(false);
+            option3.setVisible(false);
+            askExtensionButton.setVisible(false);
+
             HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
         });
 
         option3.setOnAction(e -> {
             op3.setVisible(true);
+
             Tasks.completeTask("office_extension");
-            HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);        
+
+            option1.setVisible(false);
+            option2.setVisible(false);
+            option3.setVisible(false);
+            askExtensionButton.setVisible(false);
+
+            HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
         });
         AnchorPane.setTopAnchor(option1, 200.0);
         AnchorPane.setLeftAnchor(option1, 300.0);
@@ -205,16 +242,9 @@ public class Office extends Room {
         root.getChildren().addAll(
                 label,
                 back,
-                // desk,
-                // leg1,
-                // leg2,
-                // leg3,
-                // leg4,
-                // monitor,
-                // stand,
-                // base,
-                // registrar,
+                
                 npc,
+                askExtensionButton,
                 option1,
                 option2,
                 option3, 

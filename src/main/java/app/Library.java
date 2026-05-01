@@ -27,36 +27,47 @@ public class Library extends JoinGroupHere{
 
         background.setFitWidth(800);
         background.setFitHeight(600);
-        background.setPreserveRatio(false);
+        background.setPreserveRatio(false);// Invisible clickable bookshelf area: left half of the screen
+Rectangle bookshelfClickArea = new Rectangle(400, 600);
+bookshelfClickArea.setFill(Color.TRANSPARENT);
+bookshelfClickArea.setStroke(Color.TRANSPARENT);
 
-        root.getChildren().add(background);
+AnchorPane.setLeftAnchor(bookshelfClickArea, 0.0);
+AnchorPane.setTopAnchor(bookshelfClickArea, 0.0);
+
+// Checkout button starts hidden
+Button checkoutButton = new Button("Checkout");
+checkoutButton.setVisible(false);
+
+AnchorPane.setLeftAnchor(checkoutButton, 430.0);
+AnchorPane.setTopAnchor(checkoutButton, 280.0);
+
+// When player clicks left half/bookshelf, show Checkout only if this task is active
+bookshelfClickArea.setOnMouseClicked(e -> {
+    if (Tasks.isTaskActive("library_book")) {
+        checkoutButton.setVisible(true);
+    }
+});
+
+// When player clicks Checkout, complete the task
+checkoutButton.setOnAction(e -> {
+    Tasks.completeTask("library_book");
+    checkoutButton.setVisible(false);
+    HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+});
+
+
+
+        root.getChildren().addAll(background);
 
 
 
       stage.setTitle("Library");
-      Line l1 = new Line(0, 100, 300, 150);
-      Line l2 = new Line(800, 100, 300, 150);
-      Line l3 = new Line(0, 500, 300, 450);
-      Line l4 = new Line(800, 500, 300, 450);
-      Line l5 = new Line(300, 150, 300, 450);
-      Ellipse table = new Ellipse(250, 450, 100, 50);
-      Rectangle tableLegs = new Rectangle(225, 450, 50, 75);
       Button back = new Button("Back");
       back.setLayoutX(20);
       back.setLayoutY(20);
 
       NPC npc = new NPC("/student_sprite.png");
-      // Random rand = new Random();
-      //   double minX = 100;
-      //   double maxX = 700;
-      //   double minY = 150;
-      //   double maxY = 500;
-
-      //   double randomX = minX + rand.nextDouble() * (maxX - minX);
-      //   double randomY = minY + rand.nextDouble() * (maxY - minY);
-      //   npc.setPosition(randomX,randomY);
-      //   AnchorPane.setLeftAnchor(npc, randomX);
-      //   AnchorPane.setTopAnchor(npc, randomY);
 
       npc.setPosition(320, 310);
         AnchorPane.setLeftAnchor(npc, 320.0);
@@ -68,6 +79,26 @@ public class Library extends JoinGroupHere{
         Button option1 = new Button(options.get(0));
         Button option2 = new Button(options.get(1));
         Button option3 = new Button(options.get(2));
+
+        option1.setVisible(false);
+        option2.setVisible(false);
+        option3.setVisible(false);
+        Rectangle studyClickArea = new Rectangle(250, 180);
+        studyClickArea.setFill(Color.TRANSPARENT);
+        studyClickArea.setStroke(Color.TRANSPARENT);
+
+        AnchorPane.setLeftAnchor(studyClickArea, 250.0);
+        AnchorPane.setTopAnchor(studyClickArea, 340.0);
+
+        studyClickArea.setOnMouseClicked(e -> {
+            if (Tasks.isTaskActive("library_study")) {
+                option1.setVisible(true);
+                option2.setVisible(true);
+                option3.setVisible(true);
+            }
+        });
+
+
         //root.getChildren().addAll(option1, option2, option3);
         Text op1Text = new Text(npcOptions.get(0));
         Text op2Text = new Text(npcOptions.get(1));
@@ -123,18 +154,27 @@ public class Library extends JoinGroupHere{
         option1.setOnAction(e -> {
             op1.setVisible(true);
             Tasks.completeTask("library_study");
-HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+            option1.setVisible(false);
+            option2.setVisible(false);
+            option3.setVisible(false);
+            HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
         });
 
         option2.setOnAction(e -> {
             op2.setVisible(true);
             Tasks.completeTask("library_study");
-HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+            option1.setVisible(false);
+            option2.setVisible(false);
+            option3.setVisible(false);
+            HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
         });
 
         option3.setOnAction(e -> {
             op3.setVisible(true);
             Tasks.completeTask("library_study");
+            option1.setVisible(false);
+            option2.setVisible(false);
+            option3.setVisible(false);
             HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
         });
 
@@ -156,7 +196,7 @@ HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
       });
         
     //   root.getChildren().addAll(l1, l2, l3, l4, l5, table, tableLegs, back, npc, option1, option2, option3, op1, op2, op3);
-      root.getChildren().addAll(back, npc, option1, option2, option3, op1, op2, op3);
+      root.getChildren().addAll(bookshelfClickArea, studyClickArea, back, npc, option1, option2, option3, op1, op2, op3, checkoutButton);
       
       return new Scene(root, 800, 600);
    }

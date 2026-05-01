@@ -39,30 +39,56 @@ public class Tasks {
 
     static {
         allTasks.add(new Task("office_extension", "Go to Office and ask for an extension"));
-        allTasks.add(new Task("classroom_homework", "Go to Classroom and turn in homework"));
-        allTasks.add(new Task("cafeteria_lunch", "Go to Cafeteria and ask for lunch"));
+        allTasks.add(new Task("classroom_homework", "Go to Classroom and turn in your late homework"));
         allTasks.add(new Task("library_study", "Go to Library and join a study group"));
-        allTasks.add(new Task("office_schedule", "Go to Office and ask about your schedule"));
         allTasks.add(new Task("classroom_problem", "Go to Classroom and solve the board problem"));
         allTasks.add(new Task("cafeteria_friend", "Go to Cafeteria and talk to a student"));
         allTasks.add(new Task("library_book", "Go to Library and find a book"));
     }
 
     public static void chooseRandomTasks(int amount) {
-        activeTasks.clear();
+    activeTasks.clear();
 
-        List<Task> shuffledTasks = new ArrayList<>();
+    List<Task> shuffledTasks = new ArrayList<>();
 
-        for (Task task : allTasks) {
-            shuffledTasks.add(new Task(task.getId(), task.getDescription()));
+    for (Task task : allTasks) {
+        shuffledTasks.add(new Task(task.getId(), task.getDescription()));
+    }
+
+    Collections.shuffle(shuffledTasks);
+
+    for (Task task : shuffledTasks) {
+        if (activeTasks.size() >= amount) {
+            break;
         }
 
-        Collections.shuffle(shuffledTasks);
+        if (conflictsWithActiveTasks(task)) {
+            continue;
+        }
 
-        for (int i = 0; i < amount && i < shuffledTasks.size(); i++) {
-            activeTasks.add(shuffledTasks.get(i));
+        activeTasks.add(task);
+    }
+}
+
+private static boolean conflictsWithActiveTasks(Task newTask) {
+    for (Task activeTask : activeTasks) {
+        if (
+            (newTask.getId().equals("library_book") && activeTask.getId().equals("library_study")) ||
+            (newTask.getId().equals("library_study") && activeTask.getId().equals("library_book"))
+        ) {
+            return true;
+        }
+
+        if (
+            (newTask.getId().equals("classroom_homework") && activeTask.getId().equals("classroom_problem")) ||
+            (newTask.getId().equals("classroom_problem") && activeTask.getId().equals("classroom_homework"))
+        ) {
+            return true;
         }
     }
+
+    return false;
+}
 
     public static List<Task> getActiveTasks() {
         return activeTasks;

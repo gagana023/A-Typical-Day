@@ -50,6 +50,10 @@ public class Cafeteria extends JoinGroupHere{
         Button option1 = new Button(userOptions.get(0));
         Button option2 = new Button(userOptions.get(1));
         Button option3 = new Button(userOptions.get(2));
+
+        option1.setVisible(false);
+        option2.setVisible(false);
+        option3.setVisible(false);
         //root.getChildren().addAll(option1, option2, option3);
         Text op1Text = new Text(npcOptions.get(0));
         Text op2Text = new Text(npcOptions.get(1));
@@ -109,7 +113,7 @@ public class Cafeteria extends JoinGroupHere{
                 System.out.println("Clicked option 1"); // DEBUG
             op1.setVisible(true);
             HelloWorld.user.changeStats(1);
-            Tasks.completeTask("cafeteria_lunch");
+            Tasks.completeTask("cafeteria_friend");
             HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
             //stage.setScene(new Stats().buildPrototypeHomeAndStats(stage));
         });
@@ -117,7 +121,7 @@ public class Cafeteria extends JoinGroupHere{
         option2.setOnAction(e -> {
             op2.setVisible(true);
             HelloWorld.user.changeStats(2);
-            Tasks.completeTask("cafeteria_lunch");
+            Tasks.completeTask("cafeteria_friend");
             HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
             //stage.setScene(new Stats().buildPrototypeHomeAndStats(stage));
         });
@@ -125,7 +129,7 @@ public class Cafeteria extends JoinGroupHere{
         option3.setOnAction(e -> {
             op3.setVisible(true);
             HelloWorld.user.changeStats(3);
-            Tasks.completeTask("cafeteria_lunch");
+            Tasks.completeTask("cafeteria_friend");
             HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3); 
             //stage.setScene(new Stats().buildPrototypeHomeAndStats(stage));
         });
@@ -146,7 +150,22 @@ public class Cafeteria extends JoinGroupHere{
             HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
         });
 
-        root.getChildren().addAll(back, npc, option1, option2, option3, op1, op2, op3);
+        Rectangle friendClickArea = new Rectangle(250, 250);
+        friendClickArea.setFill(Color.TRANSPARENT);
+        friendClickArea.setStroke(Color.TRANSPARENT);
+
+        AnchorPane.setLeftAnchor(friendClickArea, 550.0);
+        AnchorPane.setTopAnchor(friendClickArea, 350.0);
+
+        friendClickArea.setOnMouseClicked(e -> {
+            if (Tasks.isTaskActive("cafeteria_friend")) {
+                option1.setVisible(true);
+                option2.setVisible(true);
+                option3.setVisible(true);
+            }
+        });
+
+        root.getChildren().addAll(friendClickArea, back, npc, option1, option2, option3, op1, op2, op3);
        return new Scene(root, 800, 600);
    }
 
