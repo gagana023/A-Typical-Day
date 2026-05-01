@@ -1,9 +1,10 @@
 package app;
 
 import static org.junit.Assert.*;
+import static org.testfx.api.FxAssert.verifyThat;
+import static org.testfx.matcher.base.NodeMatchers.*;
 
 import java.util.List;
-
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -11,44 +12,38 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import org.junit.Test;
 import org.testfx.api.FxAssert;
 import org.testfx.framework.junit.ApplicationTest;
 
-import static org.testfx.api.FxAssert.verifyThat;
-import static org.testfx.matcher.base.NodeMatchers.*;
-
 public class StudentTest extends ApplicationTest {
 
-private HelloWorld game;
+  private HelloWorld game;
 
-@Override
-public void start(Stage stage) throws Exception {
+  @Override
+  public void start(Stage stage) throws Exception {
     game = new HelloWorld();
     game.start(stage);
-}
+  }
 
-
-@Test
-public void testCanvasIsVisible() {
+  @Test
+  public void testCanvasIsVisible() {
     verifyThat("#gameCanvas", isNotNull());
     verifyThat("#gameCanvas", isVisible());
-}
+  }
 
-@Test
-public void clickingRelativeLocation_ShouldChangePanes() {
+  @Test
+  public void clickingRelativeLocation_ShouldChangePanes() {
     moveTo(point("#gameCanvas").atPosition(Pos.TOP_LEFT));
     moveBy(110, 110);
     clickOn();
     sleep(2000);
 
     FxAssert.verifyThat("#topLeft", isVisible());
-}
+  }
 
-
-@Test
-public void completeTaskMarksDone() {
+  @Test
+  public void completeTaskMarksDone() {
     Tasks.chooseRandomTasks(3);
 
     List<Tasks.Task> tasks = Tasks.getActiveTasks();
@@ -58,14 +53,14 @@ public void completeTaskMarksDone() {
 
     Tasks.completeTask(id);
 
-    boolean done = Tasks.getActiveTasks().stream()
-            .anyMatch(t -> t.getId().equals(id) && t.isDone());
+    boolean done =
+        Tasks.getActiveTasks().stream().anyMatch(t -> t.getId().equals(id) && t.isDone());
 
     assertTrue(done);
-}
+  }
 
-@Test
-public void updateTasksStrikethrough() {
+  @Test
+  public void updateTasksStrikethrough() {
     Tasks.chooseRandomTasks(3);
 
     Label t1 = new Label();
@@ -77,10 +72,10 @@ public void updateTasksStrikethrough() {
     HelloWorld.updateTasks(t1, t2, t3);
 
     assertTrue(t1.getStyle().contains("strikethrough"));
-}
+  }
 
-@Test
-public void updateTasksNoStrikethrough() {
+  @Test
+  public void updateTasksNoStrikethrough() {
     Tasks.chooseRandomTasks(3);
 
     Label t1 = new Label();
@@ -90,11 +85,10 @@ public void updateTasksNoStrikethrough() {
     HelloWorld.updateTasks(t1, t2, t3);
 
     assertTrue(t1.getStyle().contains("false"));
-}
+  }
 
-
-@Test
-public void spriteLoads() {
+  @Test
+  public void spriteLoads() {
     Sprite sprite = new Sprite("/walk-front.png", 4, 3, 12);
     assertEquals(12, sprite.getSpriteCount());
 
@@ -103,63 +97,65 @@ public void spriteLoads() {
 
     sprite = new Sprite("/student_sprite.png", 1, 1, 1);
     assertEquals(1, sprite.getSpriteCount());
-}
+  }
 
-@Test
-public void invalidSpriteThrow() {
-    assertThrows(IllegalArgumentException.class, () -> {
-        new Sprite("/walk-right.png", 0, 0, 0);
-    });
-}
+  @Test
+  public void invalidSpriteThrow() {
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> {
+          new Sprite("/walk-right.png", 0, 0, 0);
+        });
+  }
 
-@Test
-public void officeSceneBuilds() {
+  @Test
+  public void officeSceneBuilds() {
     Office office = new Office();
     AnchorPane root = office.getRoot(new Stage());
     assertNotNull(root);
-}
+  }
 
-@Test
-public void allUserDialogueExists() {
+  @Test
+  public void allUserDialogueExists() {
     for (UserDialogueEngine.Room room : UserDialogueEngine.Room.values()) {
-        assertEquals(3, UserDialogueEngine.getOptions(room).size());
+      assertEquals(3, UserDialogueEngine.getOptions(room).size());
     }
-}
+  }
 
-@Test
-public void changeSocialStats() {
+  @Test
+  public void changeSocialStats() {
     User user = new User();
     double before = user.getSocial();
 
     user.changeStats(1);
 
     assertTrue(user.getSocial() > before);
-}
+  }
 
-@Test
-public void statsClampedMax() {
+  @Test
+  public void statsClampedMax() {
     User user = new User();
 
     for (int i = 0; i < 50; i++) {
-        user.changeStats(1);
+      user.changeStats(1);
     }
 
     assertTrue(user.getSocial() <= 1);
-}
+  }
 
-@Test
-public void statsClampedMin() {
+  @Test
+  public void statsClampedMin() {
     User user = new User();
 
     for (int i = 0; i < 50; i++) {
-        user.changeStats(3);
+      user.changeStats(3);
     }
 
     assertTrue(user.getHealth() >= 0);
-}
+  }
 
-@Test
-public void stayInBounds() {
+  @Test
+  public void stayInBounds() {
     User user = new User();
     Scene scene = new Scene(new AnchorPane(), 800, 600);
 
@@ -167,19 +163,19 @@ public void stayInBounds() {
     user.stayInBoundaries(scene);
 
     assertTrue(user.getHealth() <= 1);
-}
+  }
 
-@Test
-public void npcPositionSet() {
+  @Test
+  public void npcPositionSet() {
     NPC npc = new NPC("/student_sprite.png");
     npc.setPosition(200, 300);
 
     assertEquals(200, npc.getLayoutX());
     assertEquals(300, npc.getLayoutY());
-}
+  }
 
-@Test
-public void collisionDetected() {
+  @Test
+  public void collisionDetected() {
     User user = new User();
     NPC npc = new NPC("/student_sprite.png");
 
@@ -192,10 +188,10 @@ public void collisionDetected() {
     user.setCoordinates(350, 300);
 
     assertTrue(user.isColliding(npc));
-}
+  }
 
-@Test
-public void noCollisionWhenFar() {
+  @Test
+  public void noCollisionWhenFar() {
     User user = new User();
     NPC npc = new NPC("/student_sprite.png");
 
@@ -205,57 +201,60 @@ public void noCollisionWhenFar() {
     user.setCoordinates(700, 500);
 
     assertFalse(user.isColliding(npc));
-}
+  }
 
-@Test
-public void collisionHandlesNullAnchors() {
+  @Test
+  public void collisionHandlesNullAnchors() {
     User user = new User();
     NPC npc = new NPC("/student_sprite.png");
 
     try {
-        user.isColliding(npc);
+      user.isColliding(npc);
     } catch (Exception e) {
-        fail("Method threw exception: " + e.getMessage());
+      fail("Method threw exception: " + e.getMessage());
     }
-}
+  }
 
-@Test
-public void animationSequenceSet() {
+  @Test
+  public void animationSequenceSet() {
     Sprite sprite = new Sprite("/walk-right.png", 3, 4, 12);
 
-    sprite.setAnimationSequence(List.of(0,1,2));
+    sprite.setAnimationSequence(List.of(0, 1, 2));
 
     assertEquals(12, sprite.getSpriteCount());
-}
+  }
 
-@Test
-public void invalidAnimationSequenceThrows() {
+  @Test
+  public void invalidAnimationSequenceThrows() {
     Sprite sprite = new Sprite("/walk-left.png", 3, 4, 12);
 
-    assertThrows(IllegalArgumentException.class, () -> {
-        sprite.setAnimationSequence(List.of(100));
-    });
-}
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> {
+          sprite.setAnimationSequence(List.of(100));
+        });
+  }
 
-@Test
-public void nextFrameCycles() {
+  @Test
+  public void nextFrameCycles() {
     Sprite sprite = new Sprite("/walk-back.png", 3, 4, 12);
 
     sprite.nextFrame();
     sprite.nextFrame();
 
     assertNotNull(sprite);
-}
+  }
 
-@Test
-public void renderInvalidIndexThrows() {
+  @Test
+  public void renderInvalidIndexThrows() {
     Sprite sprite = new Sprite("/teacher_sprite.png", 1, 1, 1);
 
     GraphicsContext gc = new Canvas().getGraphicsContext2D();
 
-    assertThrows(IllegalArgumentException.class, () -> {
-        sprite.render(gc, 100, 0, 0, 50, 50);
-    });
-}
-
+    assertThrows(
+        IllegalArgumentException.class,
+        () -> {
+          sprite.render(gc, 100, 0, 0, 50, 50);
+        });
+  }
 }

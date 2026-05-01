@@ -30,7 +30,7 @@ package app;
 // //        assertTrue(u.isColliding(botL));
 //         u.setCoordinates(550, 400);
 // //        assertTrue(u.isColliding(botR));
-        
+
 //     }
 
 // }

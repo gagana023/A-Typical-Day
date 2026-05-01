@@ -1,5 +1,3 @@
 package app;
 
-public @interface Test {
-
-}
+public @interface Test {}

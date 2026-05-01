@@ -1,5 +1,3 @@
 package app;
 
-public class TasksList{
-    
-}
+public class TasksList {}

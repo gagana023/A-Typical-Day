@@ -1,5 +1,3 @@
 package app;
 
-public class Bars {
-    
-}
+public class Bars {}

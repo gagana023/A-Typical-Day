@@ -1,5 +1,3 @@
 package app;
 
-public class Menu extends MenuScreen{
-    
-}
+public class Menu extends MenuScreen {}

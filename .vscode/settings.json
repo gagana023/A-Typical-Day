@@ -10,4 +10,27 @@
         "src/main/resources",
     ],
     "java.debug.settings.vmArgs": "--enable-native-access=javafx.graphics",
+
+    "java.server.launchMode": "Standard",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "/workspaces/javafx/javafx-sdk-current/lib/*.jar",
+    ],
+    "java.project.sourcePaths": [
+        "src/test/java/",
+        "src/main/java",
+        "src/main/resources",
+    ],
+    "java.debug.settings.vmArgs": "--enable-native-access=javafx.graphics",
+
+    "java.format.settings.url": 
+        "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
+    "java.format.settings.profile": "GoogleStyle",
+    "[java]": {
+        "editor.defaultFormatter": "josevseb.google-java-format-for-vs-code",
+        "editor.formatOnSave": true,
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2
+    }
+
 }

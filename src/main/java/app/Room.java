@@ -1,4 +1,3 @@
 package app;
-public class Room {
-    
-}
+
+public class Room {}
