@@ -94,25 +94,6 @@ public class Office extends Room {
           HelloWorld.user.resume(HelloWorld.scene);
           HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
         });
-    // root.getChildren().addAll(
-    //         label,
-    //         back,
-    //         desk,
-    //         leg1,
-    //         leg2,
-    //         leg3,
-    //         leg4,
-    //         monitor,
-    //         stand,
-    //         base,
-    //         registrar,
-    //         npc,
-    //         option1,
-    //         option2,
-    //         option3,
-    //         op1, op2, op3
-    // );
-
     root.getChildren().addAll(label, back, npc, askExtensionButton);
 
     dialogue.addToRoot(root);

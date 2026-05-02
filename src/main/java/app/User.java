@@ -116,7 +116,15 @@ public class User {
         };
   }
 
-
+  /**
+   * Changes the user's stats based on the selected dialogue option.
+   *
+   * <p>This method updates the player's social battery and social standing, refreshes the stats
+   * bars, and returns whether the game should end.
+   *
+   * @param optionType the selected dialogue option number
+   * @return true if the stat change causes a game-over condition, false otherwise
+   */
   public boolean changeStats(int optionType) {
     System.out.println("Stats Changed");
     boolean over = stats.changeStats(optionType);
