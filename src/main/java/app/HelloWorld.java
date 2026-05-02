@@ -11,6 +11,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+/**
+ * Main application class for the ATypical Day JavaFX game.
+ *
+ * <p>This class creates the main hallway scene, initializes the player, doors, task display, stats
+ * menu, help menu, and story intro. It also controls switching between the main scene and the
+ * different room scenes.
+ */
 public class HelloWorld extends Application {
 
   public static Scene scene;
@@ -21,6 +28,14 @@ public class HelloWorld extends Application {
   public static ProgressBar socialBatteryBar;
   public static ProgressBar socialStandingBar;
 
+  /**
+   * Starts the JavaFX application and builds the main game scene.
+   *
+   * <p>This method initializes the player, hallway background, room doors, task bar, stats display,
+   * help button, room navigation, and story intro scene.
+   *
+   * @param stage the main stage used to display all game scenes
+   */
   @Override
   public void start(Stage stage) {
 
@@ -95,9 +110,6 @@ public class HelloWorld extends Application {
     AnchorPane.setTopAnchor(toggle, 0.0);
     AnchorPane.setRightAnchor(toggle, 10.0);
 
-    // stats.toFront();
-    // help.toFront();
-
     scene = new Scene(root, 800, 600);
 
     user.connect(scene);
@@ -110,7 +122,6 @@ public class HelloWorld extends Application {
           stage.setScene(officeScene);
         });
 
-    // doesn't work when inside setOnMouseClicked
     Library library = new Library();
 
     topR.setOnMouseClicked(e -> stage.setScene(new Scene(library.getRoot(stage), 800, 600)));
@@ -122,7 +133,6 @@ public class HelloWorld extends Application {
           stage.setScene(classroomScene);
         });
 
-    // doesn't work when inside setOnMouseClicked
     Cafeteria cafeteria = new Cafeteria();
 
     botR.setOnMouseClicked(e -> stage.setScene(new Scene(cafeteria.getRoot(stage), 800, 600)));
@@ -184,14 +194,21 @@ public class HelloWorld extends Application {
         });
   }
 
-  /*
-
-  */
-
+  /**
+   * Launches the JavaFX application.
+   *
+   * @param args the command-line arguments passed to the program
+   */
   public static void main(String[] args) {
     launch();
   }
 
+  /**
+   * Updates the social battery and social standing progress bars.
+   *
+   * <p>If the user or progress bars have not been created yet, this method safely skips updating
+   * those values.
+   */
   public static void updateStatsBars() {
     if (user == null) {
       return;
@@ -206,6 +223,16 @@ public class HelloWorld extends Application {
     }
   }
 
+  /**
+   * Updates the task labels shown in the task bar.
+   *
+   * <p>This method displays the active tasks, marks completed tasks with a strikethrough style, and
+   * clears unused task labels.
+   *
+   * @param t1 the first task label
+   * @param t2 the second task label
+   * @param t3 the third task label
+   */
   public static void updateTasks(Label t1, Label t2, Label t3) {
     Label[] labels = {t1, t2, t3};
 

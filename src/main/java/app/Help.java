@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  * <p>This pane is not animated. It is intended to be used as a "Help" tab alongside the animated
  * panes.
  */
-public class Help extends MenuScreen {
+public class Help extends VBox {
 
   private final TextArea helpArea;
 

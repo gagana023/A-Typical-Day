@@ -9,9 +9,23 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-/** Builds the cafeteria room and handles the cafeteria friend task. */
+/**
+ * Builds and manages the cafeteria room scene.
+ *
+ * <p>The cafeteria room includes a background image, a back button, an NPC friend, and a clickable
+ * area that opens dialogue options for completing the cafeteria friend task.
+ */
 public class Cafeteria extends JoinGroupHere {
-
+  /**
+   * Creates and returns the root layout for the cafeteria scene.
+   *
+   * <p>This method sets up the cafeteria background, places the NPC, creates the dialogue options,
+   * connects each dialogue option to stat changes and task completion, and adds navigation back to
+   * the main scene.
+   *
+   * @param stage the main stage used to display the cafeteria scene
+   * @return the root {@link AnchorPane} containing all cafeteria scene elements
+   */
   @Override
   public AnchorPane getRoot(Stage stage) {
     AnchorPane root = new AnchorPane();

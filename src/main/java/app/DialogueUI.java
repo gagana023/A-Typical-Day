@@ -10,6 +10,12 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
+/**
+ * Creates and manages the dialogue user interface for NPC conversations.
+ *
+ * <p>This class displays three user dialogue options and three possible NPC response bubbles. It
+ * also controls showing, hiding, fading, and assigning actions to dialogue buttons.
+ */
 public class DialogueUI {
 
   private Button option1;
@@ -20,6 +26,12 @@ public class DialogueUI {
   private StackPane response2;
   private StackPane response3;
 
+  /**
+   * Creates a dialogue interface using the given user options and NPC responses.
+   *
+   * @param userOptions the list of dialogue choices shown to the player
+   * @param npcOptions the list of NPC responses shown after a choice is selected
+   */
   public DialogueUI(List<String> userOptions, List<String> npcOptions) {
     option1 = new Button(userOptions.get(0));
     option2 = new Button(userOptions.get(1));
@@ -40,6 +52,12 @@ public class DialogueUI {
     setPositions();
   }
 
+  /**
+   * Creates a speech bubble for an NPC response.
+   *
+   * @param responseText the text displayed inside the response bubble
+   * @return a StackPane containing the response bubble and its text
+   */
   private StackPane createResponseBubble(String responseText) {
     Text text = new Text(responseText);
     text.setWrappingWidth(240);
@@ -53,6 +71,7 @@ public class DialogueUI {
     return new StackPane(box, text);
   }
 
+  /** Sets the screen positions of the dialogue options and response bubbles. */
   private void setPositions() {
     AnchorPane.setTopAnchor(response1, 100.0);
     AnchorPane.setLeftAnchor(response1, 250.0);
@@ -73,10 +92,16 @@ public class DialogueUI {
     AnchorPane.setLeftAnchor(option3, 300.0);
   }
 
+  /**
+   * Adds the dialogue buttons and response bubbles to the given root layout.
+   *
+   * @param root the AnchorPane that receives the dialogue UI elements
+   */
   public void addToRoot(AnchorPane root) {
     root.getChildren().addAll(option1, option2, option3, response1, response2, response3);
   }
 
+  /** Shows the dialogue option buttons and starts their fade animations. */
   public void showOptions() {
     option1.setOpacity(1);
     option2.setOpacity(1);
@@ -89,12 +114,18 @@ public class DialogueUI {
     startOptionFades();
   }
 
+  /** Hides all dialogue option buttons. */
   public void hideOptions() {
     option1.setVisible(false);
     option2.setVisible(false);
     option3.setVisible(false);
   }
 
+  /**
+   * Starts fade animations for each dialogue option button.
+   *
+   * <p>Each option fades at a different speed so the choices disappear gradually.
+   */
   private void startOptionFades() {
     FadeTransition fade1 = new FadeTransition(Duration.seconds(3.5), option1);
     fade1.setToValue(0);
@@ -110,6 +141,11 @@ public class DialogueUI {
     fade3.play();
   }
 
+  /**
+   * Sets the action that runs when the first dialogue option is selected.
+   *
+   * @param action the action to run after the first option is clicked
+   */
   public void setOption1Action(Runnable action) {
     option1.setOnAction(
         e -> {
@@ -119,6 +155,11 @@ public class DialogueUI {
         });
   }
 
+  /**
+   * Sets the action that runs when the second dialogue option is selected.
+   *
+   * @param action the action to run after the second option is clicked
+   */
   public void setOption2Action(Runnable action) {
     option2.setOnAction(
         e -> {
@@ -128,6 +169,11 @@ public class DialogueUI {
         });
   }
 
+  /**
+   * Sets the action that runs when the third dialogue option is selected.
+   *
+   * @param action the action to run after the third option is clicked
+   */
   public void setOption3Action(Runnable action) {
     option3.setOnAction(
         e -> {

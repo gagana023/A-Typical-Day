@@ -3,8 +3,17 @@ package app;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Stores and provides NPC dialogue responses for each room or task situation.
+ *
+ * <p>This class matches each room type to a list of possible NPC responses. These responses are
+ * used by the dialogue system after the player selects a dialogue option.
+ */
 public class NPCDialogue {
-
+  /**
+   * Represents the room or classroom task situation that determines which NPC dialogue responses
+   * should be used.
+   */
   public enum Room {
     OFFICE,
     LIBRARY,
@@ -13,6 +22,11 @@ public class NPCDialogue {
     CLASSROOM_PROBLEM
   }
 
+  /**
+   * Stores the NPC dialogue responses for each room or classroom task situation.
+   *
+   * <p>Each room maps to a list of possible responses that match the player's dialogue choices.
+   */
   private static final Map<Room, List<String>> npcDialogues =
       Map.of(
           Room.OFFICE,
@@ -43,6 +57,12 @@ public class NPCDialogue {
               "I understand. Next time, try to be more prepared before class starts.",
               "I will not force you to answer, but participation matters."));
 
+  /**
+   * Returns the NPC dialogue options for the given room or task situation.
+   *
+   * @param room the room or task situation used to choose the NPC dialogue
+   * @return the list of NPC dialogue responses for the given room
+   */
   public static List<String> getOptions(Room room) {
     return npcDialogues.getOrDefault(room, List.of("..."));
   }

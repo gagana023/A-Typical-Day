@@ -18,9 +18,27 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * Creates and plays the opening story introduction for the game.
+ *
+ * <p>The intro shows a short animated sequence, transitions to a story screen, and then allows the
+ * player to continue into the main game scene.
+ */
 public class StoryIntro {
+  /** The sequence of animations used for the story introduction. */
   private SequentialTransition storySequence;
 
+  /**
+   * Builds and returns the opening intro scene.
+   *
+   * <p>This method creates the intro animation, story screen, next button, and help button. The
+   * next button switches to the main game scene and starts the user.
+   *
+   * @param stage the main stage used to switch between scenes
+   * @param gameScene the main game scene shown after the intro
+   * @param user the user/player controlled during the game
+   * @return the intro Scene that plays before the story screen
+   */
   public Scene build(Stage stage, Scene gameScene, User user) {
     StackPane introRoot = new StackPane();
     introRoot.setStyle("-fx-background-color: black;");
@@ -38,18 +56,12 @@ public class StoryIntro {
     sceneView.setFitHeight(600);
     sceneView.setVisible(false);
 
-    // temporary until i can find a good png
-
     Image bathroomImg = new Image(getClass().getResource("/bathroom.png").toExternalForm());
     Image bedroomImg = new Image(getClass().getResource("/bedroom.png").toExternalForm());
     Image downstairsImg = new Image(getClass().getResource("/downstairs.png").toExternalForm());
     Image drivingImg = new Image(getClass().getResource("/driving.png").toExternalForm());
     sceneView.setImage(bedroomImg);
     Rectangle flash = new Rectangle(800, 600, Color.WHITE);
-
-    // Text title = new Text("ATypical Day");
-    // title.setFill(Color.WHITE);
-    // title.setStyle("-fx-font-size: 50px;");
 
     introRoot.getChildren().addAll(rect, sceneView, clock, time, flash);
 
@@ -128,13 +140,12 @@ public class StoryIntro {
           gameScene.getRoot().requestFocus();
         });
     Help h = new Help(stage);
-    
-    help.setOnAction(e ->
-      {
-        user.stop();
-        stage.setScene(h.getHelp(stage));
-      }
-    );
+
+    help.setOnAction(
+        e -> {
+          user.stop();
+          stage.setScene(h.getHelp(stage));
+        });
 
     storySequence = new SequentialTransition(introAnim, t1, t2, t3, t4, t5);
 
@@ -148,6 +159,11 @@ public class StoryIntro {
     return introScene;
   }
 
+  /**
+   * Plays the story introduction animation.
+   *
+   * <p>If the animation sequence has not been created yet, this method does nothing.
+   */
   public void play() {
     if (storySequence != null) {
       storySequence.play();

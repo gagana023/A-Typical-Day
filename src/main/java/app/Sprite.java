@@ -42,6 +42,7 @@ public class Sprite {
   /** Native size of a single sprite.. doesn't change */
   private final double spriteWidth;
 
+  /** Original width of one sprite frame in the sprite sheet */
   private final double spriteHeight;
 
   /** Location of the sprite */
@@ -50,8 +51,9 @@ public class Sprite {
   private double y;
 
   /**
-   * Ordered list of frame indices defining the animation sequence. Example: [0, 1, 2, 1] makes a
-   * smoother looping walk cycle.
+   * The ordered list of frame indices used for animation.
+   *
+   * <p>For example, a sequence like [0, 1, 2, 1] creates a smoother looping walk animation.
    */
   private List<Integer> animationSequence = new ArrayList<>();
 
@@ -112,7 +114,12 @@ public class Sprite {
     return spriteCount;
   }
 
-  /** Set the render size for destination frame */
+  /**
+   * Sets the size used when drawing each sprite frame.
+   *
+   * @param width the width to draw each frame
+   * @param height the height to draw each frame
+   */
   public void setFrameSize(double width, double height) {
     this.frameWidth = width;
     this.frameHeight = height;
@@ -152,7 +159,11 @@ public class Sprite {
     this.sequenceIndex = 0;
   }
 
-  /** Advances to the next frame in the animation sequence. The sequence loops automatically. */
+  /**
+   * Advances to the next frame in the animation sequence.
+   *
+   * <p>The sequence loops back to the beginning after the final frame.
+   */
   public void nextFrame() {
     if (animationSequence.isEmpty()) return;
     sequenceIndex = (sequenceIndex + 1) % animationSequence.size();

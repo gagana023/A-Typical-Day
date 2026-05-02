@@ -9,9 +9,23 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-/** Builds the library room and handles the book and study group tasks. */
+/**
+ * Builds and manages the library room scene.
+ *
+ * <p>The library includes a background image, a back button, an NPC, a bookshelf interaction for
+ * the book task, and a study group interaction with dialogue options for the study task.
+ */
 public class Library extends JoinGroupHere {
-
+  /**
+   * Creates and returns the root layout for the library scene.
+   *
+   * <p>This method sets up the library background, clickable bookshelf area, checkout button, study
+   * group dialogue area, NPC, and navigation back to the main scene. It also completes
+   * library-related tasks when the correct interactions are used.
+   *
+   * @param stage the main stage used to display the library scene
+   * @return the root AnchorPane containing all library scene elements
+   */
   @Override
   public AnchorPane getRoot(Stage stage) {
     AnchorPane root = new AnchorPane();

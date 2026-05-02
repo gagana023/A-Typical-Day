@@ -13,14 +13,27 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
+/**
+ * Builds and displays the player's stats screen.
+ *
+ * <p>This class creates a stats menu with sections for game stats, tasks, social battery, social
+ * standing, and time. It also creates progress bars that connect to the player's current stats.
+ */
 public class Stats {
-
+  /** Random number generator for possible stats-related values. */
   Random rand = new Random();
 
+  /**
+   * Builds and returns the home and stats scene.
+   *
+   * <p>This method creates the background line design, stats menu, and back button. The back button
+   * returns the player to the main game scene.
+   *
+   * @param stage the main stage used to display the stats scene
+   * @return the Scene containing the stats screen
+   */
   public Scene buildPrototypeHomeAndStats(Stage stage) {
     stage.setTitle("Home");
-    // TODO: aadi - fix the perspective on the lines. - aadi
-    // FIXME: anyone - Line l1 goes through stats box. need to fix this. not sure of cause. - aadi
     Line l1 = new Line(0, 100, 600, 100);
     Line l2 = new Line(800, 0, 600, 100);
     Line l3 = new Line(600, 400, 600, 100);
@@ -52,6 +65,13 @@ public class Stats {
     return scene;
   }
 
+  /**
+   * Creates and returns the stats menu layout.
+   *
+   * <p>The menu contains sections for game stats, tasks, social battery, social standing, and time.
+   *
+   * @return the Pane containing the stats menu
+   */
   public Pane getMenu() {
 
     VBox menuBox = new VBox();
@@ -76,6 +96,12 @@ public class Stats {
     return anchorPane;
   }
 
+  /**
+   * Creates a basic labeled section for the stats menu.
+   *
+   * @param text the text displayed in the section
+   * @return a StackPane containing the labeled section
+   */
   public StackPane createSection(String text) {
 
     StackPane pane = new StackPane();
@@ -89,6 +115,15 @@ public class Stats {
     return pane;
   }
 
+  /**
+   * Creates a labeled stats section with a progress bar.
+   *
+   * <p>If the section is for social battery or social standing, the progress bar is connected to
+   * the matching player stat.
+   *
+   * @param text the label text for the progress bar section
+   * @return a StackPane containing the label and progress bar
+   */
   public StackPane createBarSection(String text) {
 
     StackPane pane = new StackPane();
@@ -102,8 +137,6 @@ public class Stats {
     ProgressBar bar = new ProgressBar(0);
     bar.setPrefWidth(150);
 
-    // double randomValue = rand.nextDouble();
-    // bar.setProgress(randomValue);
     if (text.equals("Social Battery")) {
       bar.setProgress(HelloWorld.user.getHealth());
       HelloWorld.socialBatteryBar = bar;

@@ -1,15 +1,25 @@
 package app;
 
-/** Stores and updates the player's social battery and social standing. */
+/**
+ * Stores and updates the player's social battery and social standing.
+ *
+ * <p>Both stats are stored as values from 0.0 to 1.0. Dialogue choices can increase or decrease
+ * these values, and the values are clamped so they stay within the valid range.
+ */
 public class PlayerStats {
-
+  /** The player's social battery value. */
   private double health = 1.0;
+
+  /** The player's social standing value. */
   private double social = 1.0;
 
   /**
    * Updates player stats based on the chosen dialogue option.
    *
-   * @param optionType the selected option number
+   * <p>Option 1 decreases social battery and increases social standing. Option 2 increases social
+   * battery and decreases social standing. Option 3 decreases both values.
+   *
+   * @param optionType the selected dialogue option number
    */
   public boolean changeStats(int optionType) {
     double amount = 0.35;
@@ -61,6 +71,12 @@ public class PlayerStats {
     return social;
   }
 
+  /**
+   * Keeps a stat value between 0.0 and 1.0.
+   *
+   * @param value the stat value to limit
+   * @return the value limited to the range from 0.0 to 1.0
+   */
   private double clamp(double value) {
     return Math.max(0, Math.min(1, value));
   }

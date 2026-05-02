@@ -1,33 +1,56 @@
 package app;
 
-
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.stage.Stage;
 
-
+/**
+ * Represents the player user and controls player movement, animation, stats, and room transitions.
+ *
+ * <p>This class connects keyboard input, updates the player through an animation timer, checks room
+ * collisions, and manages returning to the main hallway scene.
+ */
 public class User {
-
-
+  /** The room manager used to open different room scenes. */
   private RoomManager roomManager;
+
+  /** The input handler used to track player keyboard movement. */
   private PlayerInput playerInput = new PlayerInput();
+
+  /**
+   * The canvas representing the top-left, bottom-left, top-right, and bottom-right room entrance.
+   */
   private Canvas topL, botL, topR, botR;
+
+  /** The controller used to update player movement. */
   private MovementController movementController;
 
-
+  /** The canvas used to display the player. */
   private Canvas canvas;
+
+  /** The timer used to repeatedly update movement, animation, and collision checks. */
   private AnimationTimer timer;
+
+  /** Tracks whether the player is currently allowed to enter a room. */
   private boolean canEnter = true;
+
+  /** The transitioner used to check and handle room entrances. */
   private RoomTransitioner roomTransitioner;
 
-
+  /** The player's social battery and social standing stats. */
   private PlayerStats stats = new PlayerStats();
+
+  /** The collision checker used to detect overlap with objects. */
   private CollisionChecker collisionChecker = new CollisionChecker();
+
+  /** The animation object used to draw and update the player sprite. */
   private PlayerAnimation playerAnimation;
+
+  /** The player object that stores the player's canvas, position, and stats. */
   private Player player;
 
-
+  /** Creates a user with a player animation, canvas, and player object. */
   public User() {
     playerAnimation = new PlayerAnimation("/blinkdrop.png", 3, 3, 9);
     // sprite = new Sprite("/blinkdrop.png", 3, 3, 9);
@@ -36,32 +59,53 @@ public class User {
     // renderFrame();
   }
 
-
+  /**
+   * Returns the canvas used to display the player.
+   *
+   * @return the player's canvas
+   */
   public Canvas getInAddAllForm() {
     return canvas;
   }
 
-
+  /**
+   * Resumes the user in the given scene.
+   *
+   * <p>This method stops movement, resets the player position, starts the animation timer, allows
+   * room entry again, resets the room transitioner, and requests focus for keyboard input.
+   *
+   * @param scene the scene where the user resumes movement
+   */
   public void resume(Scene scene) {
     stopMovement();
     player.setCoordinates(350, 250);
     player.updateCanvasPosition();
     start();
     canEnter = true;
-    //roomManager.resetEntries();
     roomTransitioner.reset();
     scene.getRoot().requestFocus();
   }
 
-
+  /**
+   * Connects the user controls and animation timer to the given scene.
+   *
+   * <p>This method sets up keyboard input, movement control, animation updates, room transition
+   * checks, and player canvas position updates.
+   *
+   * @param scene the scene that receives keyboard input and updates
+   */
   public void connect(Scene scene) {
     player.updateCanvasPosition();
     playerInput.connect(scene);
     movementController = new MovementController(playerInput);
 
-
     timer =
         new AnimationTimer() {
+          /**
+           * Runs each frame of the animation timer.
+           *
+           * @param now the current timestamp in nanoseconds
+           */
           public void handle(long now) {
             boolean moving = movementController.update(player, scene);
             playerAnimation.updateAnimation(moving);
@@ -80,22 +124,44 @@ public class User {
     return over;
   }
 
-
+  /**
+   * Returns the user's social battery value.
+   *
+   * @return the current social battery value
+   */
   public double getHealth() {
     return stats.getHealth();
   }
 
-
+  /**
+   * Returns the user's social standing value.
+   *
+   * @return the current social standing value
+   */
   public double getSocial() {
     return stats.getSocial();
   }
 
-
+  /**
+   * Checks whether the player is colliding with the given canvas object.
+   *
+   * @param box the canvas object being checked for collision
+   * @return true if the player is colliding with the canvas, false otherwise
+   */
   public boolean isColliding(Canvas box) {
-    return collisionChecker.isColliding(canvas, box, player.getPosition().getX(), player.getPosition().getY());
+    return collisionChecker.isColliding(
+        canvas, box, player.getPosition().getX(), player.getPosition().getY());
   }
 
-
+  /**
+   * Sets the room entrance canvases used for room transitions.
+   *
+   * @param topL2 the top-left room entrance canvas
+   * @param botL2 the bottom-left room entrance canvas
+   * @param topR2 the top-right room entrance canvas
+   * @param botR2 the bottom-right room entrance canvas
+   * @param stage the main stage used to display room scenes
+   */
   public void setRooms(NPC topL2, NPC botL2, NPC topR2, NPC botR2, Stage stage) {
     this.topL = topL2;
     this.topR = topR2;
@@ -105,32 +171,45 @@ public class User {
     this.roomTransitioner = new RoomTransitioner(topL, topR, botL, botR, stage);
   }
 
-
+  /** Stops all current player movement input. */
   public void stopMovement() {
     playerInput.stopMovement();
   }
 
-
+  /** Starts the user's animation timer. */
   public void start() {
     timer.start();
   }
 
-
+  /** Stops the user's animation timer. */
   public void stop() {
     timer.stop();
   }
 
-
+  /**
+   * Returns the player object connected to this user.
+   *
+   * @return the player object
+   */
   public Player getPlayer() {
     return player;
   }
 
-
-    public void setCoordinates(double x, double y) {
+  /**
+   * Sets the player's coordinates.
+   *
+   * @param x the new x-coordinate
+   * @param y the new y-coordinate
+   */
+  public void setCoordinates(double x, double y) {
     player.setCoordinates(x, y);
   }
 
-
+  /**
+   * Keeps the player inside the boundaries of the given scene.
+   *
+   * @param scene the scene used to check the movement boundaries
+   */
   public void stayInBoundaries(Scene scene) {
     player.stayInBoundaries(scene);
   }

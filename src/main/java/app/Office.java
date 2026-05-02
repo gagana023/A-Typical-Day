@@ -8,8 +8,23 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * Builds and manages the office room scene.
+ *
+ * <p>The office includes a background image, a back button, an NPC, and an extension request
+ * interaction. If the office extension task is active, the player can ask for an extension and
+ * choose from dialogue options that affect player stats.
+ */
 public class Office extends Room {
-
+  /**
+   * Creates and returns the root layout for the office scene.
+   *
+   * <p>This method sets up the office background, title label, back button, NPC, extension request
+   * button, dialogue options, task completion behavior, and navigation back to the main scene.
+   *
+   * @param stage the main stage used to display the office scene
+   * @return the root AnchorPane containing all office scene elements
+   */
   public AnchorPane getRoot(Stage stage) {
 
     AnchorPane root = new AnchorPane();
@@ -94,6 +109,7 @@ public class Office extends Room {
           }
         });
 
+    back.setOnAction(e -> NavigationHelper.returnToMainScene(stage));
     back.setOnAction(
         e -> {
           System.out.println("Back Clicked");

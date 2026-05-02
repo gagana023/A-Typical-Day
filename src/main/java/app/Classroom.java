@@ -8,8 +8,24 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * Builds and manages the classroom scene.
+ *
+ * <p>The classroom includes a background image, a teacher NPC, a classmate NPC, a back button, and
+ * dialogue options connected to active classroom tasks.
+ */
 public class Classroom extends Room {
 
+  /**
+   * Creates and returns the root layout for the classroom scene.
+   *
+   * <p>This method sets up the classroom background, places the teacher and classmate NPCs, checks
+   * which classroom task is currently active, creates the correct dialogue options, and adds
+   * navigation back to the main scene.
+   *
+   * @param stage the main stage used to display the classroom scene
+   * @return the root AnchorPane containing all classroom scene elements
+   */
   public AnchorPane getRoot(Stage stage) {
 
     AnchorPane root = new AnchorPane();
@@ -31,46 +47,6 @@ public class Classroom extends Room {
 
     AnchorPane.setTopAnchor(back, 20.0);
     AnchorPane.setLeftAnchor(back, 20.0);
-
-    // // BLACKBOARD
-    // Rectangle blackBoard = new Rectangle(700, 200);
-    // blackBoard.setFill(Color.DARKGREEN);
-
-    // AnchorPane.setTopAnchor(blackBoard, 80.0);
-    // AnchorPane.setLeftAnchor(blackBoard, 150.0);
-
-    // // Math problem on board
-    // Label mathProblem = new Label("Solve: 3x² + 5x - 2 = 0");
-    // mathProblem.setTextFill(Color.WHITE);
-    // mathProblem.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
-
-    // AnchorPane.setTopAnchor(mathProblem, 160.0);
-    // AnchorPane.setLeftAnchor(mathProblem, 350.0);
-
-    // // DESK (table top)
-    // Rectangle desk = new Rectangle(400, 40);
-    // desk.setFill(Color.BURLYWOOD);
-
-    // AnchorPane.setTopAnchor(desk, 350.0);
-    // AnchorPane.setLeftAnchor(desk, 300.0);
-
-    // // TABLE LEGS
-    // Rectangle leg1 = new Rectangle(20, 100, Color.SADDLEBROWN);
-    // Rectangle leg2 = new Rectangle(20, 100, Color.SADDLEBROWN);
-    // Rectangle leg3 = new Rectangle(20, 100, Color.SADDLEBROWN);
-    // Rectangle leg4 = new Rectangle(20, 100, Color.SADDLEBROWN);
-
-    // AnchorPane.setTopAnchor(leg1, 390.0);
-    // AnchorPane.setLeftAnchor(leg1, 300.0);
-
-    // AnchorPane.setTopAnchor(leg2, 390.0);
-    // AnchorPane.setLeftAnchor(leg2, 680.0);
-
-    // AnchorPane.setTopAnchor(leg3, 390.0);
-    // AnchorPane.setLeftAnchor(leg3, 420.0);
-
-    // AnchorPane.setTopAnchor(leg4, 390.0);
-    // AnchorPane.setLeftAnchor(leg4, 560.0);
 
     NPC classmate = new NPC("/student1.png");
     classmate.setPosition(100, 380);
