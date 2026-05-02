@@ -33,53 +33,6 @@ public class Office extends Room {
     AnchorPane.setTopAnchor(back, 20.0);
     AnchorPane.setLeftAnchor(back, 20.0);
 
-    // Rectangle desk = new Rectangle(400, 40);
-    // desk.setFill(Color.BURLYWOOD);
-
-    // AnchorPane.setTopAnchor(desk, 350.0);
-    // AnchorPane.setLeftAnchor(desk, 300.0);
-
-    // Rectangle leg1 = new Rectangle(20, 100, Color.SADDLEBROWN);
-    // Rectangle leg2 = new Rectangle(20, 100, Color.SADDLEBROWN);
-    // Rectangle leg3 = new Rectangle(20, 100, Color.SADDLEBROWN);
-    // Rectangle leg4 = new Rectangle(20, 100, Color.SADDLEBROWN);
-
-    // AnchorPane.setTopAnchor(leg1, 390.0);
-    // AnchorPane.setLeftAnchor(leg1, 300.0);
-
-    // AnchorPane.setTopAnchor(leg2, 390.0);
-    // AnchorPane.setLeftAnchor(leg2, 680.0);
-
-    // AnchorPane.setTopAnchor(leg3, 390.0);
-    // AnchorPane.setLeftAnchor(leg3, 420.0);
-
-    // AnchorPane.setTopAnchor(leg4, 390.0);
-    // AnchorPane.setLeftAnchor(leg4, 560.0);
-
-    // Rectangle monitor = new Rectangle(80, 50);
-    // monitor.setFill(Color.BLACK);
-
-    // AnchorPane.setTopAnchor(monitor, 280.0);
-    // AnchorPane.setLeftAnchor(monitor, 470.0);
-
-    // Rectangle stand = new Rectangle(10, 45);
-    // stand.setFill(Color.GRAY);
-
-    // AnchorPane.setTopAnchor(stand, 310.0);
-    // AnchorPane.setLeftAnchor(stand, 505.0);
-
-    // Rectangle base = new Rectangle(40, 8);
-    // base.setFill(Color.GRAY);
-
-    // AnchorPane.setTopAnchor(base, 345.0);
-    // AnchorPane.setLeftAnchor(base, 490.0);
-
-    // Label registrar = new Label("REGISTRAR");
-    // registrar.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
-
-    // AnchorPane.setTopAnchor(registrar, 360.0);
-    // AnchorPane.setLeftAnchor(registrar, 350.0);
-
     NPC npc = new NPC("/student1.png");
 
     npc.setPosition(100, 315);
@@ -104,29 +57,51 @@ public class Office extends Room {
 
     dialogue.setOption1Action(
         () -> {
-          HelloWorld.user.changeStats(1);
+          boolean isOver = HelloWorld.user.changeStats(1);
           Tasks.completeTask("office_extension");
           askExtensionButton.setVisible(false);
           HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+          if (isOver)
+          {
+            System.out.println("Game Over");
+            stage.setScene(new GameOver().getScene(stage));
+          }
         });
 
     dialogue.setOption2Action(
         () -> {
-          HelloWorld.user.changeStats(2);
+          boolean isOver = HelloWorld.user.changeStats(2);
           Tasks.completeTask("office_extension");
           askExtensionButton.setVisible(false);
           HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+          if (isOver)
+          {
+            System.out.println("Game Over");
+            stage.setScene(new GameOver().getScene(stage));
+          }
         });
 
     dialogue.setOption3Action(
         () -> {
-          HelloWorld.user.changeStats(3);
+          boolean isOver = HelloWorld.user.changeStats(3);
           Tasks.completeTask("office_extension");
           askExtensionButton.setVisible(false);
           HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+          if (isOver)
+          {
+            System.out.println("Game Over");
+            stage.setScene(new GameOver().getScene(stage));
+          }
         });
 
-    back.setOnAction(e -> NavigationHelper.returnToMainScene(stage));
+    back.setOnAction(
+        e -> {
+          System.out.println("Back Clicked");
+          stage.setScene(HelloWorld.scene);
+          HelloWorld.user.stop();
+          HelloWorld.user.resume(HelloWorld.scene);
+          HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+        });
     // root.getChildren().addAll(
     //         label,
     //         back,

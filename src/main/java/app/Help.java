@@ -93,10 +93,17 @@ public class Help extends MenuScreen {
           one that stays. These represent the energy taken to give the response. The one that 
           fades quickly is the most "socially" acceptable answer but it will drain the health bar 
           and the one that fades slowest is not very "socially acceptable", so it will drain the 
-          social standing bar. Make sure to pick the option that works best for your statistics.
+          social standing bar and the health bar. The medium one drains only social standing 
+          Make sure to pick the option that works best for your statistics.
 
           You can always come back and access the help at the bottom right of the main screen.
 
+          HINTS
+          For Library checkout, press on the left side, and a checkour button will appear.
+          For finding a study group, press on the desk and the dialogues will appear.
+          For ordering food, press on the table closest to the Cafe.
+          For classroom tasks, press on the teacher to activate the dialogues.
+          
       """;
 
   public Scene getHelp(Stage stage) {

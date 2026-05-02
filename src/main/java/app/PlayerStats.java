@@ -11,7 +11,7 @@ public class PlayerStats {
    *
    * @param optionType the selected option number
    */
-  public void changeStats(int optionType) {
+  public boolean changeStats(int optionType) {
     double amount = 0.35;
 
     switch (optionType) {
@@ -39,6 +39,8 @@ public class PlayerStats {
 
     health = clamp(health);
     social = clamp(social);
+
+    return isGameOver();
   }
 
   /**
@@ -62,4 +64,9 @@ public class PlayerStats {
   private double clamp(double value) {
     return Math.max(0, Math.min(1, value));
   }
+
+  public boolean isGameOver() {
+    return health <= 0 || social <= 0;
+  }
+
 }

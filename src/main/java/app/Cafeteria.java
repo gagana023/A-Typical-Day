@@ -43,23 +43,38 @@ public class Cafeteria extends JoinGroupHere {
 
     dialogue.setOption1Action(
         () -> {
-          HelloWorld.user.changeStats(1);
+          boolean isOver = HelloWorld.user.changeStats(1);
           Tasks.completeTask("cafeteria_friend");
           HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+          if (isOver)
+          {
+            System.out.println("Game Over");
+            stage.setScene(new GameOver().getScene(stage));
+          }
         });
 
     dialogue.setOption2Action(
         () -> {
-          HelloWorld.user.changeStats(2);
+          boolean isOver = HelloWorld.user.changeStats(2);
           Tasks.completeTask("cafeteria_friend");
           HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+          if (isOver)
+          {
+            System.out.println("Game Over");
+            stage.setScene(new GameOver().getScene(stage));
+          }
         });
 
     dialogue.setOption3Action(
         () -> {
-          HelloWorld.user.changeStats(3);
+          boolean isOver = HelloWorld.user.changeStats(3);
           Tasks.completeTask("cafeteria_friend");
           HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+          if (isOver)
+          {
+            System.out.println("Game Over");
+            stage.setScene(new GameOver().getScene(stage));
+          }
         });
 
     back.setOnAction(e -> NavigationHelper.returnToMainScene(stage));

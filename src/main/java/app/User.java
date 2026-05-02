@@ -73,10 +73,11 @@ public class User {
   }
 
 
-  public void changeStats(int optionType) {
+  public boolean changeStats(int optionType) {
     System.out.println("Stats Changed");
-    stats.changeStats(optionType);
+    boolean over = stats.changeStats(optionType);
     HelloWorld.updateStatsBars();
+    return over;
   }
 
 
