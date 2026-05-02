@@ -98,38 +98,17 @@ public class Library extends JoinGroupHere {
 
     dialogue.setOption1Action(
         () -> {
-          boolean isOver = HelloWorld.user.changeStats(1);
-          Tasks.completeTask("library_study");
-          HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
-          if (isOver)
-          {
-            System.out.println("Game Over");
-            stage.setScene(new GameOver().getScene(stage));
-          }
+          HelloWorld.handleChoice(1, "library_study", stage);
         });
 
     dialogue.setOption2Action(
         () -> {
-          boolean isOver = HelloWorld.user.changeStats(2);
-          Tasks.completeTask("library_study");
-          HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
-          if (isOver)
-          {
-            System.out.println("Game Over");
-            stage.setScene(new GameOver().getScene(stage));
-          }
+          HelloWorld.handleChoice(2, "library_study", stage);
         });
 
     dialogue.setOption3Action(
         () -> {
-          boolean isOver = HelloWorld.user.changeStats(3);
-          Tasks.completeTask("library_study");
-          HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
-          if (isOver)
-          {
-            System.out.println("Game Over");
-            stage.setScene(new GameOver().getScene(stage));
-          }
+          HelloWorld.handleChoice(3, "library_study", stage);
         });
 
     back.setOnAction(e -> NavigationHelper.returnToMainScene(stage));

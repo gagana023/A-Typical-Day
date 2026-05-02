@@ -57,38 +57,25 @@ public class Cafeteria extends JoinGroupHere {
 
     dialogue.setOption1Action(
         () -> {
-          boolean isOver = HelloWorld.user.changeStats(1);
-          Tasks.completeTask("cafeteria_friend");
-          HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
-          if (isOver)
-          {
-            System.out.println("Game Over");
-            stage.setScene(new GameOver().getScene(stage));
-          }
+          // boolean isOver = HelloWorld.user.changeStats(1);
+          // Tasks.completeTask("cafeteria_order");
+          // HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+          // if (isOver)
+          // {
+          //   System.out.println("Game Over");
+          //   stage.setScene(new GameOver().getScene(stage));
+          // }
+          HelloWorld.handleChoice(1, "cafeteria_order", stage);
         });
 
     dialogue.setOption2Action(
         () -> {
-          boolean isOver = HelloWorld.user.changeStats(2);
-          Tasks.completeTask("cafeteria_friend");
-          HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
-          if (isOver)
-          {
-            System.out.println("Game Over");
-            stage.setScene(new GameOver().getScene(stage));
-          }
+          HelloWorld.handleChoice(2, "cafeteria_order", stage);
         });
 
     dialogue.setOption3Action(
         () -> {
-          boolean isOver = HelloWorld.user.changeStats(3);
-          Tasks.completeTask("cafeteria_friend");
-          HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
-          if (isOver)
-          {
-            System.out.println("Game Over");
-            stage.setScene(new GameOver().getScene(stage));
-          }
+          HelloWorld.handleChoice(3, "cafeteria_order", stage);
         });
 
     back.setOnAction(e -> NavigationHelper.returnToMainScene(stage));
@@ -102,7 +89,7 @@ public class Cafeteria extends JoinGroupHere {
 
     friendClickArea.setOnMouseClicked(
         e -> {
-          if (Tasks.isTaskActive("cafeteria_friend")) {
+          if (Tasks.isTaskActive("cafeteria_order")) {
             dialogue.showOptions();
           }
         });

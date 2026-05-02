@@ -79,7 +79,7 @@ public class Tasks {
 
   /** Adds all possible tasks to the task list when the class loads. */
   static {
-    allTasks.add(new Task("office_extension", "Go to Office and ask for an extension"));
+    allTasks.add(new Task("office_extension", "Go to Office and ask to see counselor"));
     allTasks.add(new Task("classroom_homework", "Go to Classroom and turn in your late homework"));
     allTasks.add(new Task("library_study", "Go to Library and join a study group"));
     allTasks.add(new Task("classroom_problem", "Go to Classroom and solve the board problem"));

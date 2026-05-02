@@ -90,38 +90,17 @@ public class Classroom extends Room {
 
     dialogue.setOption1Action(
         () -> {
-          boolean isOver = HelloWorld.user.changeStats(1);
-          Tasks.completeTask(activeClassroomTask);
-          HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
-          if (isOver)
-          {
-            System.out.println("Game Over");
-            stage.setScene(new GameOver().getScene(stage));
-          }
+          HelloWorld.handleChoice(1, activeClassroomTask, stage);
         });
 
     dialogue.setOption2Action(
         () -> {
-          boolean isOver = HelloWorld.user.changeStats(2);
-          Tasks.completeTask(activeClassroomTask);
-          HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
-          if (isOver)
-          {
-            System.out.println("Game Over");
-            stage.setScene(new GameOver().getScene(stage));
-          }
+          HelloWorld.handleChoice(2, activeClassroomTask, stage);
         });
 
     dialogue.setOption3Action(
         () -> {
-          boolean isOver = HelloWorld.user.changeStats(3);
-          Tasks.completeTask(activeClassroomTask);
-          HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
-          if (isOver)
-          {
-            System.out.println("Game Over");
-            stage.setScene(new GameOver().getScene(stage));
-          }
+          HelloWorld.handleChoice(3, activeClassroomTask, stage);
         });
 
     back.setOnAction(e -> NavigationHelper.returnToMainScene(stage));

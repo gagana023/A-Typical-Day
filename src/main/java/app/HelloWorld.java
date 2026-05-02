@@ -254,4 +254,18 @@ public class HelloWorld extends Application {
       }
     }
   }
+
+  public static void handleChoice(int option, String taskId, Stage stage) 
+  {
+    boolean isOver = HelloWorld.user.changeStats(option);
+
+    Tasks.completeTask(taskId);
+    HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+
+    if (isOver) 
+    {
+        System.out.println("Game Over");
+        stage.setScene(new GameOver().getScene(stage));
+    }
+  }
 }

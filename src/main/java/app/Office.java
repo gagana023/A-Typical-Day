@@ -59,7 +59,7 @@ public class Office extends Room {
 
     DialogueUI dialogue = new DialogueUI(options, npcOptions);
 
-    Button askExtensionButton = new Button("Ask for Extension");
+    Button askExtensionButton = new Button("Ask for Counselor Meeting");
     askExtensionButton.setVisible(Tasks.isTaskActive("office_extension"));
 
     AnchorPane.setLeftAnchor(askExtensionButton, 20.0);
@@ -72,41 +72,17 @@ public class Office extends Room {
 
     dialogue.setOption1Action(
         () -> {
-          boolean isOver = HelloWorld.user.changeStats(1);
-          Tasks.completeTask("office_extension");
-          askExtensionButton.setVisible(false);
-          HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
-          if (isOver)
-          {
-            System.out.println("Game Over");
-            stage.setScene(new GameOver().getScene(stage));
-          }
+          HelloWorld.handleChoice(1, "office_extension", stage);
         });
 
     dialogue.setOption2Action(
         () -> {
-          boolean isOver = HelloWorld.user.changeStats(2);
-          Tasks.completeTask("office_extension");
-          askExtensionButton.setVisible(false);
-          HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
-          if (isOver)
-          {
-            System.out.println("Game Over");
-            stage.setScene(new GameOver().getScene(stage));
-          }
+          HelloWorld.handleChoice(2, "office_extension", stage);
         });
 
     dialogue.setOption3Action(
         () -> {
-          boolean isOver = HelloWorld.user.changeStats(3);
-          Tasks.completeTask("office_extension");
-          askExtensionButton.setVisible(false);
-          HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
-          if (isOver)
-          {
-            System.out.println("Game Over");
-            stage.setScene(new GameOver().getScene(stage));
-          }
+          HelloWorld.handleChoice(3, "office_extension", stage);
         });
 
     back.setOnAction(e -> NavigationHelper.returnToMainScene(stage));
