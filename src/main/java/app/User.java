@@ -52,7 +52,7 @@ public class User {
 
   /** Creates a user with a player animation, canvas, and player object. */
   public User() {
-    playerAnimation = new PlayerAnimation("/blinkdrop.png", 3, 3, 9);
+    playerAnimation = new PlayerAnimation("/walk-front.png", 4, 3, 12);
     // sprite = new Sprite("/blinkdrop.png", 3, 3, 9);
     canvas = playerAnimation.getCanvas();
     player = new Player(canvas);
