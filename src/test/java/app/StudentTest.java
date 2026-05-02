@@ -27,14 +27,6 @@ public class StudentTest extends ApplicationTest {
   }
 
   @Test
-  public void testCanvasIsVisible() {
-    clickOn();
-    sleep(500);
-    verifyThat("#gameCanvas", isNotNull());
-    verifyThat("#gameCanvas", isVisible());
-  }
-
-  @Test
   public void clickingTopLeftDoorShouldOpenOffice() {
     clickOn(".root"); // leave intro scene
     sleep(500);

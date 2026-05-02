@@ -12,20 +12,28 @@ public class PlayerStats {
    * @param optionType the selected option number
    */
   public void changeStats(int optionType) {
+    double amount = 0.35;
+
     switch (optionType) {
       case 1:
-        health -= 0.1;
-        social += 0.1;
+        // Most socially acceptable: battery down, standing up
+        health -= amount;
+        social += amount;
         break;
 
       case 2:
-        health += 0.1;
-        social -= 0.1;
+        // Second option: battery up, standing down
+        health += amount;
+        social -= amount;
         break;
 
       case 3:
-        health -= 0.1;
-        social -= 0.1;
+        // Worst option: both down
+        health -= amount;
+        social -= amount;
+        break;
+
+      default:
         break;
     }
 

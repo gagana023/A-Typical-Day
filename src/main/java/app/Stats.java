@@ -106,8 +106,10 @@ public class Stats {
     // bar.setProgress(randomValue);
     if (text.equals("Social Battery")) {
       bar.setProgress(HelloWorld.user.getHealth());
+      HelloWorld.socialBatteryBar = bar;
     } else if (text.equals("Social Standing")) {
       bar.setProgress(HelloWorld.user.getSocial());
+      HelloWorld.socialStandingBar = bar;
     }
 
     content.getChildren().addAll(label, bar);

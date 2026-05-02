@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -17,6 +18,8 @@ public class HelloWorld extends Application {
   public static Label task1;
   public static Label task2;
   public static Label task3;
+  public static ProgressBar socialBatteryBar;
+  public static ProgressBar socialStandingBar;
 
   @Override
   public void start(Stage stage) {
@@ -129,7 +132,7 @@ public class HelloWorld extends Application {
     VBox topStatsMenu = new VBox(5);
     topStatsMenu
         .getChildren()
-        .addAll(s.createBarSection("Health Bar"), s.createBarSection("Social Standing"));
+        .addAll(s.createBarSection("Social Battery"), s.createBarSection("Social Standing"));
 
     AnchorPane.setTopAnchor(topStatsMenu, 0.0);
     AnchorPane.setLeftAnchor(topStatsMenu, 315.0);
@@ -187,6 +190,20 @@ public class HelloWorld extends Application {
 
   public static void main(String[] args) {
     launch();
+  }
+
+  public static void updateStatsBars() {
+    if (user == null) {
+      return;
+    }
+
+    if (socialBatteryBar != null) {
+      socialBatteryBar.setProgress(user.getHealth());
+    }
+
+    if (socialStandingBar != null) {
+      socialStandingBar.setProgress(user.getSocial());
+    }
   }
 
   public static void updateTasks(Label t1, Label t2, Label t3) {

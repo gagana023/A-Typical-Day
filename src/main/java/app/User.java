@@ -76,6 +76,7 @@ public class User {
   public void changeStats(int optionType) {
     System.out.println("Stats Changed");
     stats.changeStats(optionType);
+    HelloWorld.updateStatsBars();
   }
 
 
