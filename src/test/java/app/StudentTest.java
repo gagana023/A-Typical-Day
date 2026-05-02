@@ -326,4 +326,14 @@ public class StudentTest extends ApplicationTest {
     assertEquals(0.65, stats.getHealth(), 0.001);
     assertEquals(0.65, stats.getSocial(), 0.001);
   }
+
+  @Test
+  public void coreUiAndRootLoad() {
+    Scene scene = HelloWorld.scene;
+
+    assertNotNull(scene);
+    assertNotNull(scene.getRoot());
+
+    assertTrue(scene.getRoot().getChildrenUnmodifiable().size() > 0);
+}
 }
