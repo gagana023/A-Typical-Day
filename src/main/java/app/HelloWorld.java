@@ -110,7 +110,7 @@ public class HelloWorld extends Application {
     // doesn't work when inside setOnMouseClicked
     Library library = new Library();
 
-    topR.setOnMouseClicked(e -> stage.setScene(library.buildPrototypeLibrary(stage)));
+    topR.setOnMouseClicked(e -> stage.setScene(new Scene(library.getRoot(stage), 800, 600)));
 
     botL.setOnMouseClicked(
         e -> {
@@ -122,7 +122,7 @@ public class HelloWorld extends Application {
     // doesn't work when inside setOnMouseClicked
     Cafeteria cafeteria = new Cafeteria();
 
-    botR.setOnMouseClicked(e -> stage.setScene(cafeteria.buildPrototypeCafeteria(stage)));
+    botR.setOnMouseClicked(e -> stage.setScene(new Scene(cafeteria.getRoot(stage), 800, 600)));
 
     Stats s = new Stats();
 

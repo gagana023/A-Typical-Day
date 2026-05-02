@@ -1,7 +1,6 @@
 package app;
 
 import java.util.List;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -10,8 +9,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+/** Builds the cafeteria room and handles the cafeteria friend task. */
 public class Cafeteria extends JoinGroupHere {
-  public Scene buildPrototypeCafeteria(Stage stage) {
+
+  @Override
+  public AnchorPane getRoot(Stage stage) {
     AnchorPane root = new AnchorPane();
 
     Image cafeteriaImg = new Image(getClass().getResource("/cafeteria.jpg").toExternalForm());
@@ -30,7 +32,6 @@ public class Cafeteria extends JoinGroupHere {
     back.setLayoutY(20);
 
     NPC npc = new NPC("/student_sprite.png");
-
     npc.setPosition(210, 380);
     AnchorPane.setLeftAnchor(npc, 210.0);
     AnchorPane.setTopAnchor(npc, 380.0);
@@ -85,6 +86,7 @@ public class Cafeteria extends JoinGroupHere {
 
     root.getChildren().addAll(friendClickArea, back, npc);
     dialogue.addToRoot(root);
-    return new Scene(root, 800, 600);
+
+    return root;
   }
 }

@@ -26,7 +26,6 @@ public class RoomManager {
     enteringLibrary = false;
   }
 
-  /** Opens the office scene if the player is not already entering it. */
   public void enterOffice(User user) {
     if (enteringOffice) {
       return;
@@ -34,13 +33,9 @@ public class RoomManager {
 
     enteringOffice = true;
     user.stop();
-
-    Office office = new Office();
-    Scene officeScene = new Scene(office.getRoot(stage), 800, 600);
-    stage.setScene(officeScene);
+    openRoom(new Office());
   }
 
-  /** Opens the classroom scene if the player is not already entering it. */
   public void enterClassroom(User user) {
     if (enteringClassroom) {
       return;
@@ -48,13 +43,9 @@ public class RoomManager {
 
     enteringClassroom = true;
     user.stop();
-
-    Classroom classroom = new Classroom();
-    Scene classroomScene = new Scene(classroom.getRoot(stage), 800, 600);
-    stage.setScene(classroomScene);
+    openRoom(new Classroom());
   }
 
-  /** Opens the library scene if the player is not already entering it. */
   public void enterLibrary(User user) {
     if (enteringLibrary) {
       return;
@@ -62,12 +53,9 @@ public class RoomManager {
 
     enteringLibrary = true;
     user.stop();
-
-    Library library = new Library();
-    stage.setScene(library.buildPrototypeLibrary(stage));
+    openRoom(new Library());
   }
 
-  /** Opens the cafeteria scene if the player is not already entering it. */
   public void enterCafeteria(User user) {
     if (enteringCafeteria) {
       return;
@@ -75,8 +63,11 @@ public class RoomManager {
 
     enteringCafeteria = true;
     user.stop();
+    openRoom(new Cafeteria());
+  }
 
-    Cafeteria cafeteria = new Cafeteria();
-    stage.setScene(cafeteria.buildPrototypeCafeteria(stage));
+  private void openRoom(Room room) {
+    Scene roomScene = new Scene(room.getRoot(stage), 800, 600);
+    stage.setScene(roomScene);
   }
 }

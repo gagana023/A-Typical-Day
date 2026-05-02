@@ -155,6 +155,8 @@ public class Office extends Room {
 
     root.getChildren().addAll(label, back, npc, askExtensionButton);
 
+    dialogue.addToRoot(root);
+
     return root;
   }
 }

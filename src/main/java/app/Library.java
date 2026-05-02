@@ -1,7 +1,6 @@
 package app;
 
 import java.util.List;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -10,9 +9,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+/** Builds the library room and handles the book and study group tasks. */
 public class Library extends JoinGroupHere {
 
-  public Scene buildPrototypeLibrary(Stage stage) {
+  @Override
+  public AnchorPane getRoot(Stage stage) {
     AnchorPane root = new AnchorPane();
 
     Image libraryImg = new Image(getClass().getResource("/library.jpg").toExternalForm());
@@ -35,7 +36,6 @@ public class Library extends JoinGroupHere {
     AnchorPane.setLeftAnchor(npc, 320.0);
     AnchorPane.setTopAnchor(npc, 310.0);
 
-    // Bookshelf click area for library_book task
     Rectangle bookshelfClickArea = new Rectangle(400, 600);
     bookshelfClickArea.setFill(Color.TRANSPARENT);
     bookshelfClickArea.setStroke(Color.TRANSPARENT);
@@ -63,7 +63,6 @@ public class Library extends JoinGroupHere {
           HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
         });
 
-    // Study click area for library_study task
     Rectangle studyClickArea = new Rectangle(250, 180);
     studyClickArea.setFill(Color.TRANSPARENT);
     studyClickArea.setStroke(Color.TRANSPARENT);
@@ -113,9 +112,8 @@ public class Library extends JoinGroupHere {
         });
 
     root.getChildren().addAll(bookshelfClickArea, studyClickArea, back, npc, checkoutButton);
-
     dialogue.addToRoot(root);
 
-    return new Scene(root, 800, 600);
+    return root;
   }
 }
