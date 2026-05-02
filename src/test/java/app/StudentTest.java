@@ -1,7 +1,6 @@
 package app;
 
 import static org.junit.Assert.*;
-import static org.testfx.api.FxAssert.verifyThat;
 import static org.testfx.matcher.base.NodeMatchers.*;
 
 import java.util.List;
@@ -120,13 +119,13 @@ public class StudentTest extends ApplicationTest {
   }
 
   @Test
-  public void changeSocialStats() {
+  public void optionTwoLowersSocialStanding() {
     User user = new User();
     double before = user.getSocial();
 
-    user.changeStats(1);
+    user.changeStats(2);
 
-    assertTrue(user.getSocial() > before);
+    assertTrue(user.getSocial() < before);
   }
 
   @Test
@@ -304,7 +303,7 @@ public class StudentTest extends ApplicationTest {
 
     stats.changeStats(1);
 
-    assertEquals(0.9, stats.getHealth(), 0.001);
+    assertEquals(0.65, stats.getHealth(), 0.001);
     assertEquals(1.0, stats.getSocial(), 0.001);
   }
 
@@ -315,7 +314,7 @@ public class StudentTest extends ApplicationTest {
     stats.changeStats(2);
 
     assertEquals(1.0, stats.getHealth(), 0.001);
-    assertEquals(0.9, stats.getSocial(), 0.001);
+    assertEquals(0.65, stats.getSocial(), 0.001);
   }
 
   @Test
@@ -324,7 +323,7 @@ public class StudentTest extends ApplicationTest {
 
     stats.changeStats(3);
 
-    assertEquals(0.9, stats.getHealth(), 0.001);
-    assertEquals(0.9, stats.getSocial(), 0.001);
+    assertEquals(0.65, stats.getHealth(), 0.001);
+    assertEquals(0.65, stats.getSocial(), 0.001);
   }
 }
