@@ -62,13 +62,7 @@ public class Cafeteria extends JoinGroupHere {
           HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
         });
 
-    back.setOnAction(
-        e -> {
-          stage.setScene(HelloWorld.scene);
-          HelloWorld.user.stop();
-          HelloWorld.user.resume(HelloWorld.scene);
-          HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
-        });
+    back.setOnAction(e -> NavigationHelper.returnToMainScene(stage));
 
     Rectangle friendClickArea = new Rectangle(250, 250);
     friendClickArea.setFill(Color.TRANSPARENT);

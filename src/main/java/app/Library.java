@@ -103,13 +103,7 @@ public class Library extends JoinGroupHere {
           HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
         });
 
-    back.setOnAction(
-        e -> {
-          stage.setScene(HelloWorld.scene);
-          HelloWorld.user.stop();
-          HelloWorld.user.resume(HelloWorld.scene);
-          HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
-        });
+    back.setOnAction(e -> NavigationHelper.returnToMainScene(stage));
 
     root.getChildren().addAll(bookshelfClickArea, studyClickArea, back, npc, checkoutButton);
     dialogue.addToRoot(root);
