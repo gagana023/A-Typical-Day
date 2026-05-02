@@ -1,6 +1,7 @@
 package app;
 
 import java.util.Random;
+import javafx.animation.PauseTransition;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,7 +11,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 /**
@@ -49,6 +52,24 @@ public class Stats {
     Line l13 = new Line(50, 500, 50, 400);
     Line l14 = new Line(50, 400, 300, 275);
     Line l15 = new Line(300, 275, 600, 275);
+    NPC npc = new NPC("/mama!.png");
+    npc.setPosition(400, 300);
+    
+    StackPane dialoguePane = new StackPane();
+    dialoguePane.setPrefSize(800, 120);
+    dialoguePane.setStyle("-fx-background-color: white; -fx-border-color: black;");
+    AnchorPane.setBottomAnchor(dialoguePane, 0.0);
+    AnchorPane.setLeftAnchor(dialoguePane, 0.0);
+
+    VBox dialogueContent = new VBox();
+    dialogueContent.setStyle("-fx-alignment: center;");
+
+    Label dialogueText = new Label("How was your day?");
+    dialogueText.setStyle("-fx-font-size: 18px;");
+
+    dialogueContent.getChildren().add(dialogueText);
+    dialoguePane.getChildren().add(dialogueContent);
+
     Button back = new Button("Back");
     back.setLayoutX(730);
     back.setLayoutY(20);
@@ -59,10 +80,17 @@ public class Stats {
           HelloWorld.user.resume(HelloWorld.scene);
         });
     Pane menuBox = getMenu();
-    Group group =
-        new Group(menuBox, l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12, l13, l14, l15, back);
-    Scene scene = new Scene(group, 800, 600);
-    return scene;
+    AnchorPane root = new AnchorPane();
+
+    root.getChildren().addAll(
+        menuBox,
+        l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12, l13, l14, l15,
+        npc,
+        dialoguePane,
+        back
+    );
+
+    return new Scene(root, 800, 600);
   }
 
   /**
