@@ -18,8 +18,6 @@ public class HelloWorld extends Application {
   public static Label task2;
   public static Label task3;
 
-  // canvas.setId("gameCanvas");
-
   @Override
   public void start(Stage stage) {
 

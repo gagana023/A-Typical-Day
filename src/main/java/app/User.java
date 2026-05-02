@@ -26,6 +26,8 @@ public class User {
     playerAnimation = new PlayerAnimation("/blinkdrop.png", 3, 3, 9);
     // sprite = new Sprite("/blinkdrop.png", 3, 3, 9);
     canvas = playerAnimation.getCanvas();
+    canvas.setId("gameCanvas");
+
     // renderFrame();
   }
 

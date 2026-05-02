@@ -28,18 +28,23 @@ public class StudentTest extends ApplicationTest {
 
   @Test
   public void testCanvasIsVisible() {
+    clickOn();
+    sleep(500);
     verifyThat("#gameCanvas", isNotNull());
     verifyThat("#gameCanvas", isVisible());
   }
 
   @Test
-  public void clickingRelativeLocation_ShouldChangePanes() {
+  public void clickingTopLeftDoorShouldOpenOffice() {
+    clickOn(".root"); // leave intro scene
+    sleep(500);
+
     moveTo(point("#gameCanvas").atPosition(Pos.TOP_LEFT));
     moveBy(110, 110);
     clickOn();
-    sleep(2000);
+    sleep(500);
 
-    FxAssert.verifyThat("#topLeft", isVisible());
+    FxAssert.verifyThat("#officeRoot", isVisible());
   }
 
   @Test
@@ -108,12 +113,12 @@ public class StudentTest extends ApplicationTest {
         });
   }
 
-  @Test
-  public void officeSceneBuilds() {
-    Office office = new Office();
-    AnchorPane root = office.getRoot(new Stage());
-    assertNotNull(root);
-  }
+  // @Test
+  // public void officeSceneBuilds() {
+  //   Office office = new Office();
+  //   AnchorPane root = office.getRoot(new Stage());
+  //   assertNotNull(root);
+  // }
 
   @Test
   public void allUserDialogueExists() {
@@ -170,8 +175,8 @@ public class StudentTest extends ApplicationTest {
     NPC npc = new NPC("/student_sprite.png");
     npc.setPosition(200, 300);
 
-    assertEquals(200, npc.getLayoutX());
-    assertEquals(300, npc.getLayoutY());
+    assertEquals(200.0, npc.getLayoutX(), 0.001);
+    assertEquals(300.0, npc.getLayoutY(), 0.001);
   }
 
   @Test
@@ -256,5 +261,78 @@ public class StudentTest extends ApplicationTest {
         () -> {
           sprite.render(gc, 100, 0, 0, 50, 50);
         });
+  }
+
+  @Test
+  public void libraryTasksDoNotAppearTogether() {
+    for (int i = 0; i < 100; i++) {
+      Tasks.chooseRandomTasks(3);
+
+      boolean hasBook = Tasks.isTaskActive("library_book");
+      boolean hasStudy = Tasks.isTaskActive("library_study");
+
+      assertFalse(hasBook && hasStudy);
+    }
+  }
+
+  @Test
+  public void classroomTasksDoNotAppearTogether() {
+    for (int i = 0; i < 100; i++) {
+      Tasks.chooseRandomTasks(3);
+
+      boolean hasHomework = Tasks.isTaskActive("classroom_homework");
+      boolean hasProblem = Tasks.isTaskActive("classroom_problem");
+
+      assertFalse(hasHomework && hasProblem);
+    }
+  }
+
+  @Test
+  public void npcDialogueExistsForAllRooms() {
+    for (NPCDialogue.Room room : NPCDialogue.Room.values()) {
+      assertEquals(3, NPCDialogue.getOptions(room).size());
+    }
+  }
+
+  @Test
+  public void completingFakeTaskDoesNotCrashOrCompleteAnything() {
+    Tasks.chooseRandomTasks(3);
+
+    Tasks.completeTask("fake_task_id");
+
+    boolean fakeTaskExists =
+        Tasks.getActiveTasks().stream().anyMatch(task -> task.getId().equals("fake_task_id"));
+
+    assertFalse(fakeTaskExists);
+  }
+
+  @Test
+  public void optionOneChangesStatsCorrectly() {
+    PlayerStats stats = new PlayerStats();
+
+    stats.changeStats(1);
+
+    assertEquals(0.9, stats.getHealth(), 0.001);
+    assertEquals(1.0, stats.getSocial(), 0.001);
+  }
+
+  @Test
+  public void optionTwoChangesStatsCorrectly() {
+    PlayerStats stats = new PlayerStats();
+
+    stats.changeStats(2);
+
+    assertEquals(1.0, stats.getHealth(), 0.001);
+    assertEquals(0.9, stats.getSocial(), 0.001);
+  }
+
+  @Test
+  public void optionThreeChangesStatsCorrectly() {
+    PlayerStats stats = new PlayerStats();
+
+    stats.changeStats(3);
+
+    assertEquals(0.9, stats.getHealth(), 0.001);
+    assertEquals(0.9, stats.getSocial(), 0.001);
   }
 }

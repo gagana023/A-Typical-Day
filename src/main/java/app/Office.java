@@ -13,6 +13,7 @@ public class Office extends Room {
   public AnchorPane getRoot(Stage stage) {
 
     AnchorPane root = new AnchorPane();
+    root.setId("officeRoot");
 
     Image cafeteriaImg = new Image(getClass().getResource("/office-image.jpg").toExternalForm());
     ImageView background = new ImageView(cafeteriaImg);
