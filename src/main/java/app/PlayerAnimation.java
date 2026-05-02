@@ -66,7 +66,12 @@ public class PlayerAnimation {
     }
   }
 
-  /** Draws the current sprite frame on the canvas. */
+  /**
+   * Draws the current sprite frame on the canvas.
+   *
+   * <p>This method clears the old frame, resets the sprite drawing position to the top-left corner
+   * of the canvas, and renders the current sprite frame.
+   */
   public void renderFrame() {
     GraphicsContext gc = canvas.getGraphicsContext2D();
     gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());

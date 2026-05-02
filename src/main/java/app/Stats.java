@@ -77,12 +77,8 @@ public class Stats {
     VBox menuBox = new VBox();
     menuBox.setPrefSize(200, 200);
 
-    // TODO: anyone (aadi, if time available) - check if an AnchorPane needs to be made in other
-    // classes; could inadvertently be creating logic errors. - aadi
     AnchorPane anchorPane = new AnchorPane();
     anchorPane.getChildren().add(menuBox);
-    // FIXME: anyone - for whatever reason, despite anchoring the VBox to the bottom left, it sits
-    // in the top left. has to be fixed; not sure what's wrong. - aadi
     AnchorPane.setBottomAnchor(menuBox, 0.0);
 
     StackPane section1 = createSection("GAME STATS");

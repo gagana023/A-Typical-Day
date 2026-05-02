@@ -46,7 +46,6 @@ public class HelloWorld extends Application {
     root.setStyle("-fx-background-image: url('/hallway_background.png')");
     user = new User();
 
-    // Rectangle topL = new Rectangle(size, size + 30, Color.BURLYWOOD);
     NPC topL = new NPC("/door.png");
     NPC topR = new NPC("/door.png");
     NPC botL = new NPC("/door.png");
@@ -255,17 +254,25 @@ public class HelloWorld extends Application {
     }
   }
 
-  public static void handleChoice(int option, String taskId, Stage stage) 
-  {
+  /**
+   * Handles the result of selecting a dialogue option.
+   *
+   * <p>This method updates the user's stats, completes the matching task, refreshes the task
+   * display, and switches to the game-over scene if the stat change causes a game-over condition.
+   *
+   * @param option the selected dialogue option number
+   * @param taskId the id of the task completed by the dialogue choice
+   * @param stage the main stage used to switch to the game-over scene
+   */
+  public static void handleChoice(int option, String taskId, Stage stage) {
     boolean isOver = HelloWorld.user.changeStats(option);
 
     Tasks.completeTask(taskId);
     HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
 
-    if (isOver) 
-    {
-        System.out.println("Game Over");
-        stage.setScene(new GameOver().getScene(stage));
+    if (isOver) {
+      System.out.println("Game Over");
+      stage.setScene(new GameOver().getScene(stage));
     }
   }
 }

@@ -20,6 +20,7 @@ public class PlayerStats {
    * battery and decreases social standing. Option 3 decreases both values.
    *
    * @param optionType the selected dialogue option number
+   * @return true if the updated stats cause a game-over condition, false otherwise
    */
   public boolean changeStats(int optionType) {
     double amount = 0.35;
@@ -81,8 +82,12 @@ public class PlayerStats {
     return Math.max(0, Math.min(1, value));
   }
 
+  /**
+   * Checks whether the player has reached a game-over condition.
+   *
+   * @return true if social battery or social standing is 0.0 or lower, false otherwise
+   */
   public boolean isGameOver() {
     return health <= 0 || social <= 0;
   }
-
 }

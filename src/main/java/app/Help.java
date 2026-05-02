@@ -44,7 +44,6 @@ public class Help extends VBox {
     back.setLayoutX(20);
     back.setLayoutY(20);
 
-    // setPadding(new Insets(10));
     getChildren().add(back);
     getChildren().add(scrollPane);
 
@@ -89,11 +88,11 @@ public class Help extends VBox {
 
           Your job is to look at the tasks and go to the 4 rooms to find where you need tp
           complete the tasks. There will be a button indicating so. Once you press it, three
-          dialogue options will pop up, one that fades fast, one that fades a little slowly and 
-          one that stays. These represent the energy taken to give the response. The one that 
-          fades quickly is the most "socially" acceptable answer but it will drain the health bar 
-          and the one that fades slowest is not very "socially acceptable", so it will drain the 
-          social standing bar and the health bar. The medium one drains only social standing 
+          dialogue options will pop up, one that fades fast, one that fades a little slowly and
+          one that stays. These represent the energy taken to give the response. The one that
+          fades quickly is the most "socially" acceptable answer but it will drain the health bar
+          and the one that fades slowest is not very "socially acceptable", so it will drain the
+          social standing bar and the health bar. The medium one drains only social standing
           Make sure to pick the option that works best for your statistics.
 
           You can always come back and access the help at the bottom right of the main screen.
@@ -103,9 +102,15 @@ public class Help extends VBox {
           For finding a study group, press on the desk and the dialogues will appear.
           For ordering food, press on the table closest to the Cafe.
           For classroom tasks, press on the teacher to activate the dialogues.
-          
+
       """;
 
+  /**
+   * Creates and returns the scene used to display the help screen.
+   *
+   * @param stage the main stage for the application
+   * @return a Scene containing the help screen
+   */
   public Scene getHelp(Stage stage) {
     return new Scene(this, 800, 600);
   }
