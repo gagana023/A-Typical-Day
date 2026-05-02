@@ -87,13 +87,15 @@ public class Help extends MenuScreen {
           Our game is raising awareness for students with special needs and
           how challening it can be to go through a school day.
 
-          For our prototype, we currently have one dummy task, ask for extension
+          Your job is to look at the tasks and go to the 4 rooms to find where you need tp
+          complete the tasks. There will be a button indicating so. Once you press it, three
+          dialogue options will pop up, one that fades fast, one that fades a little slowly and 
+          one that stays. These represent the energy taken to give the response. The one that 
+          fades quickly is the most "socially" acceptable answer but it will drain the health bar 
+          and the one that fades slowest is not very "socially acceptable", so it will drain the 
+          social standing bar. Make sure to pick the option that works best for your statistics.
 
-          The classroom room (bottom left) still does not work so don't click on that door.
-
-          Your job is to go through the three working rooms, and find the room with the
-          button "ask for extension". You can click on any of the two buttons, the one that
-          fades fast and the one that doesn't.
+          You can always come back and access the help at the bottom right of the main screen.
 
       """;
 

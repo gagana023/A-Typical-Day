@@ -103,7 +103,7 @@ public class StoryIntro {
     t5.setOnFinished(e -> sceneView.setImage(drivingImg));
 
     VBox storyLayout = new VBox(20);
-    storyLayout.setStyle("-fx-background-color: black; -fx-alignment: center;");
+    storyLayout.setStyle("-fx-background-color: white; -fx-alignment: center;");
 
     Label story =
         new Label(
@@ -112,12 +112,13 @@ public class StoryIntro {
                 + "Four doors stand before you.\n"
                 + "Each one holds a task.\n\n"
                 + "Complete your tasks before time runs out.");
-    story.setTextFill(Color.WHITE);
+    story.setTextFill(Color.BLACK);
     story.setStyle("-fx-font-size: 18px; -fx-text-alignment: center;");
 
     Button next = new Button("Next");
+    Button help = new Button("Help");
 
-    storyLayout.getChildren().addAll(story, next);
+    storyLayout.getChildren().addAll(story, next, help);
     Scene storyScene = new Scene(storyLayout, 800, 600);
 
     next.setOnAction(
@@ -126,6 +127,14 @@ public class StoryIntro {
           user.start();
           gameScene.getRoot().requestFocus();
         });
+    Help h = new Help(stage);
+    
+    help.setOnAction(e ->
+      {
+        user.stop();
+        stage.setScene(h.getHelp(stage));
+      }
+    );
 
     storySequence = new SequentialTransition(introAnim, t1, t2, t3, t4, t5);
 
