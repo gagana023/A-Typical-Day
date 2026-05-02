@@ -103,6 +103,7 @@ public class Help extends VBox {
           For ordering food, press on the table closest to the Cafe.
           For classroom tasks, press on the teacher to activate the dialogues.
 
+          MAKE SURE: Once done with tasks, click on the Stats bar to see how you've done!
       """;
 
   /**
