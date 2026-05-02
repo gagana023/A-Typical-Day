@@ -31,7 +31,7 @@ public class Library extends JoinGroupHere {
     back.setLayoutX(20);
     back.setLayoutY(20);
 
-    NPC npc = new NPC("/student_sprite.png");
+    NPC npc = new NPC("/student1.png");
     npc.setPosition(320, 310);
     AnchorPane.setLeftAnchor(npc, 320.0);
     AnchorPane.setTopAnchor(npc, 310.0);

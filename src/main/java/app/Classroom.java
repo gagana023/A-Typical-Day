@@ -72,13 +72,13 @@ public class Classroom extends Room {
     // AnchorPane.setTopAnchor(leg4, 390.0);
     // AnchorPane.setLeftAnchor(leg4, 560.0);
 
-    NPC classmate = new NPC("/student_sprite.png");
+    NPC classmate = new NPC("/student1.png");
     classmate.setPosition(100, 380);
 
     AnchorPane.setLeftAnchor(classmate, 100.0);
     AnchorPane.setTopAnchor(classmate, 380.0);
 
-    NPC teacher = new NPC("/teacher_sprite.png");
+    NPC teacher = new NPC("/teacher.png");
 
     teacher.setPosition(175, 250);
 
