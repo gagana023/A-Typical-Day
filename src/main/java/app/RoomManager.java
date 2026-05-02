@@ -26,43 +26,39 @@ public class RoomManager {
     enteringLibrary = false;
   }
 
-  public void enterOffice(User user) {
+  public void enterOffice() {
     if (enteringOffice) {
       return;
     }
 
     enteringOffice = true;
-    user.stop();
     openRoom(new Office());
   }
 
-  public void enterClassroom(User user) {
+  public void enterClassroom() {
     if (enteringClassroom) {
       return;
     }
 
     enteringClassroom = true;
-    user.stop();
     openRoom(new Classroom());
   }
 
-  public void enterLibrary(User user) {
+  public void enterLibrary() {
     if (enteringLibrary) {
       return;
     }
 
     enteringLibrary = true;
-    user.stop();
     openRoom(new Library());
   }
 
-  public void enterCafeteria(User user) {
+  public void enterCafeteria() {
     if (enteringCafeteria) {
       return;
     }
 
     enteringCafeteria = true;
-    user.stop();
     openRoom(new Cafeteria());
   }
 
