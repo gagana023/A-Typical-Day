@@ -143,6 +143,8 @@ public class Classroom extends Room {
 
     root.getChildren().addAll(label, back, teacher, classmate);
 
+    dialogue.addToRoot(root);
+
     return root;
   }
 }

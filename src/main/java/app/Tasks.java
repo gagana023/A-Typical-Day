@@ -72,21 +72,22 @@ public class Tasks {
 
   private static boolean conflictsWithActiveTasks(Task newTask) {
     for (Task activeTask : activeTasks) {
-      if ((newTask.getId().equals("library_book") && activeTask.getId().equals("library_study"))
-          || (newTask.getId().equals("library_study")
-              && activeTask.getId().equals("library_book"))) {
-        return true;
-      }
-
-      if ((newTask.getId().equals("classroom_homework")
-              && activeTask.getId().equals("classroom_problem"))
-          || (newTask.getId().equals("classroom_problem")
-              && activeTask.getId().equals("classroom_homework"))) {
+      if (tasksConflict(newTask.getId(), activeTask.getId())) {
         return true;
       }
     }
 
     return false;
+  }
+
+  private static boolean tasksConflict(String taskA, String taskB) {
+    return samePair(taskA, taskB, "library_book", "library_study")
+        || samePair(taskA, taskB, "classroom_homework", "classroom_problem");
+  }
+
+  private static boolean samePair(String taskA, String taskB, String first, String second) {
+    return (taskA.equals(first) && taskB.equals(second))
+        || (taskA.equals(second) && taskB.equals(first));
   }
 
   public static List<Task> getActiveTasks() {
