@@ -1,5 +1,7 @@
 package app;
 
+import javafx.stage.Stage;
+
 /**
  * Stores and updates the player's social battery and social standing.
  *
@@ -50,6 +52,15 @@ public class PlayerStats {
 
     health = clamp(health);
     social = clamp(social);
+
+    if ((health < 0.5 && health > 0) || (social < 0.5 && social > 0)) {
+      // panic class
+      // method that makes visuals dark and shaky
+      Panic panic = new Panic();
+      panic.setPrimaryStage(HelloWorld.getStage());
+      panic.shakeStage();
+      panic.darkenStage();
+    }
 
     return isGameOver();
   }

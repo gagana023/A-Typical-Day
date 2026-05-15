@@ -20,6 +20,7 @@ import javafx.stage.Stage;
  */
 public class HelloWorld extends Application {
 
+  public static Stage stage;
   public static Scene scene;
   public static User user;
   public static Label task1;
@@ -38,6 +39,7 @@ public class HelloWorld extends Application {
    */
   @Override
   public void start(Stage stage) {
+    HelloWorld.stage = stage;
 
     Tasks.chooseRandomTasks(3);
     AnchorPane root = new AnchorPane();
@@ -191,6 +193,11 @@ public class HelloWorld extends Application {
           stage.setScene(scene);
           user.start();
         });
+  }
+
+  public static Stage getStage()
+  {
+    return stage;
   }
 
   /**
