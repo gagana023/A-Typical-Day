@@ -1,0 +1,5 @@
+| Person | Individual Lesson |
+|---|---|
+|Sreshta|Throughout this project, I learned so much from how to communicate effectively to learning how to use classes I had never heard of before. Some unexpected setbacks that we had were the number of merge conflicts that we had. We have three people in our team and we are all dedicated to doing our tasks on time, so everytime we submitted something, we had to call or text each other everytime we were going to push all our changes. Some skills I hope to continue to develop are designing wireframes, class diagrams, and sequence diagrams because they helped us design our prototype, which made it less overwhelming to build our core game and then take it to the next level with stretch features. However, because our diagrams look very different before and after implementation, my skills on that could use work. Finally, balancing my work across tasks was difficult because sometimes, our sprints were loaded with work and sometimes our sprints were pretty calm and we got our work done comfortably. However, with my team’s support, I was motivated to work hard and get all my work done on time.|
+|Gagana||
+|Aadi||
