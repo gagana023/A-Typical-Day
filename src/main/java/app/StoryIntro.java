@@ -151,7 +151,6 @@ public class StoryIntro {
 
     storySequence.setOnFinished(
         e -> {
-          System.out.println("intro done");
           stage.setScene(storyScene);
         });
 

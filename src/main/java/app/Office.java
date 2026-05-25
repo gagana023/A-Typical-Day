@@ -88,7 +88,6 @@ public class Office extends Room {
     back.setOnAction(e -> NavigationHelper.returnToMainScene(stage));
     back.setOnAction(
         e -> {
-          System.out.println("Back Clicked");
           stage.setScene(HelloWorld.scene);
           HelloWorld.user.stop();
           HelloWorld.user.resume(HelloWorld.scene);

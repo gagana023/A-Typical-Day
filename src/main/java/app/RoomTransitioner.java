@@ -70,9 +70,7 @@ public class RoomTransitioner {
   private boolean isColliding(User user, Canvas box) {
     return collisionChecker.isColliding(
         user.getPlayer().getCanvas(),
-        box,
-        user.getPlayer().getPosition().getX(),
-        user.getPlayer().getPosition().getY());
+        box);
   }
 
   /**

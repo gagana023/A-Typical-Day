@@ -1,5 +1,6 @@
 package app;
 
+import java.util.List;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -120,24 +121,26 @@ public class HelloWorld extends Application {
           Office office = new Office();
           topL.setId("topLeft");
           Scene officeScene = new Scene(office.getRoot(stage), 800, 600);
+          HelloWorld.user.stop();
           stage.setScene(officeScene);
         });
-
-    Library library = new Library();
-
-    topR.setOnMouseClicked(e -> stage.setScene(new Scene(library.getRoot(stage), 800, 600)));
 
     botL.setOnMouseClicked(
         e -> {
           Classroom classroom = new Classroom();
           Scene classroomScene = new Scene(classroom.getRoot(stage), 800, 600);
+          HelloWorld.user.stop();
           stage.setScene(classroomScene);
         });
 
-    Cafeteria cafeteria = new Cafeteria();
-
-    botR.setOnMouseClicked(e -> stage.setScene(new Scene(cafeteria.getRoot(stage), 800, 600)));
-
+    topR.setOnMouseClicked(e -> 
+    {
+      Cafeteria cafeteria = new Cafeteria();
+      topR.setId("topRight");
+      Scene cafeteriaScene = new Scene(cafeteria.getRoot(stage), 800, 600);
+      HelloWorld.user.stop();
+      stage.setScene(cafeteriaScene);
+    });
     Stats s = new Stats();
 
     VBox topStatsMenu = new VBox(5);
@@ -166,6 +169,18 @@ public class HelloWorld extends Application {
           stage.setScene(h.getHelp(stage));
         });
 
+    Bully bully1 = new Bully();
+    bully1.setLayoutX(0);
+    bully1.setLayoutY(0);
+    bully1.setWidth(100);
+    bully1.setHeight(160);
+
+    Bully bully2 = new Bully();
+    bully1.setLayoutX(0);
+    bully1.setLayoutY(0);
+    bully1.setWidth(100);
+    bully1.setHeight(160);
+
     root.getChildren()
         .addAll(
             bgCanvas,
@@ -178,7 +193,8 @@ public class HelloWorld extends Application {
             help,
             taskBar,
             toggle,
-            topStatsMenu);
+            topStatsMenu, 
+          bully1, bully2);
 
     StoryIntro intro = new StoryIntro();
     Scene introScene = intro.build(stage, scene, user);
@@ -193,6 +209,8 @@ public class HelloWorld extends Application {
           stage.setScene(scene);
           user.start();
         });
+
+    user.setBullies(List.of(bully1, bully2));
   }
 
   public static Stage getStage()

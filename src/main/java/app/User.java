@@ -1,5 +1,7 @@
 package app;
 
+import java.util.ArrayList;
+import java.util.List;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -50,9 +52,12 @@ public class User {
   /** The player object that stores the player's canvas, position, and stats. */
   private Player player;
 
+  private List<Bully> bullies = new ArrayList<>();
+  private Stage stage;
+
   /** Creates a user with a player animation, canvas, and player object. */
   public User() {
-    playerAnimation = new PlayerAnimation("/blinkdrop.png", 3, 3, 9);
+    playerAnimation = new PlayerAnimation("/walk-front.png", 4, 3, 12);
     canvas = playerAnimation.getCanvas();
     player = new Player(canvas);
   }
@@ -82,6 +87,9 @@ public class User {
     canEnter = true;
     roomTransitioner.reset();
     scene.getRoot().requestFocus();
+    for (Bully b : bullies) {
+      b.resume();
+    }
   }
 
   /**
@@ -110,10 +118,25 @@ public class User {
             playerAnimation.renderFrame();
             roomTransitioner.check(User.this);
             player.updateCanvasPosition();
+            for (Bully bully: bullies)
+            {
+              bully.move(scene);
+
+              if (collisionChecker.isColliding(player.getCanvas(), bully /*,player.getPosition().getX(), player.getPosition().getY())*/))
+              {
+                stop();
+                stage.setScene(new BullyScene().getScene(stage));
+              }
+            }
           }
         };
-  }
+        timer.start();
+    }
 
+    public void setBullies(List<Bully> bullyList)
+    {
+      this.bullies = bullyList;
+    }
   /**
    * Changes the user's stats based on the selected dialogue option.
    *
@@ -156,7 +179,13 @@ public class User {
    */
   public boolean isColliding(Canvas box) {
     return collisionChecker.isColliding(
-        canvas, box, player.getPosition().getX(), player.getPosition().getY());
+        canvas, box /*,player.getPosition().getX(), player.getPosition().getY()*/);
+  }
+
+  public void bullyHit() 
+  {
+      stats.bullyHit();
+      HelloWorld.updateStatsBars();
   }
 
   /**
@@ -173,6 +202,7 @@ public class User {
     this.topR = topR2;
     this.botR = botR2;
     this.botL = botL2;
+    this.stage = stage;
     this.roomManager = new RoomManager(stage);
     this.roomTransitioner = new RoomTransitioner(topL, topR, botL, botR, stage);
   }
@@ -189,7 +219,13 @@ public class User {
 
   /** Stops the user's animation timer. */
   public void stop() {
-    timer.stop();
+    if (timer != null) 
+    {
+      timer.stop();
+    }
+    for (Bully b : bullies) {
+      b.stop();
+    }
   }
 
   /**

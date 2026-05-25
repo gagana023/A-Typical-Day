@@ -20,22 +20,11 @@ public class CollisionChecker {
    * @param playerY the current y-coordinate of the player
    * @return true if the player overlaps the target canvas, false otherwise
    */
-  public boolean isColliding(Canvas player, Canvas target, double playerX, double playerY) {
-    double playerW = player.getWidth();
-    double playerH = player.getHeight();
-
-    Double targetXObj = AnchorPane.getLeftAnchor(target);
-    Double targetYObj = AnchorPane.getTopAnchor(target);
-
-    double targetX = (targetXObj == null) ? 0 : targetXObj;
-    double targetY = (targetYObj == null) ? 0 : targetYObj;
-
-    double targetW = target.getWidth();
-    double targetH = target.getHeight();
-
-    return playerX < targetX + targetW
-        && playerX + playerW > targetX
-        && playerY < targetY + targetH
-        && playerY + playerH > targetY;
-  }
+    public boolean isColliding(Canvas a, Canvas b) 
+    {
+      return a.getLayoutX() < b.getLayoutX() + b.getWidth()
+          && a.getLayoutX() + a.getWidth() > b.getLayoutX()
+          && a.getLayoutY() < b.getLayoutY() + b.getHeight()
+          && a.getLayoutY() + a.getHeight() > b.getLayoutY();
+    }
 }

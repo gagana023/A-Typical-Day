@@ -65,6 +65,15 @@ public class PlayerStats {
     return isGameOver();
   }
 
+  public void bullyHit() 
+  {
+    health -= 0.15;
+    social -= 0.15;
+
+    health = clamp(health);
+    social = clamp(social);
+  }
+
   /**
    * Returns the player's social battery.
    *
