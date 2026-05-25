@@ -25,7 +25,7 @@ public class BullyScene {
       dialogueBox.setFill(Color.GRAY);
 
       Label dialogueText = new Label("Mean stuff...");
-      dialogueText.setTextFill(Color.BLACK);
+      dialogueText.setTextFill(Color.WHITE);
 
       AnchorPane.setLeftAnchor(dialogueBox, 150.0);
       AnchorPane.setTopAnchor(dialogueBox, 420.0);
@@ -47,7 +47,7 @@ public class BullyScene {
         HelloWorld.user.resume(HelloWorld.scene);
       });
 
-      root.getChildren().addAll(user, bully, dialogueText, dialogueBox, continueButton);
+      root.getChildren().addAll(user, bully, dialogueBox, dialogueText, continueButton);
 
       return new Scene(root, 800, 600);
     }
