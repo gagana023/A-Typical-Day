@@ -9,9 +9,21 @@
         "src/main/java",
         "src/main/resources",
     ],
-   "java.debug.settings.vmArgs": "--add-opens=javafx.graphics/com.sun.javafx.application=ALL-UNNAMED --add-exports=javafx.graphics/com.sun.javafx.application=ALL-UNNAMED --module-path \"C:\\path\\to\\javafx-sdk\\lib\" --add-modules=javafx.controls,javafx.graphics --enable-native-access=javafx.graphics",
+    "java.debug.settings.vmArgs": "--enable-native-access=javafx.graphics",
 
-  "java.format.settings.url": 
+    "java.server.launchMode": "Standard",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "/workspaces/javafx/javafx-sdk-current/lib/*.jar",
+    ],
+    "java.project.sourcePaths": [
+        "src/test/java/",
+        "src/main/java",
+        "src/main/resources",
+    ],
+    "java.debug.settings.vmArgs": "--enable-native-access=javafx.graphics",
+
+    "java.format.settings.url": 
         "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
     "java.format.settings.profile": "GoogleStyle",
     "[java]": {
