@@ -47,16 +47,24 @@ public class RoomTransitioner {
    * @param user the user/player being checked for room entrance collisions
    */
   public void check(User user) {
-    if (!canEnter) return;
+    if (!canEnter) 
+    {
+      if (!isColliding(user, topL) && !isColliding(user, topR) 
+         && !isColliding(user, botL) && !isColliding(user, botR)) 
+        {
+            canEnter = true;
+        }
+      return;
+    }
 
     if (isColliding(user, topL)) {
-      enter("office");
+      enter(user, "office");
     } else if (isColliding(user, topR)) {
-      enter("library");
+      enter(user, "library");
     } else if (isColliding(user, botL)) {
-      enter("classroom");
+      enter(user, "classroom");
     } else if (isColliding(user, botR)) {
-      enter("cafeteria");
+      enter(user, "cafeteria");
     }
   }
 
@@ -78,8 +86,9 @@ public class RoomTransitioner {
    *
    * @param roomName the name of the room to enter
    */
-  private void enter(String roomName) {
+  private void enter(User user, String roomName) {
     canEnter = false;
+    user.stop();
 
     switch (roomName) {
       case "office" -> roomManager.enterOffice();

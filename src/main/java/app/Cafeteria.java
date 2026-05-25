@@ -70,8 +70,14 @@ public class Cafeteria extends JoinGroupHere {
           HelloWorld.handleChoice(3, "cafeteria_order", stage);
         });
 
-    back.setOnAction(e -> NavigationHelper.returnToMainScene(stage));
+    back.setOnAction(e -> 
+    {
+      stage.setScene(HelloWorld.scene);
+      HelloWorld.user.resume(HelloWorld.scene);
+      HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+    });
 
+    
     Rectangle friendClickArea = new Rectangle(250, 250);
     friendClickArea.setFill(Color.TRANSPARENT);
     friendClickArea.setStroke(Color.TRANSPARENT);

@@ -116,31 +116,6 @@ public class HelloWorld extends Application {
 
     user.connect(scene);
 
-    topL.setOnMouseClicked(
-        e -> {
-          Office office = new Office();
-          topL.setId("topLeft");
-          Scene officeScene = new Scene(office.getRoot(stage), 800, 600);
-          HelloWorld.user.stop();
-          stage.setScene(officeScene);
-        });
-
-    botL.setOnMouseClicked(
-        e -> {
-          Classroom classroom = new Classroom();
-          Scene classroomScene = new Scene(classroom.getRoot(stage), 800, 600);
-          HelloWorld.user.stop();
-          stage.setScene(classroomScene);
-        });
-
-    topR.setOnMouseClicked(e -> 
-    {
-      Cafeteria cafeteria = new Cafeteria();
-      topR.setId("topRight");
-      Scene cafeteriaScene = new Scene(cafeteria.getRoot(stage), 800, 600);
-      HelloWorld.user.stop();
-      stage.setScene(cafeteriaScene);
-    });
     Stats s = new Stats();
 
     VBox topStatsMenu = new VBox(5);
@@ -176,10 +151,10 @@ public class HelloWorld extends Application {
     bully1.setHeight(160);
 
     Bully bully2 = new Bully();
-    bully1.setLayoutX(0);
-    bully1.setLayoutY(0);
-    bully1.setWidth(100);
-    bully1.setHeight(160);
+    bully2.setLayoutX(0);
+    bully2.setLayoutY(0);
+    bully2.setWidth(100);
+    bully2.setHeight(160);
 
     root.getChildren()
         .addAll(

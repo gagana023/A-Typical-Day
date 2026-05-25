@@ -6,6 +6,7 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.stage.Stage;
+import javafx.application.Platform;
 
 /**
  * Represents the player user and controls player movement, animation, stats, and room transitions.
@@ -54,6 +55,8 @@ public class User {
 
   private List<Bully> bullies = new ArrayList<>();
   private Stage stage;
+  private boolean paused = false;
+  
 
   /** Creates a user with a player animation, canvas, and player object. */
   public User() {
@@ -80,16 +83,24 @@ public class User {
    * @param scene the scene where the user resumes movement
    */
   public void resume(Scene scene) {
+    paused = false;
     stopMovement();
     player.setCoordinates(350, 250);
     player.updateCanvasPosition();
     start();
-    canEnter = true;
-    roomTransitioner.reset();
-    scene.getRoot().requestFocus();
-    for (Bully b : bullies) {
+    // canEnter = true;
+    // if(roomTransitioner!=null)
+    // {
+    //   roomTransitioner.reset();
+    // }
+    //scene.getRoot().requestFocus();
+    for (Bully b : bullies) 
+    {
+      b.setLayoutX(0);
+      b.setLayoutY(0);
       b.resume();
     }
+    System.out.println("resumed");
   }
 
   /**
@@ -112,7 +123,13 @@ public class User {
            *
            * @param now the current timestamp in nanoseconds
            */
-          public void handle(long now) {
+          public void handle(long now) 
+          {
+            //System.out.println(paused);
+            if (paused || timer == null)
+            {
+              return;
+            }
             boolean moving = movementController.update(player, scene);
             playerAnimation.updateAnimation(moving);
             playerAnimation.renderFrame();
@@ -120,17 +137,26 @@ public class User {
             player.updateCanvasPosition();
             for (Bully bully: bullies)
             {
+              //System.out.println("Bully moving: " + bully.getLayoutX() + ", " + bully.getLayoutY());
               bully.move(scene);
 
-              if (collisionChecker.isColliding(player.getCanvas(), bully /*,player.getPosition().getX(), player.getPosition().getY())*/))
+              if (collisionChecker.isColliding(canvas, bully /*,player.getPosition().getX(), player.getPosition().getY())*/))
               {
-                stop();
-                stage.setScene(new BullyScene().getScene(stage));
+                bully.setLayoutX(Math.random() * 600);
+                bully.setLayoutY(Math.random() * 400);
+
+                bullyHit();
+
+                Platform.runLater(() ->
+                {
+                  stop();
+                  stage.setScene(new BullyScene().getScene(stage));
+                });
               }
             }
           }
         };
-        timer.start();
+        //timer.start();
     }
 
     public void setBullies(List<Bully> bullyList)
@@ -214,11 +240,16 @@ public class User {
 
   /** Starts the user's animation timer. */
   public void start() {
+    if (timer == null)
+    {
+      return;
+    }
     timer.start();
   }
 
   /** Stops the user's animation timer. */
   public void stop() {
+    paused = true;
     if (timer != null) 
     {
       timer.stop();
@@ -226,6 +257,7 @@ public class User {
     for (Bully b : bullies) {
       b.stop();
     }
+    System.out.println("stopped");
   }
 
   /**

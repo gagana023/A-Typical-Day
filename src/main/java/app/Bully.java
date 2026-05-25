@@ -12,8 +12,8 @@ public class Bully extends NPC{
     public Bully()
     {
       super("/student1.png");
-      dx = Math.random() * 6 - 3;
-      dy = Math.random() * 6 - 3;
+      dx = Math.random() * 1 + 1;
+      dy = Math.random() * 1 + 1;
 
       rememberX = dx;
       rememberY = dy;
