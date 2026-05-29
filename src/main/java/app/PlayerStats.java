@@ -1,7 +1,5 @@
 package app;
 
-import javafx.stage.Stage;
-
 /**
  * Stores and updates the player's social battery and social standing.
  *

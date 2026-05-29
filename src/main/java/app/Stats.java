@@ -1,8 +1,6 @@
 package app;
 
 import java.util.Random;
-import javafx.animation.PauseTransition;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,9 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 /**
@@ -39,21 +34,6 @@ public class Stats {
    */
   public Scene buildPrototypeHomeAndStats(Stage stage) {
     stage.setTitle("Home");
-    /*Line l1 = new Line(0, 100, 600, 100);
-    Line l2 = new Line(800, 0, 600, 100);
-    Line l3 = new Line(600, 400, 600, 100);
-    Line l4 = new Line(800, 500, 600, 400);
-    Line l5 = new Line(600, 400, 300, 400);
-    Line l6 = new Line(300, 400, 100, 500);
-    Line l7 = new Line(100, 500, 100, 400);
-    Line l8 = new Line(100, 400, 300, 300);
-    Line l9 = new Line(300, 300, 300, 400);
-    Line l10 = new Line(300, 300, 600, 300);
-    Line l11 = new Line(100, 500, 50, 500);
-    Line l12 = new Line(100, 400, 50, 400);
-    Line l13 = new Line(50, 500, 50, 400);
-    Line l14 = new Line(50, 400, 300, 275);
-    Line l15 = new Line(300, 275, 600, 275);*/
     Image kitchenImg = new Image(getClass().getResource("/kitchen.png").toExternalForm());
     ImageView background = new ImageView(kitchenImg);
     background.setFitWidth(800);
@@ -90,9 +70,8 @@ public class Stats {
     AnchorPane root = new AnchorPane();
 
     root.getChildren().addAll(
-        menuBox,
-        /*l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12, l13, l14, l15,*/
         background,
+        menuBox,
         npc,
         dialoguePane,
         back
@@ -112,6 +91,7 @@ public class Stats {
 
     VBox menuBox = new VBox();
     menuBox.setPrefSize(200, 200);
+    menuBox.setStyle("-fx-background-color: white;");
 
     AnchorPane anchorPane = new AnchorPane();
     anchorPane.getChildren().add(menuBox);
