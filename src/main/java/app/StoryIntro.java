@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -60,10 +61,35 @@ public class StoryIntro {
     Image bedroomImg = new Image(getClass().getResource("/bedroom.png").toExternalForm());
     Image downstairsImg = new Image(getClass().getResource("/downstairs.png").toExternalForm());
     Image drivingImg = new Image(getClass().getResource("/driving.png").toExternalForm());
+    Image titleImg = new Image(getClass().getResource("/title.png").toExternalForm());
     sceneView.setImage(bedroomImg);
     Rectangle flash = new Rectangle(800, 600, Color.WHITE);
 
-    introRoot.getChildren().addAll(rect, sceneView, clock, time, flash);
+    Button next = new Button("Next");
+    Button help = new Button("Help");
+    next.setPrefSize(140, 40);
+    help.setPrefSize(140, 40);
+    next.setStyle("-fx-font-size: 20px; -fx-background-color: #eb4084 ; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-color: black; -fx-border-width: 2px;");
+    help.setStyle("-fx-font-size: 20px; -fx-background-color: #eb4084 ; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-color: black; -fx-border-width: 2px;");
+    HBox storyLayout = new HBox(20, next, help);
+    storyLayout.setStyle("-fx-alignment: bottom-center; -fx-padding: 0 0 115 0;");
+    storyLayout.setVisible(false);
+    next.setOnAction(
+        e -> {
+          stage.setScene(gameScene);
+          user.start();
+          gameScene.getRoot().requestFocus();
+        });
+    Help h = new Help(stage);
+
+    help.setOnAction(
+        e -> {
+          user.stop();
+          stage.setScene(h.getHelp(stage));
+        });
+
+    introRoot.getChildren().addAll(rect, sceneView, clock, time, flash, storyLayout);
+    Scene introScene = new Scene(introRoot, 800, 600);
 
     FadeTransition clockS = new FadeTransition(Duration.seconds(1), clock);
     clockS.setToValue(1);
@@ -112,10 +138,10 @@ public class StoryIntro {
     t4.setOnFinished(e -> sceneView.setImage(drivingImg));
 
     PauseTransition t5 = new PauseTransition(Duration.seconds(1));
-    t5.setOnFinished(e -> sceneView.setImage(drivingImg));
+    t5.setOnFinished(e -> sceneView.setImage(titleImg));
+    PauseTransition t6 = new PauseTransition(Duration.seconds(1));
 
-    VBox storyLayout = new VBox(20);
-    storyLayout.setStyle("-fx-background-color: white; -fx-alignment: center;");
+    
 
     Label story =
         new Label(
@@ -126,35 +152,14 @@ public class StoryIntro {
                 + "Complete your tasks before time runs out.");
     story.setTextFill(Color.BLACK);
     story.setStyle("-fx-font-size: 18px; -fx-text-alignment: center;");
-
-    Button next = new Button("Next");
-    Button help = new Button("Help");
-
-    storyLayout.getChildren().addAll(story, next, help);
-    Scene storyScene = new Scene(storyLayout, 800, 600);
-
-    next.setOnAction(
-        e -> {
-          stage.setScene(gameScene);
-          user.start();
-          gameScene.getRoot().requestFocus();
-        });
-    Help h = new Help(stage);
-
-    help.setOnAction(
-        e -> {
-          user.stop();
-          stage.setScene(h.getHelp(stage));
-        });
-
-    storySequence = new SequentialTransition(introAnim, t1, t2, t3, t4, t5);
+    
+    storySequence = new SequentialTransition(introAnim, t1, t2, t3, t4, t5, t6);
 
     storySequence.setOnFinished(
         e -> {
-          stage.setScene(storyScene);
+          storyLayout.setVisible(true);
         });
 
-    Scene introScene = new Scene(introRoot, 800, 600);
     return introScene;
   }
 
