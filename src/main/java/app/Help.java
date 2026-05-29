@@ -84,7 +84,7 @@ public class Help extends VBox {
   private static final String DEFAULT_TEXT =
       """
           Our game is raising awareness for students with special needs and
-          how challening it can be to go through a school day.
+          how challenging it can be to go through a school day.
 
           Your job is to look at the tasks and go to the 4 rooms to find where you need tp
           complete the tasks. There will be a button indicating so. Once you press it, three
