@@ -45,7 +45,7 @@ public class Cafeteria extends JoinGroupHere {
     back.setLayoutX(20);
     back.setLayoutY(20);
 
-    NPC npc = new NPC("/student1.png");
+    NPC npc = new NPC("/student1.png", 40, 100);
     npc.setPosition(210, 380);
     AnchorPane.setLeftAnchor(npc, 210.0);
     AnchorPane.setTopAnchor(npc, 380.0);

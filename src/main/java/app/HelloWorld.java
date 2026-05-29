@@ -49,10 +49,10 @@ public class HelloWorld extends Application {
     root.setStyle("-fx-background-image: url('/hallway_background.png')");
     user = new User();
 
-    NPC topL = new NPC("/door.png");
-    NPC topR = new NPC("/door.png");
-    NPC botL = new NPC("/door.png");
-    NPC botR = new NPC("/door.png");
+    NPC topL = new NPC("/door.png", 100, 160);
+    NPC topR = new NPC("/door.png", 100, 160);
+    NPC botL = new NPC("/door.png", 100, 160);
+    NPC botR = new NPC("/door.png", 100, 160);
 
     user.setRooms(topL, botL, topR, botR, stage);
 

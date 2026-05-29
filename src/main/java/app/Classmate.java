@@ -13,7 +13,7 @@ public class Classmate extends NPC {
    * @param spritePath the path to the sprite image used for this classmate
    */
   public Classmate(String spritePath) {
-    super(spritePath);
+    super(spritePath, 40, 100);
     // TODO Auto-generated constructor stub
   }
 }

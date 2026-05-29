@@ -163,7 +163,7 @@ public class StudentTest extends ApplicationTest {
 
   @Test
   public void npcPositionSet() {
-    NPC npc = new NPC("/student_sprite.png");
+    NPC npc = new NPC("/student_sprite.png", 40, 100);
     npc.setPosition(200, 300);
 
     assertEquals(200.0, npc.getLayoutX(), 0.001);
@@ -173,7 +173,7 @@ public class StudentTest extends ApplicationTest {
   @Test
   public void collisionDetected() {
     User user = new User();
-    NPC npc = new NPC("/student_sprite.png");
+    NPC npc = new NPC("/student_sprite.png", 40, 100);
 
     npc.setWidth(100);
     npc.setHeight(100);
@@ -189,7 +189,7 @@ public class StudentTest extends ApplicationTest {
   @Test
   public void noCollisionWhenFar() {
     User user = new User();
-    NPC npc = new NPC("/student_sprite.png");
+    NPC npc = new NPC("/student_sprite.png", 40, 100);
 
     AnchorPane.setLeftAnchor(npc, 0.0);
     AnchorPane.setTopAnchor(npc, 0.0);
@@ -202,7 +202,7 @@ public class StudentTest extends ApplicationTest {
   @Test
   public void collisionHandlesNullAnchors() {
     User user = new User();
-    NPC npc = new NPC("/student_sprite.png");
+    NPC npc = new NPC("/student_sprite.png", 40, 100);
 
     try {
       user.isColliding(npc);

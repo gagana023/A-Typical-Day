@@ -32,7 +32,7 @@ public class Sprite {
 
   /** Total number of valid frames in the sheet. */
   private final int spriteCount;
-
+ 
   /** Width of a single sprite frame in pixels. */
   private double frameWidth;
 

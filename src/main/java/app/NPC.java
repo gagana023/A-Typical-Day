@@ -18,13 +18,13 @@ public class NPC extends Canvas {
    *
    * @param spritePath the file path for the sprite image used by the NPC
    */
-  public NPC(String spritePath) {
+  public NPC(String spritePath, int frameWidth, int frameHeight) {
     sprite = new Sprite(spritePath, 1, 1, 1);
 
-    sprite.setFrameSize(100, 160);
+    sprite.setFrameSize(frameWidth, frameHeight);
 
-    setWidth(sprite.getFrameWidth());
-    setHeight(sprite.getFrameHeight());
+    setWidth(frameWidth);
+    setHeight(frameHeight);
 
     sprite.setPosition(0, 0);
     GraphicsContext gc = getGraphicsContext2D();

@@ -48,7 +48,7 @@ public class Office extends Room {
     AnchorPane.setTopAnchor(back, 20.0);
     AnchorPane.setLeftAnchor(back, 20.0);
 
-    NPC npc = new NPC("/student1.png");
+    NPC npc = new NPC("/student1.png", 40, 100);
 
     npc.setPosition(100, 315);
     AnchorPane.setLeftAnchor(npc, 100.0);

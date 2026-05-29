@@ -13,7 +13,7 @@ public class BullyScene {
     {
       AnchorPane root = new AnchorPane();
 
-      NPC user = new NPC("/player_option.png");
+      NPC user = new NPC("/player_option.png", 58, 120);
       AnchorPane.setLeftAnchor(user, 100.0);
       AnchorPane.setBottomAnchor(user, 200.0);
 

@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -37,7 +39,7 @@ public class Stats {
    */
   public Scene buildPrototypeHomeAndStats(Stage stage) {
     stage.setTitle("Home");
-    Line l1 = new Line(0, 100, 600, 100);
+    /*Line l1 = new Line(0, 100, 600, 100);
     Line l2 = new Line(800, 0, 600, 100);
     Line l3 = new Line(600, 400, 600, 100);
     Line l4 = new Line(800, 500, 600, 400);
@@ -51,9 +53,14 @@ public class Stats {
     Line l12 = new Line(100, 400, 50, 400);
     Line l13 = new Line(50, 500, 50, 400);
     Line l14 = new Line(50, 400, 300, 275);
-    Line l15 = new Line(300, 275, 600, 275);
-    NPC npc = new NPC("/mama!.png");
-    npc.setPosition(400, 300);
+    Line l15 = new Line(300, 275, 600, 275);*/
+    Image kitchenImg = new Image(getClass().getResource("/kitchen.png").toExternalForm());
+    ImageView background = new ImageView(kitchenImg);
+    background.setFitWidth(800);
+    background.setFitHeight(600);
+    background.setPreserveRatio(false);
+    NPC npc = new NPC("/mama!.png", 187, 230);
+    npc.setPosition(350, 210);
     
     StackPane dialoguePane = new StackPane();
     dialoguePane.setPrefSize(800, 120);
@@ -84,7 +91,8 @@ public class Stats {
 
     root.getChildren().addAll(
         menuBox,
-        l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12, l13, l14, l15,
+        /*l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12, l13, l14, l15,*/
+        background,
         npc,
         dialoguePane,
         back
@@ -110,12 +118,12 @@ public class Stats {
     AnchorPane.setBottomAnchor(menuBox, 0.0);
 
     StackPane section1 = createSection("GAME STATS");
-    StackPane section2 = createSection("Tasks");
+    //StackPane section2 = createSection("Tasks");
     StackPane section3 = createBarSection("Social Battery");
     StackPane section4 = createBarSection("Social Standing");
-    StackPane section5 = createSection("Time");
+    //StackPane section5 = createSection("Time");
 
-    menuBox.getChildren().addAll(section1, section2, section3, section4, section5);
+    menuBox.getChildren().addAll(section1, section3, section4);
 
     return anchorPane;
   }
