@@ -145,12 +145,17 @@ public class User {
                 bully.setLayoutX(Math.random() * 600);
                 bully.setLayoutY(Math.random() * 400);
 
-                bullyHit();
+                boolean isOver = bullyHit();
 
                 Platform.runLater(
                     () -> {
                       stop();
-                      stage.setScene(new BullyScene().getScene(stage));
+
+                      if (isOver) {
+                        stage.setScene(new GameOver().getScene(stage));
+                      } else {
+                        stage.setScene(new BullyScene().getScene(stage));
+                      }
                     });
               }
             }
@@ -208,9 +213,10 @@ public class User {
         canvas, box /*,player.getPosition().getX(), player.getPosition().getY()*/);
   }
 
-  public void bullyHit() {
-    stats.bullyHit();
+  public boolean bullyHit() {
+    boolean over = stats.bullyHit();
     HelloWorld.updateStatsBars();
+    return over;
   }
 
   /**

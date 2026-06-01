@@ -63,13 +63,23 @@ public class PlayerStats {
     return isGameOver();
   }
 
-  public void bullyHit() 
-  {
+  public boolean bullyHit() {
     health -= 0.15;
     social -= 0.15;
 
     health = clamp(health);
     social = clamp(social);
+
+    HelloWorld.updateStatsBars();
+
+    if ((health < 0.5 && health > 0) || (social < 0.5 && social > 0)) {
+      Panic panic = new Panic();
+      panic.setPrimaryStage(HelloWorld.getStage());
+      panic.shakeStage();
+      panic.darkenStage();
+    }
+
+    return isGameOver();
   }
 
   /**
