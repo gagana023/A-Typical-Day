@@ -144,17 +144,17 @@ public class HelloWorld extends Application {
           stage.setScene(h.getHelp(stage));
         });
 
-    Bully bully1 = new Bully();
-    bully1.setLayoutX(0);
-    bully1.setLayoutY(0);
-    bully1.setWidth(100);
-    bully1.setHeight(160);
+    // Bully bully1 = new Bully();
+    // bully1.setLayoutX(0);
+    // bully1.setLayoutY(0);
+    // bully1.setWidth(100);
+    // bully1.setHeight(160);
 
-    Bully bully2 = new Bully();
-    bully2.setLayoutX(0);
-    bully2.setLayoutY(0);
-    bully2.setWidth(100);
-    bully2.setHeight(160);
+    // Bully bully2 = new Bully();
+    // bully2.setLayoutX(0);
+    // bully2.setLayoutY(0);
+    // bully2.setWidth(100);
+    // bully2.setHeight(160);
 
     root.getChildren()
         .addAll(
@@ -168,8 +168,9 @@ public class HelloWorld extends Application {
             help,
             taskBar,
             toggle,
-            topStatsMenu, 
-          bully1, bully2);
+            topStatsMenu
+          // bully1, bully2
+          );
 
     StoryIntro intro = new StoryIntro();
     Scene introScene = intro.build(stage, scene, user);
@@ -185,7 +186,7 @@ public class HelloWorld extends Application {
           user.start();
         });
 
-    user.setBullies(List.of(bully1, bully2));
+    // user.setBullies(List.of(bully1, bully2));
   }
 
   public static Stage getStage()

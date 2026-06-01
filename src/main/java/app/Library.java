@@ -30,7 +30,7 @@ public class Library extends JoinGroupHere {
   public AnchorPane getRoot(Stage stage) {
     AnchorPane root = new AnchorPane();
 
-    Image libraryImg = new Image(getClass().getResource("/library.jpg").toExternalForm());
+    Image libraryImg = new Image(getClass().getResource("/library.png").toExternalForm());
     ImageView background = new ImageView(libraryImg);
 
     background.setFitWidth(800);

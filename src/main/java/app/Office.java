@@ -30,7 +30,7 @@ public class Office extends Room {
     AnchorPane root = new AnchorPane();
     root.setId("officeRoot");
 
-    Image cafeteriaImg = new Image(getClass().getResource("/office-image.jpg").toExternalForm());
+    Image cafeteriaImg = new Image(getClass().getResource("/office.png").toExternalForm());
     ImageView background = new ImageView(cafeteriaImg);
 
     background.setFitWidth(800);
@@ -85,11 +85,10 @@ public class Office extends Room {
           HelloWorld.handleChoice(3, "office_extension", stage);
         });
 
-    back.setOnAction(e -> NavigationHelper.returnToMainScene(stage));
     back.setOnAction(
         e -> {
           stage.setScene(HelloWorld.scene);
-          //HelloWorld.user.stop();
+          // HelloWorld.user.stop();
           HelloWorld.user.resume(HelloWorld.scene);
           HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
         });

@@ -30,7 +30,7 @@ public class Cafeteria extends JoinGroupHere {
   public AnchorPane getRoot(Stage stage) {
     AnchorPane root = new AnchorPane();
 
-    Image cafeteriaImg = new Image(getClass().getResource("/cafeteria.jpg").toExternalForm());
+    Image cafeteriaImg = new Image(getClass().getResource("/cafeteria.png").toExternalForm());
     ImageView background = new ImageView(cafeteriaImg);
 
     background.setFitWidth(800);
@@ -70,14 +70,13 @@ public class Cafeteria extends JoinGroupHere {
           HelloWorld.handleChoice(3, "cafeteria_order", stage);
         });
 
-    back.setOnAction(e -> 
-    {
-      stage.setScene(HelloWorld.scene);
-      HelloWorld.user.resume(HelloWorld.scene);
-      HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
-    });
+    back.setOnAction(
+        e -> {
+          stage.setScene(HelloWorld.scene);
+          HelloWorld.user.resume(HelloWorld.scene);
+          HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+        });
 
-    
     Rectangle friendClickArea = new Rectangle(250, 250);
     friendClickArea.setFill(Color.TRANSPARENT);
     friendClickArea.setStroke(Color.TRANSPARENT);

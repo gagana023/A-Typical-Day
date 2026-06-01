@@ -30,7 +30,7 @@ public class Classroom extends Room {
 
     AnchorPane root = new AnchorPane();
 
-    Image cafeteriaImg = new Image(getClass().getResource("/classroom.jpg").toExternalForm());
+    Image cafeteriaImg = new Image(getClass().getResource("/classroom.png").toExternalForm());
     ImageView background = new ImageView(cafeteriaImg);
 
     background.setFitWidth(800);
@@ -74,8 +74,10 @@ public class Classroom extends Room {
       npcOptions = NPCDialogue.getOptions(NPCDialogue.Room.CLASSROOM_PROBLEM);
       activeClassroomTask = "classroom_problem";
     } else {
-      options = List.of("...");
-      npcOptions = List.of("...");
+      options = List.of("...", "...", "...");
+
+      npcOptions = List.of("...", "...", "...");
+
       activeClassroomTask = "";
     }
 
@@ -103,12 +105,12 @@ public class Classroom extends Room {
           HelloWorld.handleChoice(3, activeClassroomTask, stage);
         });
 
-    back.setOnAction(e -> 
-    {
-      stage.setScene(HelloWorld.scene);
-      HelloWorld.user.resume(HelloWorld.scene);
-      HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
-    });
+    back.setOnAction(
+        e -> {
+          stage.setScene(HelloWorld.scene);
+          HelloWorld.user.resume(HelloWorld.scene);
+          HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+        });
 
     root.getChildren().addAll(label, back, teacher, classmate);
 

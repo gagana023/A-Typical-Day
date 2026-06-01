@@ -1,7 +1,6 @@
 package app;
 
 import javafx.scene.canvas.Canvas;
-import javafx.scene.layout.AnchorPane;
 
 /**
  * Checks collision between the player canvas and another canvas object.
@@ -20,11 +19,7 @@ public class CollisionChecker {
    * @param playerY the current y-coordinate of the player
    * @return true if the player overlaps the target canvas, false otherwise
    */
-    public boolean isColliding(Canvas a, Canvas b) 
-    {
-      return a.getLayoutX() < b.getLayoutX() + b.getWidth()
-          && a.getLayoutX() + a.getWidth() > b.getLayoutX()
-          && a.getLayoutY() < b.getLayoutY() + b.getHeight()
-          && a.getLayoutY() + a.getHeight() > b.getLayoutY();
-    }
+  public boolean isColliding(Canvas a, Canvas b) {
+    return a.getBoundsInParent().intersects(b.getBoundsInParent());
+  }
 }

@@ -3,10 +3,10 @@ package app;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.stage.Stage;
-import javafx.application.Platform;
 
 /**
  * Represents the player user and controls player movement, animation, stats, and room transitions.
@@ -56,7 +56,6 @@ public class User {
   private List<Bully> bullies = new ArrayList<>();
   private Stage stage;
   private boolean paused = false;
-  
 
   /** Creates a user with a player animation, canvas, and player object. */
   public User() {
@@ -85,21 +84,24 @@ public class User {
   public void resume(Scene scene) {
     paused = false;
     stopMovement();
+
     player.setCoordinates(350, 250);
     player.updateCanvasPosition();
+
+    if (roomTransitioner != null) {
+      roomTransitioner.reset();
+    }
+
     start();
-    // canEnter = true;
-    // if(roomTransitioner!=null)
-    // {
-    //   roomTransitioner.reset();
-    // }
-    //scene.getRoot().requestFocus();
-    for (Bully b : bullies) 
-    {
+
+    for (Bully b : bullies) {
       b.setLayoutX(0);
       b.setLayoutY(0);
       b.resume();
     }
+
+    scene.getRoot().requestFocus();
+
     System.out.println("resumed");
   }
 
@@ -123,11 +125,9 @@ public class User {
            *
            * @param now the current timestamp in nanoseconds
            */
-          public void handle(long now) 
-          {
-            //System.out.println(paused);
-            if (paused || timer == null)
-            {
+          public void handle(long now) {
+            // System.out.println(paused);
+            if (paused || timer == null) {
               return;
             }
             boolean moving = movementController.update(player, scene);
@@ -135,34 +135,34 @@ public class User {
             playerAnimation.renderFrame();
             roomTransitioner.check(User.this);
             player.updateCanvasPosition();
-            for (Bully bully: bullies)
-            {
-              //System.out.println("Bully moving: " + bully.getLayoutX() + ", " + bully.getLayoutY());
+            for (Bully bully : bullies) {
+              // System.out.println("Bully moving: " + bully.getLayoutX() + ", " +
+              // bully.getLayoutY());
               bully.move(scene);
 
-              if (collisionChecker.isColliding(canvas, bully /*,player.getPosition().getX(), player.getPosition().getY())*/))
-              {
+              if (collisionChecker.isColliding(
+                  canvas, bully /*,player.getPosition().getX(), player.getPosition().getY())*/)) {
                 bully.setLayoutX(Math.random() * 600);
                 bully.setLayoutY(Math.random() * 400);
 
                 bullyHit();
 
-                Platform.runLater(() ->
-                {
-                  stop();
-                  stage.setScene(new BullyScene().getScene(stage));
-                });
+                Platform.runLater(
+                    () -> {
+                      stop();
+                      stage.setScene(new BullyScene().getScene(stage));
+                    });
               }
             }
           }
         };
-        //timer.start();
-    }
+    // timer.start();
+  }
 
-    public void setBullies(List<Bully> bullyList)
-    {
-      this.bullies = bullyList;
-    }
+  public void setBullies(List<Bully> bullyList) {
+    this.bullies = bullyList;
+  }
+
   /**
    * Changes the user's stats based on the selected dialogue option.
    *
@@ -208,10 +208,9 @@ public class User {
         canvas, box /*,player.getPosition().getX(), player.getPosition().getY()*/);
   }
 
-  public void bullyHit() 
-  {
-      stats.bullyHit();
-      HelloWorld.updateStatsBars();
+  public void bullyHit() {
+    stats.bullyHit();
+    HelloWorld.updateStatsBars();
   }
 
   /**
@@ -240,8 +239,7 @@ public class User {
 
   /** Starts the user's animation timer. */
   public void start() {
-    if (timer == null)
-    {
+    if (timer == null) {
       return;
     }
     timer.start();
@@ -250,8 +248,7 @@ public class User {
   /** Stops the user's animation timer. */
   public void stop() {
     paused = true;
-    if (timer != null) 
-    {
+    if (timer != null) {
       timer.stop();
     }
     for (Bully b : bullies) {

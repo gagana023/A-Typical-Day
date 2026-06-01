@@ -47,13 +47,13 @@ public class RoomTransitioner {
    * @param user the user/player being checked for room entrance collisions
    */
   public void check(User user) {
-    if (!canEnter) 
-    {
-      if (!isColliding(user, topL) && !isColliding(user, topR) 
-         && !isColliding(user, botL) && !isColliding(user, botR)) 
-        {
-            canEnter = true;
-        }
+    if (!canEnter) {
+      if (!isColliding(user, topL)
+          && !isColliding(user, topR)
+          && !isColliding(user, botL)
+          && !isColliding(user, botR)) {
+        canEnter = true;
+      }
       return;
     }
 
@@ -76,9 +76,7 @@ public class RoomTransitioner {
    * @return true if the user is colliding with the canvas, false otherwise
    */
   private boolean isColliding(User user, Canvas box) {
-    return collisionChecker.isColliding(
-        user.getPlayer().getCanvas(),
-        box);
+    return collisionChecker.isColliding(user.getPlayer().getCanvas(), box);
   }
 
   /**
@@ -100,6 +98,7 @@ public class RoomTransitioner {
 
   /** Allows the user to enter another room again. */
   public void reset() {
-    canEnter = true;
+    canEnter = false;
+    roomManager.resetEntries();
   }
 }
