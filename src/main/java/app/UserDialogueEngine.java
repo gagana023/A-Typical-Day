@@ -19,7 +19,8 @@ public class UserDialogueEngine {
     LIBRARY,
     CAFETERIA,
     CLASSROOM_HOMEWORK,
-    CLASSROOM_PROBLEM
+    CLASSROOM_PROBLEM,
+    CAFETERIA_JOIN_TABLE
   }
 
   /**
@@ -54,7 +55,12 @@ public class UserDialogueEngine {
           List.of(
               "No, I do not know how to solve it.",
               "No, I am not ready to answer yet.",
-              "No, I would rather not answer in front of everyone."));
+              "No, I would rather not answer in front of everyone."),
+          Room.CAFETERIA_JOIN_TABLE,
+          List.of(
+              "Hey, is it okay if I sit with you guys?",
+              "I might sit here for a bit if that's okay.",
+              "You guys look less annoying than everyone else, so I'm sitting here."));
 
   /**
    * Returns the player's dialogue options for the given room or task situation.

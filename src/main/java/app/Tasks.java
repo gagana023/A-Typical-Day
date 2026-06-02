@@ -83,8 +83,10 @@ public class Tasks {
     allTasks.add(new Task("classroom_homework", "Go to Classroom and turn in your late homework"));
     allTasks.add(new Task("library_study", "Go to Library and join a study group"));
     allTasks.add(new Task("classroom_problem", "Go to Classroom and solve the board problem"));
-    allTasks.add(new Task("cafeteria_order", "Go to Cafeteria and order based on diet restrictions"));
+    allTasks.add(
+        new Task("cafeteria_order", "Go to Cafeteria and order based on diet restrictions"));
     allTasks.add(new Task("library_book", "Go to Library and find a book"));
+    allTasks.add(new Task("cafeteria_join_table", "Go to Cafeteria and ask to join a table"));
   }
 
   /**
@@ -191,7 +193,7 @@ public class Tasks {
    */
   public static boolean isTaskActive(String id) {
     for (Task task : activeTasks) {
-      if (task.getId().equals(id)) {
+      if (task.getId().equals(id) && !task.isDone()) {
         return true;
       }
     }

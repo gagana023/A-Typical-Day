@@ -19,7 +19,8 @@ public class NPCDialogue {
     LIBRARY,
     CAFETERIA,
     CLASSROOM_HOMEWORK,
-    CLASSROOM_PROBLEM
+    CLASSROOM_PROBLEM,
+    CAFETERIA_JOIN_TABLE
   }
 
   /**
@@ -55,7 +56,10 @@ public class NPCDialogue {
           List.of(
               "That is okay. We can work through the first step together.",
               "I understand. Next time, try to be more prepared before class starts.",
-              "I will not force you to answer, but participation matters."));
+              "I will not force you to answer, but participation matters."),
+          Room.CAFETERIA_JOIN_TABLE,
+          List.of(
+              "Yeah, of course! Pull up a chair.", "Sure, that's fine.", "Uh... okay, I guess."));
 
   /**
    * Returns the NPC dialogue options for the given room or task situation.

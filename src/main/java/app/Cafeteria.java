@@ -45,29 +45,66 @@ public class Cafeteria extends JoinGroupHere {
     back.setLayoutX(20);
     back.setLayoutY(20);
 
-    NPC npc = new NPC("/player11.png", 40, 100);
-    npc.setPosition(210, 380);
-    AnchorPane.setLeftAnchor(npc, 210.0);
-    AnchorPane.setTopAnchor(npc, 380.0);
+    NPC npc = new NPC("/player still.png", 70, 170);
+    npc.setPosition(260, 440);
+    AnchorPane.setLeftAnchor(npc, 260.0);
+    AnchorPane.setTopAnchor(npc, 440.0);
 
-    List<String> userOptions = UserDialogueEngine.getOptions(UserDialogueEngine.Room.CAFETERIA);
-    List<String> npcOptions = NPCDialogue.getOptions(NPCDialogue.Room.CAFETERIA);
+    List<String> userOptions =
+        UserDialogueEngine.getOptions(UserDialogueEngine.Room.CAFETERIA_JOIN_TABLE);
+    List<String> npcOptions = NPCDialogue.getOptions(NPCDialogue.Room.CAFETERIA_JOIN_TABLE);
 
     DialogueUI dialogue = new DialogueUI(userOptions, npcOptions);
 
+    List<String> orderUserOptions =
+        UserDialogueEngine.getOptions(UserDialogueEngine.Room.CAFETERIA);
+
+    List<String> orderNpcOptions = NPCDialogue.getOptions(NPCDialogue.Room.CAFETERIA);
+
+    DialogueUI orderDialogue = new DialogueUI(orderUserOptions, orderNpcOptions);
+
     dialogue.setOption1Action(
         () -> {
-          HelloWorld.handleChoice(1, "cafeteria_order", stage);
+          HelloWorld.handleChoice(1, "cafeteria_join_table", stage);
         });
 
     dialogue.setOption2Action(
         () -> {
-          HelloWorld.handleChoice(2, "cafeteria_order", stage);
+          HelloWorld.handleChoice(2, "cafeteria_join_table", stage);
         });
 
     dialogue.setOption3Action(
         () -> {
+          HelloWorld.handleChoice(3, "cafeteria_join_table", stage);
+        });
+
+    orderDialogue.setOption1Action(
+        () -> {
+          HelloWorld.handleChoice(1, "cafeteria_order", stage);
+        });
+
+    orderDialogue.setOption2Action(
+        () -> {
+          HelloWorld.handleChoice(2, "cafeteria_order", stage);
+        });
+
+    orderDialogue.setOption3Action(
+        () -> {
           HelloWorld.handleChoice(3, "cafeteria_order", stage);
+        });
+
+    Rectangle orderClickArea = new Rectangle(430, 210);
+    orderClickArea.setFill(Color.TRANSPARENT);
+    orderClickArea.setStroke(Color.TRANSPARENT);
+
+    AnchorPane.setLeftAnchor(orderClickArea, 0.0);
+    AnchorPane.setTopAnchor(orderClickArea, 300.0);
+
+    orderClickArea.setOnMouseClicked(
+        e -> {
+          if (Tasks.isTaskActive("cafeteria_order")) {
+            orderDialogue.showOptions();
+          }
         });
 
     back.setOnAction(
@@ -87,13 +124,15 @@ public class Cafeteria extends JoinGroupHere {
 
     friendClickArea.setOnMouseClicked(
         e -> {
-          if (Tasks.isTaskActive("cafeteria_order")) {
+          if (Tasks.isTaskActive("cafeteria_join_table")) {
             dialogue.showOptions();
           }
         });
 
-    root.getChildren().addAll(friendClickArea, back, npc);
+    root.getChildren().addAll(friendClickArea, orderClickArea, back, npc);
     dialogue.addToRoot(root);
+    orderDialogue.addToRoot(root);
+    
 
     return root;
   }
