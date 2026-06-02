@@ -85,10 +85,11 @@ public class Tasks {
     allTasks.add(new Task("classroom_problem", "Go to Classroom and solve the board problem"));
     allTasks.add(
         new Task("cafeteria_order", "Go to Cafeteria and order based on diet restrictions"));
-    allTasks.add(new Task("library_book", "Go to Library and find a book"));
+    allTasks.add(new Task("library_book", "Go to Library and checkout a book"));
     allTasks.add(new Task("cafeteria_join_table", "Go to Cafeteria and ask to join a table"));
     allTasks.add(new Task("office_form", "Go to Office and pick up a counselor form"));
     allTasks.add(new Task("office_schedule", "Go to Office and ask about your schedule"));
+    allTasks.add(new Task("library_return", "Go to Library and return a book"));
   }
 
   /**
@@ -115,54 +116,8 @@ public class Tasks {
         break;
       }
 
-      if (conflictsWithActiveTasks(task)) {
-        continue;
-      }
-
       activeTasks.add(task);
     }
-  }
-
-  /**
-   * Checks whether a new task conflicts with any currently active task.
-   *
-   * @param newTask the task being checked
-   * @return true if the task conflicts with an active task, false otherwise
-   */
-  private static boolean conflictsWithActiveTasks(Task newTask) {
-    for (Task activeTask : activeTasks) {
-      if (tasksConflict(newTask.getId(), activeTask.getId())) {
-        return true;
-      }
-    }
-
-    return false;
-  }
-
-  /**
-   * Checks whether two task ids refer to conflicting tasks.
-   *
-   * @param taskA the id of the first task
-   * @param taskB the id of the second task
-   * @return true if the two tasks conflict, false otherwise
-   */
-  private static boolean tasksConflict(String taskA, String taskB) {
-    return samePair(taskA, taskB, "library_book", "library_study")
-        || samePair(taskA, taskB, "classroom_homework", "classroom_problem");
-  }
-
-  /**
-   * Checks whether two task ids match the same pair of task ids in either order.
-   *
-   * @param taskA the id of the first task being compared
-   * @param taskB the id of the second task being compared
-   * @param first the first id in the conflicting pair
-   * @param second the second id in the conflicting pair
-   * @return true if taskA and taskB match the pair in either order, false otherwise
-   */
-  private static boolean samePair(String taskA, String taskB, String first, String second) {
-    return (taskA.equals(first) && taskB.equals(second))
-        || (taskA.equals(second) && taskB.equals(first));
   }
 
   /**

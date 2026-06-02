@@ -52,40 +52,45 @@ public class Library extends JoinGroupHere {
     AnchorPane.setLeftAnchor(npc, 320.0);
     AnchorPane.setTopAnchor(npc, 310.0);
 
-    Rectangle bookshelfClickArea = new Rectangle(400, 600);
-    bookshelfClickArea.setFill(Color.TRANSPARENT);
-    bookshelfClickArea.setStroke(Color.TRANSPARENT);
+    Rectangle checkoutClickArea = new Rectangle(230, 90);
+    checkoutClickArea.setFill(Color.TRANSPARENT);
+    checkoutClickArea.setStroke(Color.TRANSPARENT);
 
-    AnchorPane.setLeftAnchor(bookshelfClickArea, 0.0);
-    AnchorPane.setTopAnchor(bookshelfClickArea, 0.0);
+    AnchorPane.setLeftAnchor(checkoutClickArea, 60.0);
+    AnchorPane.setTopAnchor(checkoutClickArea, 300.0);
 
-    Button checkoutButton = new Button("Checkout");
-    checkoutButton.setVisible(false);
+    List<String> bookOptions = UserDialogueEngine.getOptions(UserDialogueEngine.Room.LIBRARY_BOOK);
+    List<String> bookNpcOptions = NPCDialogue.getOptions(NPCDialogue.Room.LIBRARY_BOOK);
 
-    AnchorPane.setLeftAnchor(checkoutButton, 430.0);
-    AnchorPane.setTopAnchor(checkoutButton, 280.0);
+    DialogueUI bookDialogue = new DialogueUI(bookOptions, bookNpcOptions);
 
-    bookshelfClickArea.setOnMouseClicked(
+    bookDialogue.setOption1Action(
+        () -> {
+          HelloWorld.handleChoice(1, "library_book", stage);
+        });
+
+    bookDialogue.setOption2Action(
+        () -> {
+          HelloWorld.handleChoice(2, "library_book", stage);
+        });
+
+    bookDialogue.setOption3Action(
+        () -> {
+          HelloWorld.handleChoice(3, "library_book", stage);
+        });
+    checkoutClickArea.setOnMouseClicked(
         e -> {
           if (Tasks.isTaskActive("library_book")) {
-            checkoutButton.setVisible(true);
+            bookDialogue.showOptions();
           }
         });
 
-    checkoutButton.setOnAction(
-        e -> {
-          Tasks.completeTask("library_book");
-          checkoutButton.setVisible(false);
-          HelloWorld.updateTasks(
-              HelloWorld.task1, HelloWorld.task2, HelloWorld.task3, HelloWorld.task4);
-        });
-
-    Rectangle studyClickArea = new Rectangle(250, 180);
+    Rectangle studyClickArea = new Rectangle(300, 190);
     studyClickArea.setFill(Color.TRANSPARENT);
     studyClickArea.setStroke(Color.TRANSPARENT);
 
-    AnchorPane.setLeftAnchor(studyClickArea, 250.0);
-    AnchorPane.setTopAnchor(studyClickArea, 340.0);
+    AnchorPane.setLeftAnchor(studyClickArea, 400.0);
+    AnchorPane.setTopAnchor(studyClickArea, 260.0);
 
     List<String> options = UserDialogueEngine.getOptions(UserDialogueEngine.Room.LIBRARY);
     List<String> npcOptions = NPCDialogue.getOptions(NPCDialogue.Room.LIBRARY);
@@ -126,10 +131,45 @@ public class Library extends JoinGroupHere {
               HelloWorld.task1, HelloWorld.task2, HelloWorld.task3, HelloWorld.task4);
           stage.setTitle("A Typical Day");
         });
+    Rectangle returnClickArea = new Rectangle(120, 120);
+    returnClickArea.setFill(Color.TRANSPARENT);
+    returnClickArea.setStroke(Color.TRANSPARENT);
 
+    AnchorPane.setLeftAnchor(returnClickArea, 0.0);
+    AnchorPane.setTopAnchor(returnClickArea, 395.0);
+
+    List<String> returnOptions =
+        UserDialogueEngine.getOptions(UserDialogueEngine.Room.LIBRARY_RETURN);
+    List<String> returnNpcOptions = NPCDialogue.getOptions(NPCDialogue.Room.LIBRARY_RETURN);
+
+    DialogueUI returnDialogue = new DialogueUI(returnOptions, returnNpcOptions);
+
+    returnDialogue.setOption1Action(
+        () -> {
+          HelloWorld.handleChoice(1, "library_return", stage);
+        });
+
+    returnDialogue.setOption2Action(
+        () -> {
+          HelloWorld.handleChoice(2, "library_return", stage);
+        });
+
+    returnDialogue.setOption3Action(
+        () -> {
+          HelloWorld.handleChoice(3, "library_return", stage);
+        });
+
+    returnClickArea.setOnMouseClicked(
+        e -> {
+          if (Tasks.isTaskActive("library_return")) {
+            returnDialogue.showOptions();
+          }
+        });
     root.getChildren()
-        .addAll(bookshelfClickArea, studyClickArea, back, npc, checkoutButton, roomTimerLabel);
+        .addAll(checkoutClickArea, returnClickArea, studyClickArea, back, npc, roomTimerLabel);
     dialogue.addToRoot(root);
+    returnDialogue.addToRoot(root);
+    bookDialogue.addToRoot(root);
 
     return root;
   }

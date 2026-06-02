@@ -23,6 +23,8 @@ public class UserDialogueEngine {
     CLASSROOM_HOMEWORK,
     CLASSROOM_PROBLEM,
     CAFETERIA_JOIN_TABLE,
+    LIBRARY_RETURN,
+    LIBRARY_BOOK
   }
 
   /**
@@ -72,7 +74,17 @@ public class UserDialogueEngine {
           List.of(
               "Hi, I'm confused about my schedule. Could you help me check it?",
               "I think something on my schedule might be wrong.",
-              "My schedule makes no sense. Can someone fix it?"));
+              "My schedule makes no sense. Can someone fix it?"),
+          Room.LIBRARY_RETURN,
+          List.of(
+              "Hi, I'd like to return this book, please.",
+              "Can I put this book in the return bin?",
+              "I'm just dropping this book here."),
+          Room.LIBRARY_BOOK,
+          List.of(
+              "Hi, could I please check out this book?",
+              "Can I borrow this book?",
+              "I'm taking this book with me."));
 
   /**
    * Returns the player's dialogue options for the given room or task situation.

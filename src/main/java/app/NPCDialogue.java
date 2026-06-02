@@ -22,7 +22,9 @@ public class NPCDialogue {
     CAFETERIA,
     CLASSROOM_HOMEWORK,
     CLASSROOM_PROBLEM,
-    CAFETERIA_JOIN_TABLE
+    CAFETERIA_JOIN_TABLE,
+    LIBRARY_RETURN,
+    LIBRARY_BOOK
   }
 
   /**
@@ -71,7 +73,17 @@ public class NPCDialogue {
           List.of(
               "Of course. Let's look through it together.",
               "Sure, I can check it for you.",
-              "I can help, but please speak kindly."));
+              "I can help, but please speak kindly."),
+          Room.LIBRARY_RETURN,
+          List.of(
+              "Thank you for returning it on time!",
+              "Yes, the return bin is the right place.",
+              "Please make sure it goes in the return cart next time."),
+          Room.LIBRARY_BOOK,
+          List.of(
+              "Of course! I'll scan it for you now.",
+              "Sure, just make sure to return it on time.",
+              "Please check it out properly before leaving."));
 
   /**
    * Returns the NPC dialogue options for the given room or task situation.
