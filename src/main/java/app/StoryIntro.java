@@ -56,20 +56,20 @@ public class StoryIntro {
     sceneView.setFitHeight(600);
     sceneView.setVisible(false);
 
-    Image bathroomImg = new Image(getClass().getResource("/bathroom.png").toExternalForm());
-    Image bedroomImg = new Image(getClass().getResource("/bedroom.png").toExternalForm());
-    Image downstairsImg = new Image(getClass().getResource("/downstairs.jpg").toExternalForm());
-    Image drivingImg = new Image(getClass().getResource("/driving.png").toExternalForm());
     Image titleImg = new Image(getClass().getResource("/title.png").toExternalForm());
-    sceneView.setImage(bedroomImg);
+    sceneView.setImage(titleImg);
     Rectangle flash = new Rectangle(800, 600, Color.WHITE);
 
     Button next = new Button("Next");
     Button help = new Button("Help");
     next.setPrefSize(140, 40);
     help.setPrefSize(140, 40);
-    next.setStyle("-fx-font-size: 20px; -fx-background-color: #eb4084 ; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-color: black; -fx-border-width: 2px;");
-    help.setStyle("-fx-font-size: 20px; -fx-background-color: #eb4084 ; -fx-text-fill: white; -fx-font-weight: bold; -fx-border-color: black; -fx-border-width: 2px;");
+    next.setStyle(
+        "-fx-font-size: 20px; -fx-background-color: #eb4084 ; -fx-text-fill: white;"
+            + " -fx-font-weight: bold; -fx-border-color: black; -fx-border-width: 2px;");
+    help.setStyle(
+        "-fx-font-size: 20px; -fx-background-color: #eb4084 ; -fx-text-fill: white;"
+            + " -fx-font-weight: bold; -fx-border-color: black; -fx-border-width: 2px;");
     HBox storyLayout = new HBox(20, next, help);
     storyLayout.setStyle("-fx-alignment: bottom-center; -fx-padding: 0 0 115 0;");
     storyLayout.setVisible(false);
@@ -118,29 +118,16 @@ public class StoryIntro {
 
     SequentialTransition introAnim = new SequentialTransition(clockS, clockT, flashes);
 
-    PauseTransition t1 = new PauseTransition(Duration.seconds(1));
-    t1.setOnFinished(
+    PauseTransition showTitle = new PauseTransition(Duration.seconds(0.5));
+    showTitle.setOnFinished(
         e -> {
           sceneView.setVisible(true);
           clock.setOpacity(0);
           time.setOpacity(0);
-          sceneView.setImage(bathroomImg);
+          sceneView.setImage(titleImg);
         });
 
-    PauseTransition t2 = new PauseTransition(Duration.seconds(1));
-    t2.setOnFinished(e -> sceneView.setImage(bedroomImg));
-
-    PauseTransition t3 = new PauseTransition(Duration.seconds(1));
-    t3.setOnFinished(e -> sceneView.setImage(downstairsImg));
-
-    PauseTransition t4 = new PauseTransition(Duration.seconds(1));
-    t4.setOnFinished(e -> sceneView.setImage(drivingImg));
-
-    PauseTransition t5 = new PauseTransition(Duration.seconds(1));
-    t5.setOnFinished(e -> sceneView.setImage(titleImg));
-    PauseTransition t6 = new PauseTransition(Duration.seconds(1));
-
-    
+    PauseTransition titlePause = new PauseTransition(Duration.seconds(1));
 
     Label story =
         new Label(
@@ -151,8 +138,8 @@ public class StoryIntro {
                 + "Complete your tasks before time runs out.");
     story.setTextFill(Color.BLACK);
     story.setStyle("-fx-font-size: 18px; -fx-text-alignment: center;");
-    
-    storySequence = new SequentialTransition(introAnim, t1, t2, t3, t4, t5, t6);
+
+    storySequence = new SequentialTransition(introAnim, showTitle, titlePause);
 
     storySequence.setOnFinished(
         e -> {
