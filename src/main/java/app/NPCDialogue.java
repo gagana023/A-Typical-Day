@@ -16,6 +16,8 @@ public class NPCDialogue {
    */
   public enum Room {
     OFFICE,
+    OFFICE_FORM,
+    OFFICE_SCHEDULE,
     LIBRARY,
     CAFETERIA,
     CLASSROOM_HOMEWORK,
@@ -59,7 +61,17 @@ public class NPCDialogue {
               "I will not force you to answer, but participation matters."),
           Room.CAFETERIA_JOIN_TABLE,
           List.of(
-              "Yeah, of course! Pull up a chair.", "Sure, that's fine.", "Uh... okay, I guess."));
+              "Yeah, of course! Pull up a chair.", "Sure, that's fine.", "Uh... okay, I guess."),
+          Room.OFFICE_FORM,
+          List.of(
+              "Yes, go ahead. You can fill it out and return it here.",
+              "That's the right one. Let me know if you need help.",
+              "Please ask before taking things from the desk."),
+          Room.OFFICE_SCHEDULE,
+          List.of(
+              "Of course. Let's look through it together.",
+              "Sure, I can check it for you.",
+              "I can help, but please speak kindly."));
 
   /**
    * Returns the NPC dialogue options for the given room or task situation.

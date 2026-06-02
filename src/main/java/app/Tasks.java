@@ -87,6 +87,8 @@ public class Tasks {
         new Task("cafeteria_order", "Go to Cafeteria and order based on diet restrictions"));
     allTasks.add(new Task("library_book", "Go to Library and find a book"));
     allTasks.add(new Task("cafeteria_join_table", "Go to Cafeteria and ask to join a table"));
+    allTasks.add(new Task("office_form", "Go to Office and pick up a counselor form"));
+    allTasks.add(new Task("office_schedule", "Go to Office and ask about your schedule"));
   }
 
   /**

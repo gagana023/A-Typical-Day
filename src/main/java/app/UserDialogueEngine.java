@@ -16,11 +16,13 @@ public class UserDialogueEngine {
    */
   public enum Room {
     OFFICE,
+    OFFICE_FORM,
+    OFFICE_SCHEDULE,
     LIBRARY,
     CAFETERIA,
     CLASSROOM_HOMEWORK,
     CLASSROOM_PROBLEM,
-    CAFETERIA_JOIN_TABLE
+    CAFETERIA_JOIN_TABLE,
   }
 
   /**
@@ -60,7 +62,17 @@ public class UserDialogueEngine {
           List.of(
               "Hey, is it okay if I sit with you guys?",
               "I might sit here for a bit if that's okay.",
-              "You guys look less annoying than everyone else, so I'm sitting here."));
+              "You guys look less annoying than everyone else, so I'm sitting here."),
+          Room.OFFICE_FORM,
+          List.of(
+              "Hi, could I please take one of these counselor request forms?",
+              "Is this the form I need to fill out?",
+              "I'm just going to take this form."),
+          Room.OFFICE_SCHEDULE,
+          List.of(
+              "Hi, I'm confused about my schedule. Could you help me check it?",
+              "I think something on my schedule might be wrong.",
+              "My schedule makes no sense. Can someone fix it?"));
 
   /**
    * Returns the player's dialogue options for the given room or task situation.

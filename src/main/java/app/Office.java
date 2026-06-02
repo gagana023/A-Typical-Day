@@ -6,6 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 /**
@@ -49,26 +51,69 @@ public class Office extends Room {
     AnchorPane.setLeftAnchor(back, 20.0);
     stage.setTitle("Office");
 
-    NPC npc = new NPC("/player11.png", 40, 100);
+    NPC npc = new NPC("/player still.png", 70, 170);
 
-    npc.setPosition(100, 315);
-    AnchorPane.setLeftAnchor(npc, 100.0);
-    AnchorPane.setTopAnchor(npc, 315.0);
+    npc.setPosition(200, 550);
+    AnchorPane.setLeftAnchor(npc, 490.0);
+    AnchorPane.setTopAnchor(npc, 275.0);
+
+    NPC counselor = new NPC("/counselor.png", 70, 170);
+    counselor.setPosition(300, 360);
+    AnchorPane.setLeftAnchor(counselor, 410.0);
+    AnchorPane.setTopAnchor(counselor, 275.0);
 
     List<String> options = UserDialogueEngine.getOptions(UserDialogueEngine.Room.OFFICE);
     List<String> npcOptions = NPCDialogue.getOptions(NPCDialogue.Room.OFFICE);
 
     DialogueUI dialogue = new DialogueUI(options, npcOptions);
 
-    Button askExtensionButton = new Button("Ask for Counselor Meeting");
-    askExtensionButton.setVisible(Tasks.isTaskActive("office_extension"));
+    Rectangle formClickArea = new Rectangle(130, 90);
+    formClickArea.setFill(Color.TRANSPARENT);
+    formClickArea.setStroke(Color.TRANSPARENT);
 
-    AnchorPane.setLeftAnchor(askExtensionButton, 20.0);
-    AnchorPane.setTopAnchor(askExtensionButton, 520.0);
+    AnchorPane.setLeftAnchor(formClickArea, 280.0);
+    AnchorPane.setTopAnchor(formClickArea, 260.0);
 
-    askExtensionButton.setOnAction(
+    List<String> formOptions = UserDialogueEngine.getOptions(UserDialogueEngine.Room.OFFICE_FORM);
+    List<String> formNpcOptions = NPCDialogue.getOptions(NPCDialogue.Room.OFFICE_FORM);
+
+    DialogueUI formDialogue = new DialogueUI(formOptions, formNpcOptions);
+
+    Rectangle counselorTagClickArea = new Rectangle(120, 45);
+    counselorTagClickArea.setFill(Color.TRANSPARENT);
+    counselorTagClickArea.setStroke(Color.TRANSPARENT);
+
+    // Adjust these numbers until the rectangle is over the counselor tag on the desk
+    AnchorPane.setLeftAnchor(counselorTagClickArea, 250.0);
+    AnchorPane.setTopAnchor(counselorTagClickArea, 330.0);
+
+    counselorTagClickArea.setOnMouseClicked(
         e -> {
-          dialogue.showOptions();
+          if (Tasks.isTaskActive("office_extension")) {
+            dialogue.showOptions();
+          }
+        });
+
+    formDialogue.setOption1Action(
+        () -> {
+          HelloWorld.handleChoice(1, "office_form", stage);
+        });
+
+    formDialogue.setOption2Action(
+        () -> {
+          HelloWorld.handleChoice(2, "office_form", stage);
+        });
+
+    formDialogue.setOption3Action(
+        () -> {
+          HelloWorld.handleChoice(3, "office_form", stage);
+        });
+
+    formClickArea.setOnMouseClicked(
+        e -> {
+          if (Tasks.isTaskActive("office_form")) {
+            formDialogue.showOptions();
+          }
         });
 
     dialogue.setOption1Action(
@@ -86,6 +131,41 @@ public class Office extends Room {
           HelloWorld.handleChoice(3, "office_extension", stage);
         });
 
+    Rectangle scheduleClickArea = new Rectangle(180, 150);
+    scheduleClickArea.setFill(Color.TRANSPARENT);
+    scheduleClickArea.setStroke(Color.TRANSPARENT);
+
+    AnchorPane.setLeftAnchor(scheduleClickArea, 205.0);
+    AnchorPane.setTopAnchor(scheduleClickArea, 70.0);
+
+    List<String> scheduleOptions =
+        UserDialogueEngine.getOptions(UserDialogueEngine.Room.OFFICE_SCHEDULE);
+    List<String> scheduleNpcOptions = NPCDialogue.getOptions(NPCDialogue.Room.OFFICE_SCHEDULE);
+
+    DialogueUI scheduleDialogue = new DialogueUI(scheduleOptions, scheduleNpcOptions);
+
+    scheduleDialogue.setOption1Action(
+        () -> {
+          HelloWorld.handleChoice(1, "office_schedule", stage);
+        });
+
+    scheduleDialogue.setOption2Action(
+        () -> {
+          HelloWorld.handleChoice(2, "office_schedule", stage);
+        });
+
+    scheduleDialogue.setOption3Action(
+        () -> {
+          HelloWorld.handleChoice(3, "office_schedule", stage);
+        });
+
+    scheduleClickArea.setOnMouseClicked(
+        e -> {
+          if (Tasks.isTaskActive("office_schedule")) {
+            scheduleDialogue.showOptions();
+          }
+        });
+
     back.setOnAction(
         e -> {
           stage.setScene(HelloWorld.scene);
@@ -94,9 +174,13 @@ public class Office extends Room {
           HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
           stage.setTitle("A Typical Day");
         });
-    root.getChildren().addAll(label, back, npc, askExtensionButton);
+    root.getChildren()
+        .addAll(
+            label, back, npc, counselor, formClickArea, scheduleClickArea, counselorTagClickArea);
 
     dialogue.addToRoot(root);
+    formDialogue.addToRoot(root);
+    scheduleDialogue.addToRoot(root);
 
     return root;
   }
