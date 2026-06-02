@@ -57,28 +57,30 @@ public class StudentTest extends ApplicationTest {
 
   @Test
   public void updateTasksStrikethrough() {
-    Tasks.chooseRandomTasks(3);
+    Tasks.chooseRandomTasks(4);
 
     Label t1 = new Label();
     Label t2 = new Label();
     Label t3 = new Label();
+    Label t4 = new Label();
 
     Tasks.getActiveTasks().get(0).complete();
 
-    HelloWorld.updateTasks(t1, t2, t3);
+    HelloWorld.updateTasks(t1, t2, t3, t4);
 
     assertTrue(t1.getStyle().contains("strikethrough"));
   }
 
   @Test
   public void updateTasksNoStrikethrough() {
-    Tasks.chooseRandomTasks(3);
+    Tasks.chooseRandomTasks(4);
 
     Label t1 = new Label();
     Label t2 = new Label();
     Label t3 = new Label();
+    Label t4 = new Label();
 
-    HelloWorld.updateTasks(t1, t2, t3);
+    HelloWorld.updateTasks(t1, t2, t3, t4);
 
     assertTrue(t1.getStyle().contains("false"));
   }
