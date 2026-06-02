@@ -6,6 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 /**
@@ -48,64 +50,89 @@ public class Classroom extends Room {
     AnchorPane.setTopAnchor(back, 20.0);
     AnchorPane.setLeftAnchor(back, 20.0);
 
-    NPC classmate = new NPC("/player11.png", 40, 100);
+    NPC classmate = new NPC("/player still.png", 70, 170);
     classmate.setPosition(100, 380);
 
-    AnchorPane.setLeftAnchor(classmate, 100.0);
-    AnchorPane.setTopAnchor(classmate, 380.0);
+    AnchorPane.setLeftAnchor(classmate, 670.0);
+    AnchorPane.setTopAnchor(classmate, 390.0);
 
-    NPC teacher = new NPC("/teacher.png", 38, 112);
+    NPC teacher = new NPC("/teacher.png", 70, 170);
 
     teacher.setPosition(175, 250);
 
-    AnchorPane.setLeftAnchor(teacher, 175.0);
-    AnchorPane.setTopAnchor(teacher, 250.0);
+    AnchorPane.setLeftAnchor(teacher, 400.0);
+    AnchorPane.setTopAnchor(teacher, 210.0);
     stage.setTitle("Classroom");
 
-    List<String> options;
-    List<String> npcOptions;
-    String activeClassroomTask;
+    List<String> homeworkOptions =
+        UserDialogueEngine.getOptions(UserDialogueEngine.Room.CLASSROOM_HOMEWORK);
+    List<String> homeworkNpcOptions = NPCDialogue.getOptions(NPCDialogue.Room.CLASSROOM_HOMEWORK);
 
-    if (Tasks.isTaskActive("classroom_homework")) {
-      options = UserDialogueEngine.getOptions(UserDialogueEngine.Room.CLASSROOM_HOMEWORK);
-      npcOptions = NPCDialogue.getOptions(NPCDialogue.Room.CLASSROOM_HOMEWORK);
-      activeClassroomTask = "classroom_homework";
-    } else if (Tasks.isTaskActive("classroom_problem")) {
-      options = UserDialogueEngine.getOptions(UserDialogueEngine.Room.CLASSROOM_PROBLEM);
-      npcOptions = NPCDialogue.getOptions(NPCDialogue.Room.CLASSROOM_PROBLEM);
-      activeClassroomTask = "classroom_problem";
-    } else {
-      options = List.of("...", "...", "...");
+    DialogueUI homeworkDialogue = new DialogueUI(homeworkOptions, homeworkNpcOptions);
 
-      npcOptions = List.of("...", "...", "...");
+    homeworkDialogue.setOption1Action(
+        () -> {
+          HelloWorld.handleChoice(1, "classroom_homework", stage);
+        });
 
-      activeClassroomTask = "";
-    }
+    homeworkDialogue.setOption2Action(
+        () -> {
+          HelloWorld.handleChoice(2, "classroom_homework", stage);
+        });
 
-    DialogueUI dialogue = new DialogueUI(options, npcOptions);
+    homeworkDialogue.setOption3Action(
+        () -> {
+          HelloWorld.handleChoice(3, "classroom_homework", stage);
+        });
 
-    teacher.setOnMouseClicked(
+    Rectangle homeworkClickArea = new Rectangle(120, 90);
+    homeworkClickArea.setFill(Color.TRANSPARENT);
+    homeworkClickArea.setStroke(Color.TRANSPARENT);
+
+    AnchorPane.setLeftAnchor(homeworkClickArea, 185.0);
+    AnchorPane.setTopAnchor(homeworkClickArea, 275.0);
+
+    homeworkClickArea.setOnMouseClicked(
         e -> {
-          if (!activeClassroomTask.equals("")) {
-            dialogue.showOptions();
+          if (Tasks.isTaskActive("classroom_homework")) {
+            homeworkDialogue.showOptions();
           }
         });
 
-    dialogue.setOption1Action(
+    List<String> problemOptions =
+        UserDialogueEngine.getOptions(UserDialogueEngine.Room.CLASSROOM_PROBLEM);
+    List<String> problemNpcOptions = NPCDialogue.getOptions(NPCDialogue.Room.CLASSROOM_PROBLEM);
+
+    DialogueUI problemDialogue = new DialogueUI(problemOptions, problemNpcOptions);
+
+    problemDialogue.setOption1Action(
         () -> {
-          HelloWorld.handleChoice(1, activeClassroomTask, stage);
+          HelloWorld.handleChoice(1, "classroom_problem", stage);
         });
 
-    dialogue.setOption2Action(
+    problemDialogue.setOption2Action(
         () -> {
-          HelloWorld.handleChoice(2, activeClassroomTask, stage);
+          HelloWorld.handleChoice(2, "classroom_problem", stage);
         });
 
-    dialogue.setOption3Action(
+    problemDialogue.setOption3Action(
         () -> {
-          HelloWorld.handleChoice(3, activeClassroomTask, stage);
+          HelloWorld.handleChoice(3, "classroom_problem", stage);
         });
 
+    Rectangle boardClickArea = new Rectangle(310, 180);
+    boardClickArea.setFill(Color.TRANSPARENT);
+    boardClickArea.setStroke(Color.TRANSPARENT);
+
+    AnchorPane.setLeftAnchor(boardClickArea, 195.0);
+    AnchorPane.setTopAnchor(boardClickArea, 80.0);
+
+    boardClickArea.setOnMouseClicked(
+        e -> {
+          if (Tasks.isTaskActive("classroom_problem")) {
+            problemDialogue.showOptions();
+          }
+        });
     Label roomTimerLabel = HelloWorld.createTimerLabel();
     AnchorPane.setTopAnchor(roomTimerLabel, 80.0);
     AnchorPane.setRightAnchor(roomTimerLabel, 20.0);
@@ -119,9 +146,11 @@ public class Classroom extends Room {
           stage.setTitle("A Typical Day");
         });
 
-    root.getChildren().addAll(label, back, teacher, classmate, roomTimerLabel);
+    root.getChildren()
+        .addAll(label, back, teacher, classmate, roomTimerLabel, homeworkClickArea, boardClickArea);
 
-    dialogue.addToRoot(root);
+    homeworkDialogue.addToRoot(root);
+    problemDialogue.addToRoot(root);
 
     return root;
   }
