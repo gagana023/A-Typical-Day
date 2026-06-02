@@ -106,15 +106,20 @@ public class Classroom extends Room {
           HelloWorld.handleChoice(3, activeClassroomTask, stage);
         });
 
+    Label roomTimerLabel = HelloWorld.createTimerLabel();
+    AnchorPane.setTopAnchor(roomTimerLabel, 80.0);
+    AnchorPane.setRightAnchor(roomTimerLabel, 20.0);
+
     back.setOnAction(
         e -> {
           stage.setScene(HelloWorld.scene);
           HelloWorld.user.resume(HelloWorld.scene);
-          HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+          HelloWorld.updateTasks(
+              HelloWorld.task1, HelloWorld.task2, HelloWorld.task3, HelloWorld.task4);
           stage.setTitle("A Typical Day");
         });
 
-    root.getChildren().addAll(label, back, teacher, classmate);
+    root.getChildren().addAll(label, back, teacher, classmate, roomTimerLabel);
 
     dialogue.addToRoot(root);
 

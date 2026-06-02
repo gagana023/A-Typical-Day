@@ -2,6 +2,7 @@ package app;
 
 import java.util.List;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -107,11 +108,16 @@ public class Cafeteria extends JoinGroupHere {
           }
         });
 
+    Label roomTimerLabel = HelloWorld.createTimerLabel();
+    AnchorPane.setTopAnchor(roomTimerLabel, 80.0);
+    AnchorPane.setRightAnchor(roomTimerLabel, 20.0);
+
     back.setOnAction(
         e -> {
           stage.setScene(HelloWorld.scene);
           HelloWorld.user.resume(HelloWorld.scene);
-          HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+          HelloWorld.updateTasks(
+              HelloWorld.task1, HelloWorld.task2, HelloWorld.task3, HelloWorld.task4);
           stage.setTitle("A Typical Day");
         });
 
@@ -129,10 +135,9 @@ public class Cafeteria extends JoinGroupHere {
           }
         });
 
-    root.getChildren().addAll(friendClickArea, orderClickArea, back, npc);
+    root.getChildren().addAll(friendClickArea, orderClickArea, back, npc, roomTimerLabel);
     dialogue.addToRoot(root);
     orderDialogue.addToRoot(root);
-    
 
     return root;
   }

@@ -77,6 +77,7 @@ public class StoryIntro {
         e -> {
           stage.setScene(gameScene);
           user.start();
+          HelloWorld.startGameTimer();
           gameScene.getRoot().requestFocus();
         });
     Help h = new Help(stage);

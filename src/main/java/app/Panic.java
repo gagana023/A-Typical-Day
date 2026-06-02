@@ -82,7 +82,7 @@ public class Panic
             primaryStage.setScene(HelloWorld.scene);
             HelloWorld.user.stop();
             HelloWorld.user.resume(HelloWorld.scene);
-            HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+            HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3, HelloWorld.task4);
         });
 
         if (root instanceof AnchorPane pane) {

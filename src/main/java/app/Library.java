@@ -2,6 +2,7 @@ package app;
 
 import java.util.List;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -74,7 +75,8 @@ public class Library extends JoinGroupHere {
         e -> {
           Tasks.completeTask("library_book");
           checkoutButton.setVisible(false);
-          HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+          HelloWorld.updateTasks(
+              HelloWorld.task1, HelloWorld.task2, HelloWorld.task3, HelloWorld.task4);
         });
 
     Rectangle studyClickArea = new Rectangle(250, 180);
@@ -111,15 +113,21 @@ public class Library extends JoinGroupHere {
           HelloWorld.handleChoice(3, "library_study", stage);
         });
 
+    Label roomTimerLabel = HelloWorld.createTimerLabel();
+    AnchorPane.setTopAnchor(roomTimerLabel, 80.0);
+    AnchorPane.setRightAnchor(roomTimerLabel, 20.0);
+
     back.setOnAction(
         e -> {
           stage.setScene(HelloWorld.scene);
           HelloWorld.user.resume(HelloWorld.scene);
-          HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+          HelloWorld.updateTasks(
+              HelloWorld.task1, HelloWorld.task2, HelloWorld.task3, HelloWorld.task4);
           stage.setTitle("A Typical Day");
         });
 
-    root.getChildren().addAll(bookshelfClickArea, studyClickArea, back, npc, checkoutButton);
+    root.getChildren()
+        .addAll(bookshelfClickArea, studyClickArea, back, npc, checkoutButton, roomTimerLabel);
     dialogue.addToRoot(root);
 
     return root;

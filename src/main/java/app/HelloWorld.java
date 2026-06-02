@@ -1,8 +1,12 @@
 package app;
 
 import java.util.List;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
@@ -12,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * Main application class for the ATypical Day JavaFX game.
@@ -28,8 +33,14 @@ public class HelloWorld extends Application {
   public static Label task1;
   public static Label task2;
   public static Label task3;
+  public static Label task4;
   public static ProgressBar socialBatteryBar;
   public static ProgressBar socialStandingBar;
+  public static Label timerLabel;
+  private static Timeline gameTimer;
+  private static int timeRemaining = 90;
+  private static boolean timerStarted = false;
+  public static StringProperty timerText = new SimpleStringProperty("Time: 1:30");
 
   /**
    * Starts the JavaFX application and builds the main game scene.
@@ -43,7 +54,7 @@ public class HelloWorld extends Application {
   public void start(Stage stage) {
     HelloWorld.stage = stage;
 
-    Tasks.chooseRandomTasks(3);
+    Tasks.chooseRandomTasks(4);
     AnchorPane root = new AnchorPane();
     root.setFocusTraversable(true);
     Canvas bgCanvas = new Canvas(800, 600);
@@ -94,19 +105,26 @@ public class HelloWorld extends Application {
     task1 = new Label();
     task2 = new Label();
     task3 = new Label();
+    task4 = new Label();
+
+    timerLabel = HelloWorld.createTimerLabel();
+
+    AnchorPane.setTopAnchor(timerLabel, 80.0);
+    AnchorPane.setRightAnchor(timerLabel, 20.0);
 
     task1.setTextFill(Color.WHITE);
     task2.setTextFill(Color.WHITE);
     task3.setTextFill(Color.WHITE);
+    task4.setTextFill(Color.WHITE);
 
-    updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+    updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3, HelloWorld.task4);
     Button toggle = new Button("▼");
     toggle.setOnAction(
         e -> {
           taskBar.setVisible(!taskBar.isVisible());
         });
 
-    taskBar.getChildren().addAll(title, task1, task2, task3);
+    taskBar.getChildren().addAll(title, task1, task2, task3, task4);
 
     AnchorPane.setTopAnchor(taskBar, 0.0);
     AnchorPane.setLeftAnchor(taskBar, 0.0);
@@ -169,7 +187,8 @@ public class HelloWorld extends Application {
             toggle,
             topStatsMenu,
             bully1,
-            bully2);
+            bully2,
+            timerLabel);
 
     StoryIntro intro = new StoryIntro();
     Scene introScene = intro.build(stage, scene, user);
@@ -186,6 +205,7 @@ public class HelloWorld extends Application {
         e -> {
           stage.setScene(scene);
           user.start();
+          HelloWorld.startGameTimer();
 
           Platform.runLater(
               () -> {
@@ -237,8 +257,8 @@ public class HelloWorld extends Application {
    * @param t2 the second task label
    * @param t3 the third task label
    */
-  public static void updateTasks(Label t1, Label t2, Label t3) {
-    Label[] labels = {t1, t2, t3};
+  public static void updateTasks(Label t1, Label t2, Label t3, Label t4) {
+    Label[] labels = {t1, t2, t3, t4};
 
     for (int i = 0; i < labels.length; i++) {
       if (i < Tasks.getActiveTasks().size()) {
@@ -273,11 +293,62 @@ public class HelloWorld extends Application {
     boolean isOver = HelloWorld.user.changeStats(option);
 
     Tasks.completeTask(taskId);
-    HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+    HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3, HelloWorld.task4);
 
     if (isOver) {
       System.out.println("Game Over");
+      stopGameTimer();
       stage.setScene(new GameOver().getScene(stage));
     }
+  }
+
+  public static void startGameTimer() {
+    if (timerStarted) {
+      return;
+    }
+
+    timerStarted = true;
+    timeRemaining = 90;
+    updateTimerLabel();
+
+    gameTimer =
+        new Timeline(
+            new KeyFrame(
+                Duration.seconds(1),
+                e -> {
+                  timeRemaining--;
+                  updateTimerLabel();
+
+                  if (timeRemaining <= 0) {
+                    gameTimer.stop();
+                    user.stop();
+                    stage.setScene(new GameOver().getScene(stage));
+                  }
+                }));
+
+    gameTimer.setCycleCount(Timeline.INDEFINITE);
+    gameTimer.play();
+  }
+
+  private static void updateTimerLabel() {
+    int minutes = timeRemaining / 60;
+    int seconds = timeRemaining % 60;
+
+    timerText.set(String.format("Time: %d:%02d", minutes, seconds));
+  }
+
+  public static void stopGameTimer() {
+    if (gameTimer != null) {
+      gameTimer.stop();
+    }
+  }
+
+  public static Label createTimerLabel() {
+    Label label = new Label();
+    label.textProperty().bind(timerText);
+    label.setTextFill(Color.WHITE);
+    label.setStyle("-fx-background-color: rgba(0,0,0,0.8); -fx-padding: 10; -fx-font-size: 18px;");
+
+    return label;
   }
 }
