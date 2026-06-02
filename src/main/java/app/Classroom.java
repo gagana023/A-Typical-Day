@@ -43,6 +43,7 @@ public class Classroom extends Room {
 
     Label label = new Label("Welcome to the Classroom");
     Button back = new Button("Back");
+    styleButton(back);
 
     AnchorPane.setTopAnchor(label, 40.0);
     AnchorPane.setLeftAnchor(label, 320.0);
@@ -153,5 +154,35 @@ public class Classroom extends Room {
     problemDialogue.addToRoot(root);
 
     return root;
+  }
+
+  private void styleButton(Button button) {
+    String normalStyle =
+        "-fx-background-color: rgba(18, 20, 35, 0.94);"
+            + "-fx-text-fill: white;"
+            + "-fx-font-size: 15px;"
+            + "-fx-font-weight: bold;"
+            + "-fx-background-radius: 12;"
+            + "-fx-border-color: #9aa7ff;"
+            + "-fx-border-width: 2;"
+            + "-fx-border-radius: 12;"
+            + "-fx-padding: 8 18 8 18;";
+
+    String hoverStyle =
+        "-fx-background-color: #4b5bdc;"
+            + "-fx-text-fill: white;"
+            + "-fx-font-size: 15px;"
+            + "-fx-font-weight: bold;"
+            + "-fx-background-radius: 12;"
+            + "-fx-border-color: white;"
+            + "-fx-border-width: 2;"
+            + "-fx-border-radius: 12;"
+            + "-fx-padding: 8 18 8 18;";
+
+    button.setStyle(normalStyle);
+    button.setPrefWidth(100);
+
+    button.setOnMouseEntered(e -> button.setStyle(hoverStyle));
+    button.setOnMouseExited(e -> button.setStyle(normalStyle));
   }
 }

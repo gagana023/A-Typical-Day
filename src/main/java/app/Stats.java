@@ -41,7 +41,7 @@ public class Stats {
     background.setPreserveRatio(false);
     NPC npc = new NPC("/mama!.png", 187, 230);
     npc.setPosition(350, 210);
-    
+
     StackPane dialoguePane = new StackPane();
     dialoguePane.setPrefSize(800, 120);
     dialoguePane.setStyle("-fx-background-color: white; -fx-border-color: black;");
@@ -58,8 +58,9 @@ public class Stats {
     dialoguePane.getChildren().add(dialogueContent);
 
     Button back = new Button("Back");
-    back.setLayoutX(730);
+    back.setLayoutX(670);
     back.setLayoutY(20);
+    styleButton(back);
     back.setOnAction(
         e -> {
           stage.setScene(HelloWorld.scene);
@@ -69,13 +70,7 @@ public class Stats {
     Pane menuBox = getMenu();
     AnchorPane root = new AnchorPane();
 
-    root.getChildren().addAll(
-        background,
-        menuBox,
-        npc,
-        dialoguePane,
-        back
-    );
+    root.getChildren().addAll(background, menuBox, npc, dialoguePane, back);
 
     return new Scene(root, 800, 600);
   }
@@ -98,10 +93,10 @@ public class Stats {
     AnchorPane.setBottomAnchor(menuBox, 0.0);
 
     StackPane section1 = createSection("GAME STATS");
-    //StackPane section2 = createSection("Tasks");
+    // StackPane section2 = createSection("Tasks");
     StackPane section3 = createBarSection("Social Battery");
     StackPane section4 = createBarSection("Social Standing");
-    //StackPane section5 = createSection("Time");
+    // StackPane section5 = createSection("Time");
 
     menuBox.getChildren().addAll(section1, section3, section4);
 
@@ -162,5 +157,35 @@ public class Stats {
     pane.getChildren().add(content);
 
     return pane;
+  }
+
+  private void styleButton(Button button) {
+    String normalStyle =
+        "-fx-background-color: rgba(18, 20, 35, 0.94);"
+            + "-fx-text-fill: white;"
+            + "-fx-font-size: 15px;"
+            + "-fx-font-weight: bold;"
+            + "-fx-background-radius: 12;"
+            + "-fx-border-color: #9aa7ff;"
+            + "-fx-border-width: 2;"
+            + "-fx-border-radius: 12;"
+            + "-fx-padding: 8 18 8 18;";
+
+    String hoverStyle =
+        "-fx-background-color: #4b5bdc;"
+            + "-fx-text-fill: white;"
+            + "-fx-font-size: 15px;"
+            + "-fx-font-weight: bold;"
+            + "-fx-background-radius: 12;"
+            + "-fx-border-color: white;"
+            + "-fx-border-width: 2;"
+            + "-fx-border-radius: 12;"
+            + "-fx-padding: 8 18 8 18;";
+
+    button.setStyle(normalStyle);
+    button.setPrefWidth(100);
+
+    button.setOnMouseEntered(e -> button.setStyle(hoverStyle));
+    button.setOnMouseExited(e -> button.setStyle(normalStyle));
   }
 }

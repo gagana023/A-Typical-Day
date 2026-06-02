@@ -71,6 +71,8 @@ public class HelloWorld extends Application {
 
     Button stats = new Button("Stats");
     Button help = new Button("Help");
+    styleMenuButton(stats);
+    styleMenuButton(help);
 
     AnchorPane.setTopAnchor(topL, 100.0);
     AnchorPane.setLeftAnchor(topL, 100.0);
@@ -350,5 +352,35 @@ public class HelloWorld extends Application {
     label.setStyle("-fx-background-color: rgba(0,0,0,0.8); -fx-padding: 10; -fx-font-size: 18px;");
 
     return label;
+  }
+
+  private void styleMenuButton(Button button) {
+    String normalStyle =
+        "-fx-background-color: rgba(18, 20, 35, 0.94);"
+            + "-fx-text-fill: white;"
+            + "-fx-font-size: 15px;"
+            + "-fx-font-weight: bold;"
+            + "-fx-background-radius: 12;"
+            + "-fx-border-color: #9aa7ff;"
+            + "-fx-border-width: 2;"
+            + "-fx-border-radius: 12;"
+            + "-fx-padding: 8 18 8 18;";
+
+    String hoverStyle =
+        "-fx-background-color: #4b5bdc;"
+            + "-fx-text-fill: white;"
+            + "-fx-font-size: 15px;"
+            + "-fx-font-weight: bold;"
+            + "-fx-background-radius: 12;"
+            + "-fx-border-color: white;"
+            + "-fx-border-width: 2;"
+            + "-fx-border-radius: 12;"
+            + "-fx-padding: 8 18 8 18;";
+
+    button.setStyle(normalStyle);
+    button.setPrefWidth(100);
+
+    button.setOnMouseEntered(e -> button.setStyle(hoverStyle));
+    button.setOnMouseExited(e -> button.setStyle(normalStyle));
   }
 }
