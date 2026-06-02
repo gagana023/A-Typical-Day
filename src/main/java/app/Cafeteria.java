@@ -75,6 +75,7 @@ public class Cafeteria extends JoinGroupHere {
           stage.setScene(HelloWorld.scene);
           HelloWorld.user.resume(HelloWorld.scene);
           HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+          stage.setTitle("A Typical Day");
         });
 
     Rectangle friendClickArea = new Rectangle(250, 250);

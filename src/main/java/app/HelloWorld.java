@@ -2,6 +2,7 @@ package app;
 
 import java.util.List;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
@@ -44,6 +45,7 @@ public class HelloWorld extends Application {
 
     Tasks.chooseRandomTasks(3);
     AnchorPane root = new AnchorPane();
+    root.setFocusTraversable(true);
     Canvas bgCanvas = new Canvas(800, 600);
     bgCanvas.setId("gameCanvas");
     root.setStyle("-fx-background-image: url('/hallway_background.png')");
@@ -145,16 +147,13 @@ public class HelloWorld extends Application {
         });
 
     Bully bully1 = new Bully();
-    bully1.setLayoutX(0);
-    bully1.setLayoutY(0);
     bully1.setWidth(100);
     bully1.setHeight(160);
 
     Bully bully2 = new Bully();
-    bully2.setLayoutX(0);
-    bully2.setLayoutY(0);
     bully2.setWidth(100);
     bully2.setHeight(160);
+    bully2.setVisible(false);
 
     root.getChildren()
         .addAll(
@@ -174,9 +173,12 @@ public class HelloWorld extends Application {
 
     StoryIntro intro = new StoryIntro();
     Scene introScene = intro.build(stage, scene, user);
+    bully1.spawnRandomly(scene);
+    bully2.spawnRandomly(scene);
+    user.setBullies(List.of(bully1, bully2));
 
     stage.setScene(introScene);
-    stage.setTitle("ATypical Day");
+    stage.setTitle("A Typical Day");
     stage.show();
     intro.play();
 
@@ -184,9 +186,12 @@ public class HelloWorld extends Application {
         e -> {
           stage.setScene(scene);
           user.start();
-        });
 
-    user.setBullies(List.of(bully1, bully2));
+          Platform.runLater(
+              () -> {
+                scene.getRoot().requestFocus();
+              });
+        });
   }
 
   public static Stage getStage() {

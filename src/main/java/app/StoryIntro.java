@@ -58,7 +58,7 @@ public class StoryIntro {
 
     Image bathroomImg = new Image(getClass().getResource("/bathroom.png").toExternalForm());
     Image bedroomImg = new Image(getClass().getResource("/bedroom.png").toExternalForm());
-    Image downstairsImg = new Image(getClass().getResource("/downstairs.png").toExternalForm());
+    Image downstairsImg = new Image(getClass().getResource("/downstairs.jpg").toExternalForm());
     Image drivingImg = new Image(getClass().getResource("/driving.png").toExternalForm());
     Image titleImg = new Image(getClass().getResource("/title.png").toExternalForm());
     sceneView.setImage(bedroomImg);

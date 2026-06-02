@@ -47,6 +47,7 @@ public class Office extends Room {
 
     AnchorPane.setTopAnchor(back, 20.0);
     AnchorPane.setLeftAnchor(back, 20.0);
+    stage.setTitle("Office");
 
     NPC npc = new NPC("/student1.png", 40, 100);
 
@@ -91,6 +92,7 @@ public class Office extends Room {
           // HelloWorld.user.stop();
           HelloWorld.user.resume(HelloWorld.scene);
           HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+          stage.setTitle("A Typical Day");
         });
     root.getChildren().addAll(label, back, npc, askExtensionButton);
 

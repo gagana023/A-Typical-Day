@@ -15,7 +15,7 @@ public class BullyScene {
     {
       AnchorPane root = new AnchorPane();
 
-      NPC user = new NPC("/player still.png", 34, 98);
+      NPC user = new NPC("/player11.png", 34, 98);
       // FIXME - sreshta - if you could please scale this (player still) up/tell me how i can scale it up without it being blurry, i'd be very grateful... - aadi
       AnchorPane.setLeftAnchor(user, 100.0);
       AnchorPane.setBottomAnchor(user, 200.0);

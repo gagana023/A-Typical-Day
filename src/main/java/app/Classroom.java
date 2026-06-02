@@ -60,6 +60,7 @@ public class Classroom extends Room {
 
     AnchorPane.setLeftAnchor(teacher, 175.0);
     AnchorPane.setTopAnchor(teacher, 250.0);
+    stage.setTitle("Classroom");
 
     List<String> options;
     List<String> npcOptions;
@@ -110,6 +111,7 @@ public class Classroom extends Room {
           stage.setScene(HelloWorld.scene);
           HelloWorld.user.resume(HelloWorld.scene);
           HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3);
+          stage.setTitle("A Typical Day");
         });
 
     root.getChildren().addAll(label, back, teacher, classmate);

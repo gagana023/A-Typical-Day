@@ -53,6 +53,10 @@ public class User {
   /** The player object that stores the player's canvas, position, and stats. */
   private Player player;
 
+  private long lastBullyHitTime = 0;
+  private final long bullyImmunityTime = 2_000_000_000L;
+  private boolean secondBullyAdded = false;
+
   private List<Bully> bullies = new ArrayList<>();
   private Stage stage;
   private boolean paused = false;
@@ -94,13 +98,22 @@ public class User {
 
     start();
 
-    for (Bully b : bullies) {
-      b.setLayoutX(0);
-      b.setLayoutY(0);
+    for (int i = 0; i < bullies.size(); i++) {
+      Bully b = bullies.get(i);
+      b.spawnRandomly(scene);
       b.resume();
+
+      if (i == 1 && !secondBullyAdded) {
+        b.setVisible(false);
+      }
     }
 
-    scene.getRoot().requestFocus();
+    start();
+
+    Platform.runLater(
+        () -> {
+          scene.getRoot().requestFocus();
+        });
 
     System.out.println("resumed");
   }
@@ -126,24 +139,38 @@ public class User {
            * @param now the current timestamp in nanoseconds
            */
           public void handle(long now) {
-            // System.out.println(paused);
             if (paused || timer == null) {
               return;
             }
+
             boolean moving = movementController.update(player, scene);
             playerAnimation.updateAnimation(moving);
             playerAnimation.renderFrame();
             roomTransitioner.check(User.this);
             player.updateCanvasPosition();
-            for (Bully bully : bullies) {
-              // System.out.println("Bully moving: " + bully.getLayoutX() + ", " +
-              // bully.getLayoutY());
-              bully.move(scene);
 
-              if (collisionChecker.isColliding(
-                  canvas, bully /*,player.getPosition().getX(), player.getPosition().getY())*/)) {
-                bully.setLayoutX(Math.random() * 600);
-                bully.setLayoutY(Math.random() * 400);
+            if (!secondBullyAdded && getHealth() < 0.5 && getSocial() < 0.5 && bullies.size() > 1) {
+              Bully secondBully = bullies.get(1);
+              secondBully.setVisible(true);
+              secondBully.spawnRandomly(scene);
+              secondBullyAdded = true;
+            }
+
+            for (Bully bully : bullies) {
+              if (!bully.isVisible()) {
+                continue;
+              }
+
+              bully.moveTowardPlayer(scene, player);
+
+              if (collisionChecker.isColliding(canvas, bully)) {
+                if (now - lastBullyHitTime < bullyImmunityTime) {
+                  continue;
+                }
+
+                lastBullyHitTime = now;
+
+                bully.spawnRandomly(scene);
 
                 boolean isOver = bullyHit();
 
