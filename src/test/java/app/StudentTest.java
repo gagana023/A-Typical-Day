@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.junit.Test;
@@ -30,10 +31,10 @@ public class StudentTest extends ApplicationTest {
     clickOn(".root"); // leave intro scene
     sleep(500);
 
-    moveTo(point("#gameCanvas").atPosition(Pos.TOP_LEFT));
-    moveBy(110, 110);
-    clickOn();
-    sleep(500);
+    press(KeyCode.W, KeyCode.A);
+    sleep(2000);
+    release(KeyCode.W, KeyCode.A);
+    sleep(5000);
 
     FxAssert.verifyThat("#officeRoot", isVisible());
   }
