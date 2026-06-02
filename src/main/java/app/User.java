@@ -163,7 +163,7 @@ public class User {
 
               bully.moveTowardPlayer(scene, player);
 
-              if (collisionChecker.isColliding(canvas, bully)) {
+              if (collisionChecker.isCollidingWithPadding(canvas, bully, 15, 5)) {
                 if (now - lastBullyHitTime < bullyImmunityTime) {
                   continue;
                 }

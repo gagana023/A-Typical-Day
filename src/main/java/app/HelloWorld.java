@@ -147,12 +147,12 @@ public class HelloWorld extends Application {
         });
 
     Bully bully1 = new Bully();
-    bully1.setWidth(100);
-    bully1.setHeight(160);
+    bully1.setWidth(50);
+    bully1.setHeight(103);
 
     Bully bully2 = new Bully();
-    bully2.setWidth(100);
-    bully2.setHeight(160);
+    bully2.setWidth(50);
+    bully2.setHeight(103);
     bully2.setVisible(false);
 
     root.getChildren()

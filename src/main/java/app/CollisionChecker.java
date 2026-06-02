@@ -22,4 +22,18 @@ public class CollisionChecker {
   public boolean isColliding(Canvas a, Canvas b) {
     return a.getBoundsInParent().intersects(b.getBoundsInParent());
   }
+
+  public boolean isCollidingWithPadding(Canvas a, Canvas b, double xPadding, double yPadding) {
+    double aMinX = a.getBoundsInParent().getMinX() + xPadding;
+    double aMaxX = a.getBoundsInParent().getMaxX() - xPadding;
+    double aMinY = a.getBoundsInParent().getMinY() + yPadding;
+    double aMaxY = a.getBoundsInParent().getMaxY() - yPadding;
+
+    double bMinX = b.getBoundsInParent().getMinX() + xPadding;
+    double bMaxX = b.getBoundsInParent().getMaxX() - xPadding;
+    double bMinY = b.getBoundsInParent().getMinY() + yPadding;
+    double bMaxY = b.getBoundsInParent().getMaxY() - yPadding;
+
+    return aMinX < bMaxX && aMaxX > bMinX && aMinY < bMaxY && aMaxY > bMinY;
+  }
 }

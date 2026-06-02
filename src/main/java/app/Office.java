@@ -49,7 +49,7 @@ public class Office extends Room {
     AnchorPane.setLeftAnchor(back, 20.0);
     stage.setTitle("Office");
 
-    NPC npc = new NPC("/student1.png", 40, 100);
+    NPC npc = new NPC("/player11.png", 40, 100);
 
     npc.setPosition(100, 315);
     AnchorPane.setLeftAnchor(npc, 100.0);

@@ -7,7 +7,7 @@ public class Bully extends NPC {
   private double speed = 1.3;
 
   public Bully() {
-    super("/student11.png", 50, 85);
+    super("/player11.png", 50, 103);
   }
 
   public void spawnRandomly(Scene scene) {
