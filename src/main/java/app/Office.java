@@ -45,6 +45,18 @@ public class Office extends Room {
     Button back = new Button("Back");
     styleButton(back);
 
+    Button help = new Button("Help");
+    help.setLayoutX(130);
+    help.setLayoutY(20);
+    styleButton(help);
+
+    Help h = new Help(stage);
+
+    help.setOnAction(
+        e -> {
+          stage.setScene(h.getHelp(stage));
+        });
+
     AnchorPane.setTopAnchor(label, 40.0);
     AnchorPane.setLeftAnchor(label, 320.0);
 
@@ -188,7 +200,8 @@ public class Office extends Room {
             formClickArea,
             scheduleClickArea,
             counselorTagClickArea,
-            roomTimerLabel);
+            roomTimerLabel,
+            help);
 
     dialogue.addToRoot(root);
     formDialogue.addToRoot(root);

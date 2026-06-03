@@ -47,6 +47,18 @@ public class Cafeteria extends JoinGroupHere {
     back.setLayoutY(20);
     styleButton(back);
 
+    Button help = new Button("Help");
+    help.setLayoutX(130);
+    help.setLayoutY(20);
+    styleButton(help);
+
+    Help h = new Help(stage);
+
+    help.setOnAction(
+        e -> {
+          stage.setScene(h.getHelp(stage));
+        });
+
     NPC npc = new NPC("/player still.png", 70, 170);
     npc.setPosition(260, 440);
     AnchorPane.setLeftAnchor(npc, 260.0);
@@ -136,7 +148,7 @@ public class Cafeteria extends JoinGroupHere {
           }
         });
 
-    root.getChildren().addAll(friendClickArea, orderClickArea, back, npc, roomTimerLabel);
+    root.getChildren().addAll(friendClickArea, orderClickArea, back, npc, roomTimerLabel, help);
     dialogue.addToRoot(root);
     orderDialogue.addToRoot(root);
 

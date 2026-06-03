@@ -47,6 +47,18 @@ public class Library extends JoinGroupHere {
     back.setLayoutY(20);
     styleButton(back);
 
+    Button help = new Button("Help");
+    help.setLayoutX(130);
+    help.setLayoutY(20);
+    styleButton(help);
+
+    Help h = new Help(stage);
+
+    help.setOnAction(
+        e -> {
+          stage.setScene(h.getHelp(stage));
+        });
+
     NPC npc = new NPC("/player11.png", 40, 100);
     npc.setPosition(320, 310);
     AnchorPane.setLeftAnchor(npc, 320.0);
@@ -166,7 +178,8 @@ public class Library extends JoinGroupHere {
           }
         });
     root.getChildren()
-        .addAll(checkoutClickArea, returnClickArea, studyClickArea, back, npc, roomTimerLabel);
+        .addAll(
+            checkoutClickArea, returnClickArea, studyClickArea, back, npc, roomTimerLabel, help);
     dialogue.addToRoot(root);
     returnDialogue.addToRoot(root);
     bookDialogue.addToRoot(root);

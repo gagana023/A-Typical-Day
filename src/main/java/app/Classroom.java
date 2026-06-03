@@ -51,6 +51,18 @@ public class Classroom extends Room {
     AnchorPane.setTopAnchor(back, 20.0);
     AnchorPane.setLeftAnchor(back, 20.0);
 
+    Button help = new Button("Help");
+    help.setLayoutX(130);
+    help.setLayoutY(20);
+    styleButton(help);
+
+    Help h = new Help(stage);
+
+    help.setOnAction(
+        e -> {
+          stage.setScene(h.getHelp(stage));
+        });
+
     NPC classmate = new NPC("/player still.png", 70, 170);
     classmate.setPosition(100, 380);
 
@@ -148,7 +160,15 @@ public class Classroom extends Room {
         });
 
     root.getChildren()
-        .addAll(label, back, teacher, classmate, roomTimerLabel, homeworkClickArea, boardClickArea);
+        .addAll(
+            label,
+            back,
+            teacher,
+            classmate,
+            roomTimerLabel,
+            homeworkClickArea,
+            boardClickArea,
+            help);
 
     homeworkDialogue.addToRoot(root);
     problemDialogue.addToRoot(root);
