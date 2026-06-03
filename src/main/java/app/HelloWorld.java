@@ -320,6 +320,7 @@ public class HelloWorld extends Application {
 
     if (isOver) {
       System.out.println("Game Over");
+      HelloWorld.restartGame(stage);
       stopGameTimer();
       stopPanicMode();
       stage.setScene(new GameOver().getScene(stage));
