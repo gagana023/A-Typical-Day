@@ -130,19 +130,6 @@ public class Tasks {
   }
 
   /**
-   * Marks the active task with the given id as completed.
-   *
-   * @param id the id of the task to complete
-   */
-  public static void completeTask(String id) {
-    for (Task task : activeTasks) {
-      if (task.getId().equals(id)) {
-        task.complete();
-      }
-    }
-  }
-
-  /**
    * Checks whether a task with the given id is currently active.
    *
    * @param id the id of the task to check
@@ -166,5 +153,16 @@ public class Tasks {
     }
 
     return true;
+  }
+
+  public static boolean completeTask(String id) {
+    for (Task task : activeTasks) {
+      if (task.getId().equals(id) && !task.isDone()) {
+        task.complete();
+        return true;
+      }
+    }
+
+    return false;
   }
 }

@@ -1,6 +1,7 @@
 package app;
 
 import java.util.List;
+import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -314,9 +315,14 @@ public class HelloWorld extends Application {
    */
   public static void handleChoice(int option, String taskId, Stage stage) {
     boolean isOver = HelloWorld.user.changeStats(option);
+    boolean completed = Tasks.completeTask(taskId);
 
     Tasks.completeTask(taskId);
     HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3, HelloWorld.task4);
+    if (completed) {
+
+      HelloWorld.showTaskCompleteNotification(stage);
+    }
 
     if (isOver) {
       System.out.println("Game Over");
@@ -527,5 +533,40 @@ public class HelloWorld extends Application {
             + "-fx-border-radius: 10;"
             + "-fx-padding: 2 7 2 7;");
     return label;
+  }
+
+  public static void showTaskCompleteNotification(Stage stage) {
+    if (!(stage.getScene().getRoot() instanceof AnchorPane root)) {
+      return;
+    }
+
+    Label notification = new Label("Task completed!");
+    notification.setTextFill(Color.WHITE);
+    notification.setStyle(
+        "-fx-background-color: rgba(18, 20, 35, 0.94);"
+            + "-fx-font-size: 16px;"
+            + "-fx-font-weight: bold;"
+            + "-fx-background-radius: 14;"
+            + "-fx-border-color: #9aa7ff;"
+            + "-fx-border-width: 2;"
+            + "-fx-border-radius: 14;"
+            + "-fx-padding: 10 18 10 18;");
+
+    AnchorPane.setTopAnchor(notification, 90.0);
+    AnchorPane.setRightAnchor(notification, 20.0);
+
+    notification.setOpacity(1);
+    root.getChildren().add(notification);
+
+    FadeTransition fade = new FadeTransition(Duration.seconds(2), notification);
+    fade.setFromValue(1);
+    fade.setToValue(0);
+
+    fade.setOnFinished(
+        e -> {
+          root.getChildren().remove(notification);
+        });
+
+    fade.play();
   }
 }

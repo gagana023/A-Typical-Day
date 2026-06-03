@@ -72,6 +72,8 @@ public class Stats {
       navButton = new Button("Play Again");
       navButton.setLayoutX(620);
       navButton.setLayoutY(20);
+      navButton.setPrefWidth(150);
+
       styleButton(navButton);
 
       navButton.setOnAction(
