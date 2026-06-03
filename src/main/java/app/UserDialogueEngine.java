@@ -36,30 +36,30 @@ public class UserDialogueEngine {
       Map.of(
           Room.OFFICE,
           List.of(
-              "Hey, good morning! I'd like to talk to my counselor please.",
-              "Can I please talk to my counselor?",
-              "I need to talk to my counselor now."),
+              "Good morning. Could I please meet with the counselor when she is available?",
+              "Hi, can I talk to the counselor?",
+              "I need to see the counselor right now."),
           Room.LIBRARY,
           List.of(
               "Hey guys, I'm so nervous for this test tomorrow! Mind if I study with y'all?",
               "Would you mind if I studied with you guys?",
-              "I don't know you but, can I join your study group?"),
+              "I need a group to join, I guess. So here I am."),
           Room.CAFETERIA,
           List.of(
               "Hey! Today, I'll have...actually, is there anything you recommend that's"
                   + " vegetarian?",
-              "Sorry, can I get a little more time to look at the options?",
+              "I need something vegetarian.",
               "I don't like your food. I'd like something prepackaged."),
           Room.CLASSROOM_HOMEWORK,
           List.of(
               "I had a lot going on at home and needed extra time.",
               "I forgot to finish it, but I brought it now.",
-              "I just did not feel like doing it on time."),
+              "I just told you I wasn't able to finish it on time."),
           Room.CLASSROOM_PROBLEM,
           List.of(
               "No, I do not know how to solve it.",
-              "No, I am not ready to answer yet.",
-              "No, I would rather not answer in front of everyone."),
+              "No, I am not ready to answer.",
+              "No, the question is too hard."),
           Room.CAFETERIA_JOIN_TABLE,
           List.of(
               "Hey, is it okay if I sit with you guys?",
@@ -79,12 +79,12 @@ public class UserDialogueEngine {
           List.of(
               "Hi, I'd like to return this book, please.",
               "Can I put this book in the return bin?",
-              "I'm just dropping this book here."),
+              "I'm asumming I can drop this book here?"),
           Room.LIBRARY_BOOK,
           List.of(
               "Hi, could I please check out this book?",
               "Can I borrow this book?",
-              "I'm taking this book with me."));
+              "So, can I take the book with me?"));
 
   /**
    * Returns the player's dialogue options for the given room or task situation.

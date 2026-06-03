@@ -35,8 +35,6 @@ public class BullyScene {
                 + "mistakes! I'm so STUPID!...\n"
                 + "Hmm? Oh, hey, what's up?...why are you looking at me like that?"));
     dialogueTexts.add(
-        new Label("I've never met anyone more pathetic in my life.\nCan't you do anything??"));
-    dialogueTexts.add(
         new Label(
             "Well, excuse you. Yeah, you're the one who bumped into me.\n"
                 + "...\n"
