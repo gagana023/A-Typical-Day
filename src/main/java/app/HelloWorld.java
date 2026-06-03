@@ -95,6 +95,22 @@ public class HelloWorld extends Application {
     botR.setWidth(100);
     botR.setHeight(160);
 
+    Label officeLabel = createRoomLabel("Office");
+    AnchorPane.setLeftAnchor(officeLabel, 125.0);
+    AnchorPane.setTopAnchor(officeLabel, 265.0);
+
+    Label classroomLabel = createRoomLabel("Library");
+    AnchorPane.setLeftAnchor(classroomLabel, 560.0);
+    AnchorPane.setTopAnchor(classroomLabel, 265.0);
+
+    Label libraryLabel = createRoomLabel("Classroom");
+    AnchorPane.setLeftAnchor(libraryLabel, 120.0);
+    AnchorPane.setTopAnchor(libraryLabel, 565.0);
+
+    Label cafeteriaLabel = createRoomLabel("Cafeteria");
+    AnchorPane.setLeftAnchor(cafeteriaLabel, 560.0);
+    AnchorPane.setTopAnchor(cafeteriaLabel, 565.0);
+
     AnchorPane.setTopAnchor(stats, 500.0);
     AnchorPane.setRightAnchor(stats, 20.0);
 
@@ -191,7 +207,11 @@ public class HelloWorld extends Application {
             topStatsMenu,
             bully1,
             bully2,
-            timerLabel);
+            timerLabel,
+            officeLabel,
+            classroomLabel,
+            libraryLabel,
+            cafeteriaLabel);
 
     StoryIntro intro = new StoryIntro();
     Scene introScene = intro.build(stage, scene, user);
@@ -491,5 +511,20 @@ public class HelloWorld extends Application {
 
     HelloWorld newGame = new HelloWorld();
     newGame.start(stage);
+  }
+
+  private Label createRoomLabel(String text) {
+    Label label = new Label(text);
+    label.setStyle(
+        "-fx-background-color: rgba(18, 20, 35, 0.94);"
+            + "-fx-text-fill: white;"
+            + "-fx-font-size: 12px;"
+            + "-fx-font-weight: bold;"
+            + "-fx-background-radius: 10;"
+            + "-fx-border-color: #9aa7ff;"
+            + "-fx-border-width: 1;"
+            + "-fx-border-radius: 10;"
+            + "-fx-padding: 2 7 2 7;");
+    return label;
   }
 }
