@@ -60,7 +60,7 @@ public class Library extends JoinGroupHere {
           stage.setScene(h.getHelp(stage));
         });
 
-    NPC npc = new NPC("/player11.png", 40, 100);
+    NPC npc = new NPC("/player still.png", 40, 100);
     npc.setPosition(320, 310);
     AnchorPane.setLeftAnchor(npc, 320.0);
     AnchorPane.setTopAnchor(npc, 310.0);

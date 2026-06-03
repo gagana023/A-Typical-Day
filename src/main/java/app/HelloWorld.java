@@ -41,6 +41,7 @@ public class HelloWorld extends Application {
   private static int timeRemaining = 90;
   private static boolean timerStarted = false;
   public static StringProperty timerText = new SimpleStringProperty("Time: 1:30");
+  public static Panic currentPanic;
 
   /**
    * Starts the JavaFX application and builds the main game scene.
@@ -300,17 +301,12 @@ public class HelloWorld extends Application {
     if (isOver) {
       System.out.println("Game Over");
       stopGameTimer();
+      stopPanicMode();
       stage.setScene(new GameOver().getScene(stage));
       return;
     }
 
-    if (Tasks.areAllActiveTasksDone()) {
-      stopGameTimer();
-      user.stop();
-
-      Stats statsScreen = new Stats();
-      stage.setScene(statsScreen.buildPrototypeHomeAndStats(stage));
-    }
+    checkWin(stage);
   }
 
   public static void startGameTimer() {
@@ -465,5 +461,35 @@ public class HelloWorld extends Application {
         });
 
     return toggle;
+  }
+
+  public static void stopPanicMode() {
+    if (currentPanic != null) {
+      currentPanic.stopPanic();
+      currentPanic = null;
+    }
+  }
+
+  public static void checkWin(Stage stage) {
+    if (Tasks.areAllActiveTasksDone()) {
+      stopGameTimer();
+      stopPanicMode();
+      user.stop();
+
+      Stats statsScreen = new Stats();
+      stage.setScene(statsScreen.buildFinalStats(stage));
+    }
+  }
+
+  public static void restartGame(Stage stage) {
+    stopGameTimer();
+    stopPanicMode();
+
+    timerStarted = false;
+    timeRemaining = 90;
+    updateTimerLabel();
+
+    HelloWorld newGame = new HelloWorld();
+    newGame.start(stage);
   }
 }

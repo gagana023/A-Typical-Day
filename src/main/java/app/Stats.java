@@ -33,6 +33,14 @@ public class Stats {
    * @return the Scene containing the stats screen
    */
   public Scene buildPrototypeHomeAndStats(Stage stage) {
+    return buildStatsScreen(stage, false);
+  }
+
+  public Scene buildFinalStats(Stage stage) {
+    return buildStatsScreen(stage, true);
+  }
+
+  private Scene buildStatsScreen(Stage stage, boolean finalScreen) {
     stage.setTitle("Home");
     Image kitchenImg = new Image(getClass().getResource("/kitchen.png").toExternalForm());
     ImageView background = new ImageView(kitchenImg);
@@ -58,19 +66,36 @@ public class Stats {
     dialoguePane.getChildren().add(dialogueContent);
 
     Button back = new Button("Back");
-    back.setLayoutX(670);
-    back.setLayoutY(20);
-    styleButton(back);
-    back.setOnAction(
-        e -> {
-          stage.setScene(HelloWorld.scene);
-          HelloWorld.user.stop();
-          HelloWorld.user.resume(HelloWorld.scene);
-        });
+    Button navButton;
+
+    if (finalScreen) {
+      navButton = new Button("Play Again");
+      navButton.setLayoutX(620);
+      navButton.setLayoutY(20);
+      styleButton(navButton);
+
+      navButton.setOnAction(
+          e -> {
+            HelloWorld.restartGame(stage);
+          });
+    } else {
+      navButton = new Button("Back");
+      navButton.setLayoutX(670);
+      navButton.setLayoutY(20);
+      styleButton(navButton);
+
+      navButton.setOnAction(
+          e -> {
+            stage.setScene(HelloWorld.scene);
+            HelloWorld.user.stop();
+            HelloWorld.user.resume(HelloWorld.scene);
+            stage.setTitle("A Typical Day");
+          });
+    }
     Pane menuBox = getMenu();
     AnchorPane root = new AnchorPane();
 
-    root.getChildren().addAll(background, menuBox, npc, dialoguePane, back);
+    root.getChildren().addAll(background, menuBox, npc, dialoguePane, navButton);
 
     return new Scene(root, 800, 600);
   }

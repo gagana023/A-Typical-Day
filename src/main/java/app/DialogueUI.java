@@ -2,6 +2,7 @@ package app;
 
 import java.util.List;
 import javafx.animation.FadeTransition;
+import javafx.animation.PauseTransition;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -123,6 +124,26 @@ public class DialogueUI {
     return new StackPane(box, text);
   }
 
+  private void showResponse(StackPane response) {
+    response.setOpacity(1);
+    response.setVisible(true);
+
+    PauseTransition wait = new PauseTransition(Duration.seconds(2));
+
+    FadeTransition fade = new FadeTransition(Duration.seconds(2), response);
+    fade.setToValue(0);
+
+    wait.setOnFinished(e -> fade.play());
+
+    fade.setOnFinished(
+        e -> {
+          response.setVisible(false);
+          response.setOpacity(1);
+        });
+
+    wait.play();
+  }
+
   /** Sets the screen positions of the dialogue options and response bubbles. */
   private void setPositions() {
     AnchorPane.setTopAnchor(optionBox, 390.0);
@@ -152,6 +173,10 @@ public class DialogueUI {
     response1.setVisible(false);
     response2.setVisible(false);
     response3.setVisible(false);
+
+    response1.setOpacity(1);
+    response2.setOpacity(1);
+    response3.setOpacity(1);
 
     optionBox.setOpacity(1);
     optionBox.setVisible(true);
@@ -207,7 +232,7 @@ public class DialogueUI {
   public void setOption1Action(Runnable action) {
     option1.setOnAction(
         e -> {
-          response1.setVisible(true);
+          showResponse(response1);
           action.run();
           hideOptions();
         });
@@ -221,7 +246,7 @@ public class DialogueUI {
   public void setOption2Action(Runnable action) {
     option2.setOnAction(
         e -> {
-          response2.setVisible(true);
+          showResponse(response2);
           action.run();
           hideOptions();
         });
@@ -235,7 +260,7 @@ public class DialogueUI {
   public void setOption3Action(Runnable action) {
     option3.setOnAction(
         e -> {
-          response3.setVisible(true);
+          showResponse(response3);
           action.run();
           hideOptions();
         });

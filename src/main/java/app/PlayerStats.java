@@ -54,10 +54,14 @@ public class PlayerStats {
     if ((health < 0.5 && health > 0) || (social < 0.5 && social > 0)) {
       // panic class
       // method that makes visuals dark and shaky
-      Panic panic = new Panic();
-      panic.setPrimaryStage(HelloWorld.getStage());
-      panic.shakeStage();
-      panic.darkenStage();
+      if ((health < 0.5 && health > 0) || (social < 0.5 && social > 0)) {
+        if (HelloWorld.currentPanic == null) {
+          HelloWorld.currentPanic = new Panic();
+          HelloWorld.currentPanic.setPrimaryStage(HelloWorld.getStage());
+          HelloWorld.currentPanic.shakeStage();
+          HelloWorld.currentPanic.darkenStage();
+        }
+      }
     }
 
     return isGameOver();
@@ -73,10 +77,12 @@ public class PlayerStats {
     HelloWorld.updateStatsBars();
 
     if ((health < 0.5 && health > 0) || (social < 0.5 && social > 0)) {
-      Panic panic = new Panic();
-      panic.setPrimaryStage(HelloWorld.getStage());
-      panic.shakeStage();
-      panic.darkenStage();
+      if (HelloWorld.currentPanic == null) {
+        HelloWorld.currentPanic = new Panic();
+        HelloWorld.currentPanic.setPrimaryStage(HelloWorld.getStage());
+        HelloWorld.currentPanic.shakeStage();
+        HelloWorld.currentPanic.darkenStage();
+      }
     }
 
     return isGameOver();
