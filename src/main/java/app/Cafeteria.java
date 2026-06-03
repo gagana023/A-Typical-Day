@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -122,8 +123,8 @@ public class Cafeteria extends JoinGroupHere {
         });
 
     Label roomTimerLabel = HelloWorld.createTimerLabel();
-    AnchorPane.setTopAnchor(roomTimerLabel, 80.0);
-    AnchorPane.setRightAnchor(roomTimerLabel, 20.0);
+    AnchorPane.setTopAnchor(roomTimerLabel, 20.0);
+    AnchorPane.setLeftAnchor(roomTimerLabel, 240.0);
 
     back.setOnAction(
         e -> {
@@ -148,7 +149,25 @@ public class Cafeteria extends JoinGroupHere {
           }
         });
 
-    root.getChildren().addAll(friendClickArea, orderClickArea, back, npc, roomTimerLabel, help);
+    VBox roomTaskBar = HelloWorld.createRoomTaskBar();
+    Button taskToggle = HelloWorld.createRoomTaskToggle(roomTaskBar);
+
+    AnchorPane.setTopAnchor(roomTaskBar, 20.0);
+    AnchorPane.setRightAnchor(roomTaskBar, 20.0);
+
+    AnchorPane.setTopAnchor(taskToggle, 25.0);
+    AnchorPane.setRightAnchor(taskToggle, 20.0);
+
+    root.getChildren()
+        .addAll(
+            friendClickArea,
+            orderClickArea,
+            back,
+            npc,
+            roomTimerLabel,
+            help,
+            roomTaskBar,
+            taskToggle);
     dialogue.addToRoot(root);
     orderDialogue.addToRoot(root);
 

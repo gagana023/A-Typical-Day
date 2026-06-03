@@ -301,6 +301,15 @@ public class HelloWorld extends Application {
       System.out.println("Game Over");
       stopGameTimer();
       stage.setScene(new GameOver().getScene(stage));
+      return;
+    }
+
+    if (Tasks.areAllActiveTasksDone()) {
+      stopGameTimer();
+      user.stop();
+
+      Stats statsScreen = new Stats();
+      stage.setScene(statsScreen.buildPrototypeHomeAndStats(stage));
     }
   }
 
@@ -382,5 +391,79 @@ public class HelloWorld extends Application {
 
     button.setOnMouseEntered(e -> button.setStyle(hoverStyle));
     button.setOnMouseExited(e -> button.setStyle(normalStyle));
+  }
+
+  public static VBox createRoomTaskBar() {
+    VBox taskBar = new VBox(5);
+    taskBar.setStyle(
+        "-fx-background-color: rgba(0,0,0,0.85);"
+            + "-fx-padding: 10;"
+            + "-fx-background-radius: 12;"
+            + "-fx-border-color: #9aa7ff;"
+            + "-fx-border-width: 2;"
+            + "-fx-border-radius: 12;");
+
+    taskBar.setVisible(false);
+    taskBar.setPrefWidth(260);
+
+    Label title = new Label("Tasks");
+    title.setTextFill(Color.WHITE);
+    title.setStyle("-fx-font-weight: bold; -fx-font-size: 15px;");
+
+    Label roomTask1 = new Label();
+    Label roomTask2 = new Label();
+    Label roomTask3 = new Label();
+    Label roomTask4 = new Label();
+
+    roomTask1.setTextFill(Color.WHITE);
+    roomTask2.setTextFill(Color.WHITE);
+    roomTask3.setTextFill(Color.WHITE);
+    roomTask4.setTextFill(Color.WHITE);
+
+    roomTask1.setWrapText(true);
+    roomTask2.setWrapText(true);
+    roomTask3.setWrapText(true);
+    roomTask4.setWrapText(true);
+
+    updateTasks(roomTask1, roomTask2, roomTask3, roomTask4);
+
+    taskBar.getChildren().addAll(title, roomTask1, roomTask2, roomTask3, roomTask4);
+
+    return taskBar;
+  }
+
+  public static Button createRoomTaskToggle(VBox taskBar) {
+    Button toggle = new Button("▼");
+    toggle.setPrefWidth(45);
+
+    toggle.setStyle(
+        "-fx-background-color: rgba(18, 20, 35, 0.94);"
+            + "-fx-text-fill: white;"
+            + "-fx-font-size: 14px;"
+            + "-fx-font-weight: bold;"
+            + "-fx-background-radius: 10;"
+            + "-fx-border-color: #9aa7ff;"
+            + "-fx-border-width: 2;"
+            + "-fx-border-radius: 10;");
+
+    toggle.setOnAction(
+        e -> {
+          updateTasks(
+              (Label) taskBar.getChildren().get(1),
+              (Label) taskBar.getChildren().get(2),
+              (Label) taskBar.getChildren().get(3),
+              (Label) taskBar.getChildren().get(4));
+
+          boolean showing = taskBar.isVisible();
+          taskBar.setVisible(!showing);
+
+          if (showing) {
+            toggle.setText("▼");
+          } else {
+            toggle.setText("▲");
+          }
+        });
+
+    return toggle;
   }
 }

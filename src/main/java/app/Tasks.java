@@ -157,4 +157,14 @@ public class Tasks {
 
     return false;
   }
+
+  public static boolean areAllActiveTasksDone() {
+    for (Task task : activeTasks) {
+      if (!task.isDone()) {
+        return false;
+      }
+    }
+
+    return true;
+  }
 }

@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -147,8 +148,8 @@ public class Classroom extends Room {
           }
         });
     Label roomTimerLabel = HelloWorld.createTimerLabel();
-    AnchorPane.setTopAnchor(roomTimerLabel, 80.0);
-    AnchorPane.setRightAnchor(roomTimerLabel, 20.0);
+    AnchorPane.setTopAnchor(roomTimerLabel, 20.0);
+    AnchorPane.setLeftAnchor(roomTimerLabel, 240.0);
 
     back.setOnAction(
         e -> {
@@ -159,6 +160,15 @@ public class Classroom extends Room {
           stage.setTitle("A Typical Day");
         });
 
+    VBox roomTaskBar = HelloWorld.createRoomTaskBar();
+    Button taskToggle = HelloWorld.createRoomTaskToggle(roomTaskBar);
+
+    AnchorPane.setTopAnchor(roomTaskBar, 20.0);
+    AnchorPane.setRightAnchor(roomTaskBar, 20.0);
+
+    AnchorPane.setTopAnchor(taskToggle, 25.0);
+    AnchorPane.setRightAnchor(taskToggle, 20.0);
+
     root.getChildren()
         .addAll(
             label,
@@ -168,7 +178,9 @@ public class Classroom extends Room {
             roomTimerLabel,
             homeworkClickArea,
             boardClickArea,
-            help);
+            help,
+            roomTaskBar,
+            taskToggle);
 
     homeworkDialogue.addToRoot(root);
     problemDialogue.addToRoot(root);

@@ -2,6 +2,7 @@ package app;
 
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Priority;
@@ -25,14 +26,34 @@ public class Help extends VBox {
    */
   public Help(Stage stage) {
     this.helpArea = new TextArea();
-
+    this.setStyle(
+        "-fx-background-color: linear-gradient(to bottom, #101223, #1b1f3a);"
+            + "-fx-padding: 20;"
+            + "-fx-spacing: 15;");
     helpArea.setEditable(false);
     helpArea.setWrapText(true);
-    helpArea.setStyle("-fx-font-family: 'Consolas', 'Monospaced'; -fx-font-size: 12;");
+    helpArea.setStyle(
+        "-fx-control-inner-background: rgba(18, 20, 35, 0.94);"
+            + "-fx-background-color: rgba(18, 20, 35, 0.94);"
+            + "-fx-text-fill: white;"
+            + "-fx-font-size: 15px;"
+            + "-fx-font-family: 'Arial';"
+            + "-fx-border-color: #9aa7ff;"
+            + "-fx-border-width: 2;"
+            + "-fx-border-radius: 14;"
+            + "-fx-background-radius: 14;"
+            + "-fx-padding: 12;");
 
     helpArea.setText(DEFAULT_TEXT.trim());
 
     ScrollPane scrollPane = new ScrollPane(helpArea);
+    scrollPane.setStyle(
+        "-fx-background: transparent;"
+            + "-fx-background-color: transparent;"
+            + "-fx-border-color: #9aa7ff;"
+            + "-fx-border-width: 2;"
+            + "-fx-border-radius: 14;"
+            + "-fx-background-radius: 14;");
     scrollPane.setFitToWidth(true);
     scrollPane.setFitToHeight(true);
     this.setFillWidth(true);
@@ -40,11 +61,14 @@ public class Help extends VBox {
     scrollPane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
     helpArea.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
+    Label title = new Label("Help");
+    title.setStyle("-fx-text-fill: white;" + "-fx-font-size: 32px;" + "-fx-font-weight: bold;");
     Button back = new Button("Back");
     back.setLayoutX(20);
     back.setLayoutY(20);
     styleButton(back);
 
+    getChildren().add(title);
     getChildren().add(back);
     getChildren().add(scrollPane);
 
@@ -84,27 +108,51 @@ public class Help extends VBox {
   /** Default instructions text. Students can update this as we add requirements for each pane. */
   private static final String DEFAULT_TEXT =
       """
-          Our game is raising awareness for students with special needs and
-          how challenging it can be to go through a school day.
+          Our game raises awareness about how challenging it can be for students with
+          different support needs to get through a school day.
 
-          Your job is to look at the tasks and go to the 4 rooms to find where you need tp
-          complete the tasks. There will be a button indicating so. Once you press it, three
-          dialogue options will pop up, one that fades fast, one that fades a little slowly and
-          one that stays. These represent the energy taken to give the response. The one that
-          fades quickly is the most "socially" acceptable answer but it will drain the health bar
-          and the one that fades slowest is not very "socially acceptable", so it will drain the
-          social standing bar and the health bar. The medium one drains only social standing
-          Make sure to pick the option that works best for your statistics.
+          Your goal is to complete the 4 tasks shown on the task list before the timer runs out.
+          You have 1 minute and 30 seconds.
 
-          You can always come back and access the help at the bottom right of the main screen.
+          Go to the correct room and click the correct object, person, or area to complete each task.
+          When you click the right place, three dialogue options will appear.
+
+          The dialogue options fade at different speeds:
+          - The first option fades the fastest. It is usually the most socially acceptable response,
+            but it drains more social battery.
+          - The second option fades more slowly. It is usually a safer or more neutral response,
+            but it may lower social standing.
+          - The third option stays the longest. It is usually the least socially acceptable response,
+            and it can lower both social battery and social standing.
+
+          Choose the response that works best for your stats.
+
+          If your social battery or social standing reaches 0, the game ends.
+          If the timer reaches 0, the game also ends.
+          Watch out for students moving through the hallway. If they bump into you, your stats go down.
 
           HINTS
-          For Library checkout, press on the left side, and a checkour button will appear.
-          For finding a study group, press on the desk and the dialogues will appear.
-          For ordering food, press on the table closest to the Cafe.
-          For classroom tasks, press on the teacher to activate the dialogues.
 
-          MAKE SURE: Once done with tasks, click on the Stats bar to see how you've done!
+          OFFICE:
+          - To ask to meet the counselor, click the counselor name tag on the desk.
+          - To pick up a counselor form, click the papers/forms on the desk.
+          - To ask about your schedule, click the reminder/schedule board.
+
+          CLASSROOM:
+          - To turn in late homework, click the TURN IN bin.
+          - To solve the board problem, click the whiteboard.
+
+          LIBRARY:
+          - To check out a book, click the CHECKOUT sign/desk area.
+          - To return a book, click the return-books cart.
+          - To join a study group, click the study group table.
+
+          CAFETERIA:
+          - To order food, click the cafeteria counter/café area.
+          - To ask to join a table, click the table group.
+
+          You can open Help again from the main hallway or room screens.
+          When you finish your tasks, click Stats to see how you did!
       """;
 
   /**

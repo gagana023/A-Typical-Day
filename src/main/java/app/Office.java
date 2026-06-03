@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -179,8 +180,8 @@ public class Office extends Room {
           }
         });
     Label roomTimerLabel = HelloWorld.createTimerLabel();
-    AnchorPane.setTopAnchor(roomTimerLabel, 80.0);
-    AnchorPane.setRightAnchor(roomTimerLabel, 20.0);
+    AnchorPane.setTopAnchor(roomTimerLabel, 20.0);
+    AnchorPane.setLeftAnchor(roomTimerLabel, 240.0);
 
     back.setOnAction(
         e -> {
@@ -191,6 +192,15 @@ public class Office extends Room {
               HelloWorld.task1, HelloWorld.task2, HelloWorld.task3, HelloWorld.task4);
           stage.setTitle("A Typical Day");
         });
+
+    VBox roomTaskBar = HelloWorld.createRoomTaskBar();
+    Button taskToggle = HelloWorld.createRoomTaskToggle(roomTaskBar);
+
+    AnchorPane.setTopAnchor(roomTaskBar, 20.0);
+    AnchorPane.setRightAnchor(roomTaskBar, 20.0);
+
+    AnchorPane.setTopAnchor(taskToggle, 25.0);
+    AnchorPane.setRightAnchor(taskToggle, 20.0);
     root.getChildren()
         .addAll(
             label,
@@ -201,7 +211,9 @@ public class Office extends Room {
             scheduleClickArea,
             counselorTagClickArea,
             roomTimerLabel,
-            help);
+            help,
+            roomTaskBar,
+            taskToggle);
 
     dialogue.addToRoot(root);
     formDialogue.addToRoot(root);
