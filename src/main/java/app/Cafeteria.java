@@ -14,16 +14,16 @@ import javafx.stage.Stage;
 /**
  * Builds and manages the cafeteria room scene.
  *
- * <p>The cafeteria room includes a background image, a back button, an NPC friend, and a clickable
- * area that opens dialogue options for completing the cafeteria friend task.
+ * <p>The cafeteria room includes a background image, a back button, an NPC friend, and two
+ * multi-step interactions: ordering food and asking to join a table. Each interaction is a chain of
+ * dialogue steps handled by {@link StepDialogueGroup}.
  */
 public class Cafeteria extends JoinGroupHere {
   /**
    * Creates and returns the root layout for the cafeteria scene.
    *
-   * <p>This method sets up the cafeteria background, places the NPC, creates the dialogue options,
-   * connects each dialogue option to stat changes and task completion, and adds navigation back to
-   * the main scene.
+   * <p>This method sets up the cafeteria background, places the NPC, wires up the two multi-step
+   * task interactions, and adds navigation back to the main scene.
    *
    * @param stage the main stage used to display the cafeteria scene
    * @return the root {@link AnchorPane} containing all cafeteria scene elements
@@ -65,48 +65,33 @@ public class Cafeteria extends JoinGroupHere {
     AnchorPane.setLeftAnchor(npc, 260.0);
     AnchorPane.setTopAnchor(npc, 440.0);
 
-    List<String> userOptions =
-        UserDialogueEngine.getOptions(UserDialogueEngine.Room.CAFETERIA_JOIN_TABLE);
-    List<String> npcOptions = NPCDialogue.getOptions(NPCDialogue.Room.CAFETERIA_JOIN_TABLE);
+    // "Ask to join a table" -> "Sit down with the group" -> "Introduce yourself"
+    StepDialogueGroup joinTableDialogue =
+        new StepDialogueGroup(
+            "cafeteria_join_table",
+            stage,
+            List.of(
+                UserDialogueEngine.getOptions(UserDialogueEngine.Room.CAFETERIA_JOIN_TABLE),
+                UserDialogueEngine.getOptions(UserDialogueEngine.Room.CAFETERIA_JOIN_TABLE_STEP2),
+                UserDialogueEngine.getOptions(UserDialogueEngine.Room.CAFETERIA_JOIN_TABLE_STEP3)),
+            List.of(
+                NPCDialogue.getOptions(NPCDialogue.Room.CAFETERIA_JOIN_TABLE),
+                NPCDialogue.getOptions(NPCDialogue.Room.CAFETERIA_JOIN_TABLE_STEP2),
+                NPCDialogue.getOptions(NPCDialogue.Room.CAFETERIA_JOIN_TABLE_STEP3)));
 
-    DialogueUI dialogue = new DialogueUI(userOptions, npcOptions);
-
-    List<String> orderUserOptions =
-        UserDialogueEngine.getOptions(UserDialogueEngine.Room.CAFETERIA);
-
-    List<String> orderNpcOptions = NPCDialogue.getOptions(NPCDialogue.Room.CAFETERIA);
-
-    DialogueUI orderDialogue = new DialogueUI(orderUserOptions, orderNpcOptions);
-
-    dialogue.setOption1Action(
-        () -> {
-          HelloWorld.handleChoice(1, "cafeteria_join_table", stage);
-        });
-
-    dialogue.setOption2Action(
-        () -> {
-          HelloWorld.handleChoice(2, "cafeteria_join_table", stage);
-        });
-
-    dialogue.setOption3Action(
-        () -> {
-          HelloWorld.handleChoice(3, "cafeteria_join_table", stage);
-        });
-
-    orderDialogue.setOption1Action(
-        () -> {
-          HelloWorld.handleChoice(1, "cafeteria_order", stage);
-        });
-
-    orderDialogue.setOption2Action(
-        () -> {
-          HelloWorld.handleChoice(2, "cafeteria_order", stage);
-        });
-
-    orderDialogue.setOption3Action(
-        () -> {
-          HelloWorld.handleChoice(3, "cafeteria_order", stage);
-        });
+    // "Order based on diet restrictions" -> "Choose a meal" -> "Pay and say thank you"
+    StepDialogueGroup orderDialogue =
+        new StepDialogueGroup(
+            "cafeteria_order",
+            stage,
+            List.of(
+                UserDialogueEngine.getOptions(UserDialogueEngine.Room.CAFETERIA),
+                UserDialogueEngine.getOptions(UserDialogueEngine.Room.CAFETERIA_STEP2),
+                UserDialogueEngine.getOptions(UserDialogueEngine.Room.CAFETERIA_STEP3)),
+            List.of(
+                NPCDialogue.getOptions(NPCDialogue.Room.CAFETERIA),
+                NPCDialogue.getOptions(NPCDialogue.Room.CAFETERIA_STEP2),
+                NPCDialogue.getOptions(NPCDialogue.Room.CAFETERIA_STEP3)));
 
     Rectangle orderClickArea = new Rectangle(430, 210);
     orderClickArea.setFill(Color.TRANSPARENT);
@@ -115,12 +100,7 @@ public class Cafeteria extends JoinGroupHere {
     AnchorPane.setLeftAnchor(orderClickArea, 0.0);
     AnchorPane.setTopAnchor(orderClickArea, 300.0);
 
-    orderClickArea.setOnMouseClicked(
-        e -> {
-          if (Tasks.isTaskActive("cafeteria_order")) {
-            orderDialogue.showOptions();
-          }
-        });
+    orderClickArea.setOnMouseClicked(e -> orderDialogue.handleClick());
 
     Label roomTimerLabel = HelloWorld.createTimerLabel();
     AnchorPane.setTopAnchor(roomTimerLabel, 20.0);
@@ -142,12 +122,7 @@ public class Cafeteria extends JoinGroupHere {
     AnchorPane.setLeftAnchor(friendClickArea, 550.0);
     AnchorPane.setTopAnchor(friendClickArea, 350.0);
 
-    friendClickArea.setOnMouseClicked(
-        e -> {
-          if (Tasks.isTaskActive("cafeteria_join_table")) {
-            dialogue.showOptions();
-          }
-        });
+    friendClickArea.setOnMouseClicked(e -> joinTableDialogue.handleClick());
 
     VBox roomTaskBar = HelloWorld.createRoomTaskBar();
     Button taskToggle = HelloWorld.createRoomTaskToggle(roomTaskBar);
@@ -168,7 +143,8 @@ public class Cafeteria extends JoinGroupHere {
             help,
             roomTaskBar,
             taskToggle);
-    dialogue.addToRoot(root);
+
+    joinTableDialogue.addToRoot(root);
     orderDialogue.addToRoot(root);
 
     return root;

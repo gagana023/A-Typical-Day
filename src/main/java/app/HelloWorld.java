@@ -306,18 +306,18 @@ public class HelloWorld extends Application {
   /**
    * Handles the result of selecting a dialogue option.
    *
-   * <p>This method updates the user's stats, completes the matching task, refreshes the task
-   * display, and switches to the game-over scene if the stat change causes a game-over condition.
+   * <p>This method updates the user's stats, advances the matching task by one step (or completes
+   * it if it was on its last step), refreshes the task display, and switches to the game-over scene
+   * if the stat change causes a game-over condition.
    *
    * @param option the selected dialogue option number
-   * @param taskId the id of the task completed by the dialogue choice
+   * @param taskId the id of the task advanced by the dialogue choice
    * @param stage the main stage used to switch to the game-over scene
    */
   public static void handleChoice(int option, String taskId, Stage stage) {
     boolean isOver = HelloWorld.user.changeStats(option);
     boolean completed = Tasks.completeTask(taskId);
 
-    Tasks.completeTask(taskId);
     HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3, HelloWorld.task4);
     if (completed) {
 

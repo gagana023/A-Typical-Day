@@ -14,16 +14,17 @@ import javafx.stage.Stage;
 /**
  * Builds and manages the library room scene.
  *
- * <p>The library includes a background image, a back button, an NPC, a bookshelf interaction for
- * the book task, and a study group interaction with dialogue options for the study task.
+ * <p>The library includes a background image, a back button, an NPC, and three multi-step
+ * interactions: checking out a book, joining a study group, and returning a book. Each interaction
+ * is a chain of dialogue steps handled by {@link StepDialogueGroup}.
  */
 public class Library extends JoinGroupHere {
   /**
    * Creates and returns the root layout for the library scene.
    *
-   * <p>This method sets up the library background, clickable bookshelf area, checkout button, study
-   * group dialogue area, NPC, and navigation back to the main scene. It also completes
-   * library-related tasks when the correct interactions are used.
+   * <p>This method sets up the library background, clickable bookshelf area, study group area,
+   * return area, NPC, and navigation back to the main scene. It also wires up the three multi-step
+   * task interactions.
    *
    * @param stage the main stage used to display the library scene
    * @return the root AnchorPane containing all library scene elements
@@ -65,6 +66,20 @@ public class Library extends JoinGroupHere {
     AnchorPane.setLeftAnchor(npc, 320.0);
     AnchorPane.setTopAnchor(npc, 310.0);
 
+    // "Checkout a book" -> "Hand over your library card" -> "Confirm the due date"
+    StepDialogueGroup bookDialogue =
+        new StepDialogueGroup(
+            "library_book",
+            stage,
+            List.of(
+                UserDialogueEngine.getOptions(UserDialogueEngine.Room.LIBRARY_BOOK),
+                UserDialogueEngine.getOptions(UserDialogueEngine.Room.LIBRARY_BOOK_STEP2),
+                UserDialogueEngine.getOptions(UserDialogueEngine.Room.LIBRARY_BOOK_STEP3)),
+            List.of(
+                NPCDialogue.getOptions(NPCDialogue.Room.LIBRARY_BOOK),
+                NPCDialogue.getOptions(NPCDialogue.Room.LIBRARY_BOOK_STEP2),
+                NPCDialogue.getOptions(NPCDialogue.Room.LIBRARY_BOOK_STEP3)));
+
     Rectangle checkoutClickArea = new Rectangle(230, 90);
     checkoutClickArea.setFill(Color.TRANSPARENT);
     checkoutClickArea.setStroke(Color.TRANSPARENT);
@@ -72,31 +87,21 @@ public class Library extends JoinGroupHere {
     AnchorPane.setLeftAnchor(checkoutClickArea, 60.0);
     AnchorPane.setTopAnchor(checkoutClickArea, 300.0);
 
-    List<String> bookOptions = UserDialogueEngine.getOptions(UserDialogueEngine.Room.LIBRARY_BOOK);
-    List<String> bookNpcOptions = NPCDialogue.getOptions(NPCDialogue.Room.LIBRARY_BOOK);
+    checkoutClickArea.setOnMouseClicked(e -> bookDialogue.handleClick());
 
-    DialogueUI bookDialogue = new DialogueUI(bookOptions, bookNpcOptions);
-
-    bookDialogue.setOption1Action(
-        () -> {
-          HelloWorld.handleChoice(1, "library_book", stage);
-        });
-
-    bookDialogue.setOption2Action(
-        () -> {
-          HelloWorld.handleChoice(2, "library_book", stage);
-        });
-
-    bookDialogue.setOption3Action(
-        () -> {
-          HelloWorld.handleChoice(3, "library_book", stage);
-        });
-    checkoutClickArea.setOnMouseClicked(
-        e -> {
-          if (Tasks.isTaskActive("library_book")) {
-            bookDialogue.showOptions();
-          }
-        });
+    // "Join a study group" -> "Pull up a chair" -> "Ask the group a question"
+    StepDialogueGroup studyDialogue =
+        new StepDialogueGroup(
+            "library_study",
+            stage,
+            List.of(
+                UserDialogueEngine.getOptions(UserDialogueEngine.Room.LIBRARY),
+                UserDialogueEngine.getOptions(UserDialogueEngine.Room.LIBRARY_STEP2),
+                UserDialogueEngine.getOptions(UserDialogueEngine.Room.LIBRARY_STEP3)),
+            List.of(
+                NPCDialogue.getOptions(NPCDialogue.Room.LIBRARY),
+                NPCDialogue.getOptions(NPCDialogue.Room.LIBRARY_STEP2),
+                NPCDialogue.getOptions(NPCDialogue.Room.LIBRARY_STEP3)));
 
     Rectangle studyClickArea = new Rectangle(300, 190);
     studyClickArea.setFill(Color.TRANSPARENT);
@@ -105,32 +110,7 @@ public class Library extends JoinGroupHere {
     AnchorPane.setLeftAnchor(studyClickArea, 400.0);
     AnchorPane.setTopAnchor(studyClickArea, 260.0);
 
-    List<String> options = UserDialogueEngine.getOptions(UserDialogueEngine.Room.LIBRARY);
-    List<String> npcOptions = NPCDialogue.getOptions(NPCDialogue.Room.LIBRARY);
-
-    DialogueUI dialogue = new DialogueUI(options, npcOptions);
-
-    studyClickArea.setOnMouseClicked(
-        e -> {
-          if (Tasks.isTaskActive("library_study")) {
-            dialogue.showOptions();
-          }
-        });
-
-    dialogue.setOption1Action(
-        () -> {
-          HelloWorld.handleChoice(1, "library_study", stage);
-        });
-
-    dialogue.setOption2Action(
-        () -> {
-          HelloWorld.handleChoice(2, "library_study", stage);
-        });
-
-    dialogue.setOption3Action(
-        () -> {
-          HelloWorld.handleChoice(3, "library_study", stage);
-        });
+    studyClickArea.setOnMouseClicked(e -> studyDialogue.handleClick());
 
     Label roomTimerLabel = HelloWorld.createTimerLabel();
     AnchorPane.setTopAnchor(roomTimerLabel, 20.0);
@@ -144,6 +124,21 @@ public class Library extends JoinGroupHere {
               HelloWorld.task1, HelloWorld.task2, HelloWorld.task3, HelloWorld.task4);
           stage.setTitle("A Typical Day");
         });
+
+    // "Return a book" -> "Place it in the return area" -> "Confirm it was received"
+    StepDialogueGroup returnDialogue =
+        new StepDialogueGroup(
+            "library_return",
+            stage,
+            List.of(
+                UserDialogueEngine.getOptions(UserDialogueEngine.Room.LIBRARY_RETURN),
+                UserDialogueEngine.getOptions(UserDialogueEngine.Room.LIBRARY_RETURN_STEP2),
+                UserDialogueEngine.getOptions(UserDialogueEngine.Room.LIBRARY_RETURN_STEP3)),
+            List.of(
+                NPCDialogue.getOptions(NPCDialogue.Room.LIBRARY_RETURN),
+                NPCDialogue.getOptions(NPCDialogue.Room.LIBRARY_RETURN_STEP2),
+                NPCDialogue.getOptions(NPCDialogue.Room.LIBRARY_RETURN_STEP3)));
+
     Rectangle returnClickArea = new Rectangle(120, 120);
     returnClickArea.setFill(Color.TRANSPARENT);
     returnClickArea.setStroke(Color.TRANSPARENT);
@@ -151,33 +146,7 @@ public class Library extends JoinGroupHere {
     AnchorPane.setLeftAnchor(returnClickArea, 0.0);
     AnchorPane.setTopAnchor(returnClickArea, 395.0);
 
-    List<String> returnOptions =
-        UserDialogueEngine.getOptions(UserDialogueEngine.Room.LIBRARY_RETURN);
-    List<String> returnNpcOptions = NPCDialogue.getOptions(NPCDialogue.Room.LIBRARY_RETURN);
-
-    DialogueUI returnDialogue = new DialogueUI(returnOptions, returnNpcOptions);
-
-    returnDialogue.setOption1Action(
-        () -> {
-          HelloWorld.handleChoice(1, "library_return", stage);
-        });
-
-    returnDialogue.setOption2Action(
-        () -> {
-          HelloWorld.handleChoice(2, "library_return", stage);
-        });
-
-    returnDialogue.setOption3Action(
-        () -> {
-          HelloWorld.handleChoice(3, "library_return", stage);
-        });
-
-    returnClickArea.setOnMouseClicked(
-        e -> {
-          if (Tasks.isTaskActive("library_return")) {
-            returnDialogue.showOptions();
-          }
-        });
+    returnClickArea.setOnMouseClicked(e -> returnDialogue.handleClick());
 
     VBox roomTaskBar = HelloWorld.createRoomTaskBar();
     Button taskToggle = HelloWorld.createRoomTaskToggle(roomTaskBar);
@@ -198,7 +167,8 @@ public class Library extends JoinGroupHere {
             help,
             roomTaskBar,
             taskToggle);
-    dialogue.addToRoot(root);
+
+    studyDialogue.addToRoot(root);
     returnDialogue.addToRoot(root);
     bookDialogue.addToRoot(root);
 

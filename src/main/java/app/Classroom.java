@@ -15,16 +15,16 @@ import javafx.stage.Stage;
  * Builds and manages the classroom scene.
  *
  * <p>The classroom includes a background image, a teacher NPC, a classmate NPC, a back button, and
- * dialogue options connected to active classroom tasks.
+ * two multi-step interactions: turning in late homework and solving the board problem. Each
+ * interaction is a chain of dialogue steps handled by {@link StepDialogueGroup}.
  */
 public class Classroom extends Room {
 
   /**
    * Creates and returns the root layout for the classroom scene.
    *
-   * <p>This method sets up the classroom background, places the teacher and classmate NPCs, checks
-   * which classroom task is currently active, creates the correct dialogue options, and adds
-   * navigation back to the main scene.
+   * <p>This method sets up the classroom background, places the teacher and classmate NPCs, wires
+   * up the two multi-step task interactions, and adds navigation back to the main scene.
    *
    * @param stage the main stage used to display the classroom scene
    * @return the root AnchorPane containing all classroom scene elements
@@ -78,26 +78,19 @@ public class Classroom extends Room {
     AnchorPane.setTopAnchor(teacher, 210.0);
     stage.setTitle("Classroom");
 
-    List<String> homeworkOptions =
-        UserDialogueEngine.getOptions(UserDialogueEngine.Room.CLASSROOM_HOMEWORK);
-    List<String> homeworkNpcOptions = NPCDialogue.getOptions(NPCDialogue.Room.CLASSROOM_HOMEWORK);
-
-    DialogueUI homeworkDialogue = new DialogueUI(homeworkOptions, homeworkNpcOptions);
-
-    homeworkDialogue.setOption1Action(
-        () -> {
-          HelloWorld.handleChoice(1, "classroom_homework", stage);
-        });
-
-    homeworkDialogue.setOption2Action(
-        () -> {
-          HelloWorld.handleChoice(2, "classroom_homework", stage);
-        });
-
-    homeworkDialogue.setOption3Action(
-        () -> {
-          HelloWorld.handleChoice(3, "classroom_homework", stage);
-        });
+    // "Turn in late homework" -> "Explain why it's late" -> "Ask if there's a penalty"
+    StepDialogueGroup homeworkDialogue =
+        new StepDialogueGroup(
+            "classroom_homework",
+            stage,
+            List.of(
+                UserDialogueEngine.getOptions(UserDialogueEngine.Room.CLASSROOM_HOMEWORK),
+                UserDialogueEngine.getOptions(UserDialogueEngine.Room.CLASSROOM_HOMEWORK_STEP2),
+                UserDialogueEngine.getOptions(UserDialogueEngine.Room.CLASSROOM_HOMEWORK_STEP3)),
+            List.of(
+                NPCDialogue.getOptions(NPCDialogue.Room.CLASSROOM_HOMEWORK),
+                NPCDialogue.getOptions(NPCDialogue.Room.CLASSROOM_HOMEWORK_STEP2),
+                NPCDialogue.getOptions(NPCDialogue.Room.CLASSROOM_HOMEWORK_STEP3)));
 
     Rectangle homeworkClickArea = new Rectangle(120, 90);
     homeworkClickArea.setFill(Color.TRANSPARENT);
@@ -106,33 +99,21 @@ public class Classroom extends Room {
     AnchorPane.setLeftAnchor(homeworkClickArea, 185.0);
     AnchorPane.setTopAnchor(homeworkClickArea, 275.0);
 
-    homeworkClickArea.setOnMouseClicked(
-        e -> {
-          if (Tasks.isTaskActive("classroom_homework")) {
-            homeworkDialogue.showOptions();
-          }
-        });
+    homeworkClickArea.setOnMouseClicked(e -> homeworkDialogue.handleClick());
 
-    List<String> problemOptions =
-        UserDialogueEngine.getOptions(UserDialogueEngine.Room.CLASSROOM_PROBLEM);
-    List<String> problemNpcOptions = NPCDialogue.getOptions(NPCDialogue.Room.CLASSROOM_PROBLEM);
-
-    DialogueUI problemDialogue = new DialogueUI(problemOptions, problemNpcOptions);
-
-    problemDialogue.setOption1Action(
-        () -> {
-          HelloWorld.handleChoice(1, "classroom_problem", stage);
-        });
-
-    problemDialogue.setOption2Action(
-        () -> {
-          HelloWorld.handleChoice(2, "classroom_problem", stage);
-        });
-
-    problemDialogue.setOption3Action(
-        () -> {
-          HelloWorld.handleChoice(3, "classroom_problem", stage);
-        });
+    // "Solve the board problem" -> "Tell the teacher if you can solve it" -> "Try the first step"
+    StepDialogueGroup problemDialogue =
+        new StepDialogueGroup(
+            "classroom_problem",
+            stage,
+            List.of(
+                UserDialogueEngine.getOptions(UserDialogueEngine.Room.CLASSROOM_PROBLEM),
+                UserDialogueEngine.getOptions(UserDialogueEngine.Room.CLASSROOM_PROBLEM_STEP2),
+                UserDialogueEngine.getOptions(UserDialogueEngine.Room.CLASSROOM_PROBLEM_STEP3)),
+            List.of(
+                NPCDialogue.getOptions(NPCDialogue.Room.CLASSROOM_PROBLEM),
+                NPCDialogue.getOptions(NPCDialogue.Room.CLASSROOM_PROBLEM_STEP2),
+                NPCDialogue.getOptions(NPCDialogue.Room.CLASSROOM_PROBLEM_STEP3)));
 
     Rectangle boardClickArea = new Rectangle(310, 180);
     boardClickArea.setFill(Color.TRANSPARENT);
@@ -141,12 +122,8 @@ public class Classroom extends Room {
     AnchorPane.setLeftAnchor(boardClickArea, 195.0);
     AnchorPane.setTopAnchor(boardClickArea, 80.0);
 
-    boardClickArea.setOnMouseClicked(
-        e -> {
-          if (Tasks.isTaskActive("classroom_problem")) {
-            problemDialogue.showOptions();
-          }
-        });
+    boardClickArea.setOnMouseClicked(e -> problemDialogue.handleClick());
+
     Label roomTimerLabel = HelloWorld.createTimerLabel();
     AnchorPane.setTopAnchor(roomTimerLabel, 20.0);
     AnchorPane.setLeftAnchor(roomTimerLabel, 240.0);
