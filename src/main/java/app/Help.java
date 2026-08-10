@@ -131,6 +131,11 @@ public class Help extends VBox {
           If the timer reaches 0, the game also ends.
           Watch out for students moving through the hallway. If they bump into you, your stats go down.
 
+          Also, make sure to avoid the bullies! They reduce both of your bars!
+          Finally, if one or both your bars get to less than 50%, the panic mode is activated!
+            - You will have to complete the rest of the game with a shaking screen to be careful and pick 
+              the option that works best for you!
+              
           HINTS
 
           OFFICE:
