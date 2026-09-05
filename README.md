@@ -4,7 +4,7 @@ See directions for final project [here](https://nchs-cs.github.io/advanced-topic
 
 All documentation for this project can be found [here](doc/README.md)
 
-Claude was used to help us debug our issues, mainly the ones tending to having God classes that we learned from our pmd. We also used it in the inital phase to help us plan out our class structure. 
+Claude was used to help us debug our issues, mainly the ones tending to having God classes that we learned from our pmd. We also used it in the inital phase to help us plan out our class structure.
 
 ChatGPT was used to help us understand our errors or the messages we would get from the PMD and the CPD and that helped us understand what to do when breaking up our classes.
 
