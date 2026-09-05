@@ -430,6 +430,18 @@ public class HelloWorld extends Application {
     }
   }
 
+  public static void pauseGameTimer() {
+    if (gameTimer != null) {
+      gameTimer.pause();
+    }
+  }
+
+  public static void resumeGameTimer() {
+    if (gameTimer != null && timerStarted && timeRemaining > 0) {
+      gameTimer.play();
+    }
+  }
+
   public static Label createTimerLabel() {
     Label label = new Label();
     label.textProperty().bind(timerText);
