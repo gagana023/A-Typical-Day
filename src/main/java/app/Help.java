@@ -19,6 +19,8 @@ import javafx.stage.Stage;
 public class Help extends VBox {
 
   private final TextArea helpArea;
+  private Scene returnScene;
+  private boolean resumeUser;
 
   /**
    * Constructs a HelpPane with default project directions. Students can update the DEFAULT_TEXT
@@ -74,9 +76,11 @@ public class Help extends VBox {
 
     back.setOnAction(
         e -> {
-          stage.setScene(HelloWorld.scene);
-          HelloWorld.user.stop();
-          HelloWorld.user.resume(HelloWorld.scene);
+          stage.setScene(returnScene);
+          if (resumeUser) {
+            HelloWorld.user.stop();
+            HelloWorld.user.resume(returnScene);
+          }
         });
   }
 
@@ -166,8 +170,11 @@ public class Help extends VBox {
    * @param stage the main stage for the application
    * @return a Scene containing the help screen
    */
-  public Scene getHelp(Stage stage) {
-    return new Scene(this, 800, 600);
+  public Scene getHelp(Stage stage, Scene returnScene, boolean resumeUser) {
+    Help help = new Help(stage);
+    help.returnScene = returnScene;
+    help.resumeUser = resumeUser;
+    return new Scene(help, 800, 600);
   }
 
   private void styleButton(Button button) {

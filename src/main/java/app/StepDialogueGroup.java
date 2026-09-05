@@ -10,10 +10,7 @@ import javafx.stage.Stage;
  * single task.
  *
  * <p>Each time the player clicks the task's interaction area, this class shows the DialogueUI that
- * matches the task's current step Selecting any
- * option in that step's dialogue advances the task by calling {@link
- * HelloWorld#handleChoice(int, String, Stage)}, which calls {@link Tasks#completeTask(String)} to
- * move the task to its next step (or mark it fully done if it was the last step).
+ * matches the task's current step. The submitted response is classified before the task advances.
  */
 public class StepDialogueGroup {
 
@@ -35,9 +32,8 @@ public class StepDialogueGroup {
     for (int i = 0; i < userStepOptions.size(); i++) {
       DialogueUI ui = new DialogueUI(userStepOptions.get(i), npcStepOptions.get(i));
 
-      ui.setOption1Action(() -> HelloWorld.handleChoice(1, taskId, stage));
-      ui.setOption2Action(() -> HelloWorld.handleChoice(2, taskId, stage));
-      ui.setOption3Action(() -> HelloWorld.handleChoice(3, taskId, stage));
+        ui.setSubmitAction(
+          response -> HelloWorld.handleTypedChoice(response, taskId, stage, ui));
 
       steps.add(ui);
     }

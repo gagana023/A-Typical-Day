@@ -85,7 +85,7 @@ public class StoryIntro {
     help.setOnAction(
         e -> {
           user.stop();
-          stage.setScene(h.getHelp(stage));
+          stage.setScene(h.getHelp(stage, stage.getScene(), false));
         });
 
     introRoot.getChildren().addAll(rect, sceneView, clock, time, flash, storyLayout);

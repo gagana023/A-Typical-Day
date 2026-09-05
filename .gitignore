@@ -259,6 +259,9 @@ FakesAssemblies/
 # GhostDoc plugin setting file
 *.GhostDoc.xml
 
+# Local JavaFX SDK used by the VS Code launch configuration
+javafx-sdk-25/
+
 # Node.js Tools for Visual Studio
 .ntvs_analysis.dat
 node_modules/

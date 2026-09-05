@@ -61,7 +61,7 @@ public class Classroom extends Room {
 
     help.setOnAction(
         e -> {
-          stage.setScene(h.getHelp(stage));
+                    stage.setScene(h.getHelp(stage, stage.getScene(), true));
         });
 
     NPC classmate = new NPC("/player still.png", 70, 170);

@@ -2,26 +2,20 @@
     "java.server.launchMode": "Standard",
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "/workspaces/javafx/javafx-sdk-current/lib/*.jar",
+        "javafx-sdk-25/lib/*.jar",
     ],
     "java.project.sourcePaths": [
         "src/test/java/",
         "src/main/java",
         "src/main/resources",
     ],
-    "java.debug.settings.vmArgs": "--enable-native-access=javafx.graphics",
-
-    "java.server.launchMode": "Standard",
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "/workspaces/javafx/javafx-sdk-current/lib/*.jar",
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-25",
+            "path": "C:\\Program Files\\Eclipse Adoptium\\jdk-25.0.0.36-hotspot",
+            "default": true
+        }
     ],
-    "java.project.sourcePaths": [
-        "src/test/java/",
-        "src/main/java",
-        "src/main/resources",
-    ],
-    "java.debug.settings.vmArgs": "--enable-native-access=javafx.graphics",
 
     "java.format.settings.url": 
         "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",

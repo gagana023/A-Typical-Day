@@ -56,7 +56,7 @@ public class Office extends Room {
 
     help.setOnAction(
         e -> {
-          stage.setScene(h.getHelp(stage));
+                    stage.setScene(h.getHelp(stage, stage.getScene(), true));
         });
 
     AnchorPane.setTopAnchor(label, 40.0);

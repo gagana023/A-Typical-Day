@@ -23,7 +23,7 @@ public class PlayerStats {
    * @return true if the updated stats cause a game-over condition, false otherwise
    */
   public boolean changeStats(int optionType) {
-    double amount = 0.35;
+    double amount = 0.15;
 
     switch (optionType) {
       case 1:

@@ -57,7 +57,7 @@ public class Cafeteria extends JoinGroupHere {
 
     help.setOnAction(
         e -> {
-          stage.setScene(h.getHelp(stage));
+                    stage.setScene(h.getHelp(stage, stage.getScene(), true));
         });
 
     NPC npc = new NPC("/player still.png", 70, 170);

@@ -306,7 +306,7 @@ public class StudentTest extends ApplicationTest {
 
     stats.changeStats(1);
 
-    assertEquals(0.65, stats.getHealth(), 0.001);
+    assertEquals(0.85, stats.getHealth(), 0.001);
     assertEquals(1.0, stats.getSocial(), 0.001);
   }
 
@@ -317,7 +317,7 @@ public class StudentTest extends ApplicationTest {
     stats.changeStats(2);
 
     assertEquals(1.0, stats.getHealth(), 0.001);
-    assertEquals(0.65, stats.getSocial(), 0.001);
+    assertEquals(0.85, stats.getSocial(), 0.001);
   }
 
   @Test
@@ -326,8 +326,8 @@ public class StudentTest extends ApplicationTest {
 
     stats.changeStats(3);
 
-    assertEquals(0.65, stats.getHealth(), 0.001);
-    assertEquals(0.65, stats.getSocial(), 0.001);
+    assertEquals(0.85, stats.getHealth(), 0.001);
+    assertEquals(0.85, stats.getSocial(), 0.001);
   }
 
   @Test

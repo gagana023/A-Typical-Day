@@ -3,6 +3,14 @@
     // Hover to view descriptions of existing attributes.
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
+    "inputs": [
+        {
+            "id": "openaiApiKey",
+            "type": "promptString",
+            "description": "OpenAI API key",
+            "password": true
+        }
+    ],
     "configurations": [
         {
             "type": "java",
@@ -10,6 +18,11 @@
             "request": "launch",
             "mainClass": "app.HelloWorld",
             "projectName": "",
+            "vmArgs": "--module-path \"${workspaceFolder}/javafx-sdk-25/lib\" --add-modules javafx.controls,javafx.graphics,javafx.base --enable-native-access=javafx.graphics",
+            "env": {
+                "OPENAI_API_KEY": "${input:openaiApiKey}",
+                "OPENAI_MODEL": "${env:OPENAI_MODEL}"
+            },
             "linux": {
                 "vmArgs": "--module-path ${env:JAVAFX_JMODS}:${env:JAVAFX_HOME}/lib --add-modules javafx.controls,javafx.graphics,javafx.base --enable-native-access=javafx.graphics",
                 "env": {
@@ -24,11 +37,14 @@
             "request": "launch",
             "mainClass": "app.HelloWorld",
             "classPaths": [
-                // TODO: Change this to your own jar file name
-                "${workspaceFolder}/workspaces/apt-final-project-v2-gaganab-sreshtan-aadib/apt-final-project-v2-gaganab-sreshtan-aadib.jar",
-                
+                "${workspaceFolder}/apt-final-project-v2-gaganab-sreshtan-aadib.jar"
             ],
             "projectName": "",
+            "vmArgs": "--module-path \"${workspaceFolder}/javafx-sdk-25/lib\" --add-modules javafx.controls,javafx.graphics,javafx.base --enable-native-access=javafx.graphics",
+            "env": {
+                "OPENAI_API_KEY": "${input:openaiApiKey}",
+                "OPENAI_MODEL": "${env:OPENAI_MODEL}"
+            },
             // "linux": {
             //     "vmArgs": "--module-path ${env:JAVAFX_JMODS}:${env:JAVAFX_HOME}/lib --add-modules javafx.controls,javafx.graphics,javafx.base --enable-native-access=javafx.graphics",
             //     "env": {

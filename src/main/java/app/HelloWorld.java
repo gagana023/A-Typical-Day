@@ -181,7 +181,7 @@ public class HelloWorld extends Application {
     help.setOnAction(
         e -> {
           user.stop();
-          stage.setScene(h.getHelp(stage));
+          stage.setScene(h.getHelp(stage, stage.getScene(), true));
         });
 
     Bully bully1 = new Bully();
@@ -334,6 +334,59 @@ public class HelloWorld extends Application {
     }
 
     checkWin(stage);
+  }
+
+  /** Sends a typed response to OpenAI, then applies its category to the existing game rules. */
+  public static void handleTypedChoice(
+      String response, String taskId, Stage stage, DialogueUI dialogueUI) {
+    OpenAIResponseService.analyze(taskId, Tasks.getCurrentStep(taskId), response)
+        .whenComplete(
+            (analysis, error) ->
+                Platform.runLater(
+                    () -> {
+                      if (error != null) {
+                        dialogueUI.showResponse(
+                          "I couldn't process that response. "
+                            + getDialogueErrorMessage(error));
+                        dialogueUI.enableSubmission();
+                        return;
+                      }
+
+                      dialogueUI.hideOptions();
+                      dialogueUI.showResponse(analysis.npcResponse());
+                      handleChoice(analysis.category(), taskId, stage);
+                    }));
+  }
+
+  private static String getDialogueErrorMessage(Throwable error) {
+    Throwable cause = error;
+    while (cause.getCause() != null) {
+      cause = cause.getCause();
+    }
+
+    if (cause instanceof IllegalStateException
+        && cause.getMessage() != null
+        && cause.getMessage().contains("OPENAI_API_KEY is not set")) {
+      return "The OpenAI key is not available. Set OPENAI_API_KEY (not OPEN_API_KEY), then restart VS Code.";
+    }
+
+    if (cause.getMessage() != null && cause.getMessage().contains("status 401")) {
+      return "OpenAI rejected the API key (401). Create a new key and check that it is active.";
+    }
+
+    if (cause.getMessage() != null && cause.getMessage().contains("status 429")) {
+      return "OpenAI quota or rate limit reached (429). Check billing and usage for the API account.";
+    }
+
+    if (cause.getMessage() != null && cause.getMessage().contains("status 400")) {
+      return "OpenAI rejected the request (400). Check the selected model and API account access.";
+    }
+
+    if (cause.getMessage() != null && cause.getMessage().contains("status 5")) {
+      return "OpenAI is temporarily unavailable. Check the service status and try again.";
+    }
+
+    return "OpenAI request failed. Check your key, internet connection, and API account.";
   }
 
   public static void startGameTimer() {
