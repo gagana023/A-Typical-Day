@@ -1,9 +1,6 @@
 package app;
 
 import java.util.List;
-import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -18,6 +15,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Main application class for the ATypical Day JavaFX game.
@@ -26,7 +27,7 @@ import javafx.util.Duration;
  * menu, help menu, and story intro. It also controls switching between the main scene and the
  * different room scenes.
  */
-public class HelloWorld extends Application {
+public class HelloWorld extends javafx.application.Application {
 
   public static Stage stage;
   public static Scene scene;
@@ -38,7 +39,14 @@ public class HelloWorld extends Application {
   public static ProgressBar socialBatteryBar;
   public static ProgressBar socialStandingBar;
   public static Label timerLabel;
-  private static Timeline gameTimer;
+  private static ScheduledFuture<?> gameTimer;
+  private static final ScheduledExecutorService TIMER_EXECUTOR =
+      Executors.newSingleThreadScheduledExecutor(
+          runnable -> {
+            Thread thread = new Thread(runnable, "game-timer");
+            thread.setDaemon(true);
+            return thread;
+          });
   private static int timeRemaining = 90;
   private static boolean timerStarted = false;
   public static StringProperty timerText = new SimpleStringProperty("Time: 1:30");
@@ -399,22 +407,22 @@ public class HelloWorld extends Application {
     updateTimerLabel();
 
     gameTimer =
-        new Timeline(
-            new KeyFrame(
-                Duration.seconds(1),
-                e -> {
-                  timeRemaining--;
-                  updateTimerLabel();
+        TIMER_EXECUTOR.scheduleAtFixedRate(
+            () ->
+                Platform.runLater(
+                    () -> {
+                      timeRemaining--;
+                      updateTimerLabel();
 
-                  if (timeRemaining <= 0) {
-                    gameTimer.stop();
-                    user.stop();
-                    stage.setScene(new GameOver().getScene(stage));
-                  }
-                }));
-
-    gameTimer.setCycleCount(Timeline.INDEFINITE);
-    gameTimer.play();
+                      if (timeRemaining <= 0) {
+                        stopGameTimer();
+                        user.stop();
+                        stage.setScene(new GameOver().getScene(stage));
+                      }
+                    }),
+            1,
+            1,
+            TimeUnit.SECONDS);
   }
 
   private static void updateTimerLabel() {
@@ -426,7 +434,8 @@ public class HelloWorld extends Application {
 
   public static void stopGameTimer() {
     if (gameTimer != null) {
-      gameTimer.stop();
+      gameTimer.cancel(false);
+      gameTimer = null;
     }
   }
 
@@ -611,15 +620,15 @@ public class HelloWorld extends Application {
     notification.setOpacity(1);
     root.getChildren().add(notification);
 
-    FadeTransition fade = new FadeTransition(Duration.seconds(2), notification);
-    fade.setFromValue(1);
-    fade.setToValue(0);
-
-    fade.setOnFinished(
-        e -> {
-          root.getChildren().remove(notification);
-        });
-
-    fade.play();
+    TIMER_EXECUTOR.schedule(
+        () ->
+            Platform.runLater(
+                () -> {
+                  if (root.getChildren().contains(notification)) {
+                    root.getChildren().remove(notification);
+                  }
+                }),
+        2,
+        TimeUnit.SECONDS);
   }
 }

@@ -18,17 +18,17 @@
             "request": "launch",
             "mainClass": "app.HelloWorld",
             "projectName": "",
-            "vmArgs": "--module-path \"${workspaceFolder}/javafx-sdk-25/lib\" --add-modules javafx.controls,javafx.graphics,javafx.base --enable-native-access=javafx.graphics",
+            "vmArgs": "--module-path ${env:JAVAFX_HOME}/lib --add-modules javafx.controls,javafx.graphics,javafx.base --enable-native-access=javafx.graphics",
             "env": {
                 "OPENAI_API_KEY": "${input:openaiApiKey}",
                 "OPENAI_MODEL": "${env:OPENAI_MODEL}"
             },
             "linux": {
-                "vmArgs": "--module-path ${env:JAVAFX_JMODS}:${env:JAVAFX_HOME}/lib --add-modules javafx.controls,javafx.graphics,javafx.base --enable-native-access=javafx.graphics",
-                "env": {
-                    "DISPLAY": ":1"
-                }
-            }
+    "vmArgs": "--module-path \"${env:JAVAFX_HOME}/lib\" --add-modules javafx.controls,javafx.graphics,javafx.base --enable-native-access=javafx.graphics",
+    "env": {
+        "DISPLAY": ":1"
+    }
+}
 
         },
         {
@@ -40,7 +40,7 @@
                 "${workspaceFolder}/apt-final-project-v2-gaganab-sreshtan-aadib.jar"
             ],
             "projectName": "",
-            "vmArgs": "--module-path \"${workspaceFolder}/javafx-sdk-25/lib\" --add-modules javafx.controls,javafx.graphics,javafx.base --enable-native-access=javafx.graphics",
+            "vmArgs": "--module-path \"${env:JAVAFX_HOME}/lib\" --add-modules javafx.controls,javafx.graphics,javafx.base --enable-native-access=javafx.graphics",
             "env": {
                 "OPENAI_API_KEY": "${input:openaiApiKey}",
                 "OPENAI_MODEL": "${env:OPENAI_MODEL}"
