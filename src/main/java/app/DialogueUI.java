@@ -42,6 +42,14 @@ public class DialogueUI {
     responseInput.setStyle(
         "-fx-background-color: white; -fx-text-fill: #101223; -fx-font-size: 15px;"
             + " -fx-padding: 10;");
+    responseInput.focusedProperty().addListener(
+        (observable, wasFocused, isFocused) -> {
+          if (isFocused) {
+            HelloWorld.pauseGameTimer();
+          } else {
+            HelloWorld.resumeGameTimer();
+          }
+        });
 
     submitButton = new Button("Submit");
     styleButton(submitButton);
