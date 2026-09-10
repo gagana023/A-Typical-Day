@@ -276,7 +276,7 @@ public class Tutorial {
     gameScene.getRoot().requestFocus();
     Tasks.chooseRandomTasks(4);
     HelloWorld.updateTasks(HelloWorld.task1, HelloWorld.task2, HelloWorld.task3, HelloWorld.task4);
-    HelloWorld.user.start();
+    HelloWorld.user.resume(gameScene);
     HelloWorld.startGameTimer();
   }
 

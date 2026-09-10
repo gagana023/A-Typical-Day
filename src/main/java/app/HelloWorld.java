@@ -47,6 +47,7 @@ public class HelloWorld extends javafx.application.Application {
           });
   private static int timeRemaining = 90;
   private static boolean timerStarted = false;
+  private static boolean timerPaused = false;
   public static StringProperty timerText = new SimpleStringProperty("Time: 1:30");
   public static Panic currentPanic;
 
@@ -400,6 +401,7 @@ public class HelloWorld extends javafx.application.Application {
     }
 
     timerStarted = true;
+    timerPaused = false;
     timeRemaining = 90;
     updateTimerLabel();
 
@@ -408,6 +410,10 @@ public class HelloWorld extends javafx.application.Application {
             () ->
                 Platform.runLater(
                     () -> {
+                      if (timerPaused) {
+                        return;
+                      }
+
                       timeRemaining--;
                       updateTimerLabel();
 
@@ -430,6 +436,7 @@ public class HelloWorld extends javafx.application.Application {
   }
 
   public static void stopGameTimer() {
+    timerPaused = false;
     if (gameTimer != null) {
       gameTimer.cancel(false);
       gameTimer = null;
@@ -437,14 +444,12 @@ public class HelloWorld extends javafx.application.Application {
   }
 
   public static void pauseGameTimer() {
-    if (gameTimer != null) {
-      gameTimer.pause();
-    }
+    timerPaused = true;
   }
 
   public static void resumeGameTimer() {
-    if (gameTimer != null && timerStarted && timeRemaining > 0) {
-      gameTimer.play();
+    if (timerStarted && timeRemaining > 0) {
+      timerPaused = false;
     }
   }
 

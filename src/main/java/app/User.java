@@ -275,6 +275,7 @@ public class User {
     if (timer == null) {
       return;
     }
+    paused = false;
     timer.start();
   }
 
