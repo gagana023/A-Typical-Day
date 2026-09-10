@@ -40,6 +40,11 @@ public class StoryIntro {
    * @return the intro Scene that plays before the story screen
    */
   public Scene build(Stage stage, Scene gameScene, User user) {
+    return build(stage, gameScene, user, gameScene);
+  }
+
+  /** Builds the intro and sends the player into the playable tutorial. */
+  public Scene build(Stage stage, Scene gameScene, User user, Scene tutorialScene) {
     StackPane introRoot = new StackPane();
     introRoot.setStyle("-fx-background-color: black;");
 
@@ -75,10 +80,8 @@ public class StoryIntro {
     storyLayout.setVisible(false);
     next.setOnAction(
         e -> {
-          stage.setScene(gameScene);
-          user.start();
-          HelloWorld.startGameTimer();
-          gameScene.getRoot().requestFocus();
+          stage.setScene(tutorialScene);
+          tutorialScene.getRoot().requestFocus();
         });
     Help h = new Help(stage);
 

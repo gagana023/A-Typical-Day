@@ -1,7 +1,6 @@
 package app;
 
 import java.util.List;
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -14,7 +13,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -223,7 +221,9 @@ public class HelloWorld extends javafx.application.Application {
             cafeteriaLabel);
 
     StoryIntro intro = new StoryIntro();
-    Scene introScene = intro.build(stage, scene, user);
+    Tutorial tutorial = new Tutorial(stage, scene);
+    Scene tutorialScene = tutorial.build();
+    Scene introScene = intro.build(stage, scene, user, tutorialScene);
     bully1.spawnRandomly(scene);
     bully2.spawnRandomly(scene);
     user.setBullies(List.of(bully1, bully2));
@@ -235,13 +235,10 @@ public class HelloWorld extends javafx.application.Application {
 
     introScene.setOnMouseClicked(
         e -> {
-          stage.setScene(scene);
-          user.start();
-          HelloWorld.startGameTimer();
-
+          stage.setScene(tutorialScene);
           Platform.runLater(
               () -> {
-                scene.getRoot().requestFocus();
+                tutorialScene.getRoot().requestFocus();
               });
         });
   }
