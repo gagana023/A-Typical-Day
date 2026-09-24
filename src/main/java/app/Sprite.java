@@ -72,7 +72,7 @@ public class Sprite {
    * @throws IllegalArgumentException if parameters are invalid
    */
   public Sprite(String resourcePath, int rows, int cols, int spriteCount) {
-    this(new Image(Sprite.class.getResourceAsStream(resourcePath)), rows, cols, spriteCount);
+    this(new Image(ResourceLoader.openStream(resourcePath)), rows, cols, spriteCount);
   }
 
   /**

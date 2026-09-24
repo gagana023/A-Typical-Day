@@ -57,6 +57,7 @@ public class Tutorial {
   private Button spaceButton;
   private Button groupButton;
   private Button continueButton;
+  private Button skipButton;
 
   /** Creates a tutorial that hands control to the prepared hallway scene. */
   public Tutorial(Stage stage, Scene gameScene) {
@@ -138,23 +139,33 @@ public class Tutorial {
     spaceButton = button("Ask for a little space");
     groupButton = button("Stay with the group");
     continueButton = button("Start the school day");
+    skipButton = button("Skip");
+    skipButton.setMinWidth(90);
+    skipButton.setStyle(
+        "-fx-background-color: #173047; -fx-text-fill: white; -fx-font-size: 13px;"
+            + " -fx-padding: 7 12; -fx-border-color: #b9e3ed; -fx-border-width: 1;"
+            + " -fx-background-radius: 6; -fx-border-radius: 6;");
     spaceButton.setVisible(false);
     groupButton.setVisible(false);
     continueButton.setVisible(false);
+    skipButton.setVisible(true);
     spaceButton.setOnAction(e -> chooseResponse("You made room to notice what you need.", 3));
     groupButton.setOnAction(e -> chooseResponse("You stayed connected. That can be right for you, too.", 2));
     continueButton.setOnAction(e -> complete());
+    skipButton.setOnAction(e -> complete());
     AnchorPane.setRightAnchor(spaceButton, 32.0);
     AnchorPane.setRightAnchor(groupButton, 32.0);
     AnchorPane.setRightAnchor(continueButton, 32.0);
+    AnchorPane.setRightAnchor(skipButton, 32.0);
     AnchorPane.setBottomAnchor(spaceButton, 145.0);
     AnchorPane.setBottomAnchor(groupButton, 93.0);
     AnchorPane.setBottomAnchor(continueButton, 42.0);
+    AnchorPane.setBottomAnchor(skipButton, 20.0);
 
     root.getChildren()
         .addAll(playArea, title, subtitle, objective, status, controls, feedback, guide,
             taskMarker, taskName, taskProgress, player.getCanvas(), spaceButton, groupButton,
-            continueButton);
+            continueButton, skipButton);
 
     Scene scene = new Scene(root, WIDTH, HEIGHT);
     player.setCoordinates(120, 300);

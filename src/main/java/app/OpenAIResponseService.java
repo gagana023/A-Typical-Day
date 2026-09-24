@@ -10,12 +10,10 @@ import java.util.concurrent.CompletableFuture;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/** Sends player dialogue to OpenAI and converts it into one of the game's three outcomes. */
+/** Sends player dialogue to the local AI proxy and converts it into one of the game's three outcomes. */
 public final class OpenAIResponseService {
 
   private static final HttpClient CLIENT = HttpClient.newHttpClient();
-  private static final Pattern CONTENT_PATTERN =
-      Pattern.compile("\\\"content\\\"\\s*:\\s*\\\"((?:\\\\.|[^\\\"\\\\])*)\\\"");
   private static final Pattern CATEGORY_PATTERN = Pattern.compile("\\\"category\\\"\\s*:\\s*(\\d+)");
   private static final Pattern NPC_RESPONSE_PATTERN =
       Pattern.compile("\\\"npcResponse\\\"\\s*:\\s*\\\"((?:\\\\.|[^\\\"\\\\])*)\\\"");
@@ -35,20 +33,12 @@ public final class OpenAIResponseService {
    */
   public static CompletableFuture<Analysis> analyze(
       String taskId, int step, String playerResponse) {
-    String apiKey = System.getenv("OPENAI_API_KEY");
-    if (apiKey == null || apiKey.isBlank()) {
-      return CompletableFuture.failedFuture(
-          new IllegalStateException("OPENAI_API_KEY is not set."));
-    }
+    String proxyUrl = System.getenv().getOrDefault("AI_PROXY_URL", "http://127.0.0.1:8001/analyze");
 
-    String model = System.getenv().getOrDefault("OPENAI_MODEL", "gpt-4o-mini");
-    String endpoint = System.getenv().getOrDefault("OPENAI_API_URL", "https://api.openai.com/v1/chat/completions");
-    String body = createRequestBody(model, taskId, step, playerResponse);
-
+    String body = createRequestBody(taskId, step, playerResponse);
     HttpRequest request =
-        HttpRequest.newBuilder(URI.create(endpoint))
+        HttpRequest.newBuilder(URI.create(proxyUrl))
             .timeout(Duration.ofSeconds(30))
-            .header("Authorization", "Bearer " + apiKey)
             .header("Content-Type", "application/json")
             .POST(HttpRequest.BodyPublishers.ofString(body))
             .build();
@@ -57,49 +47,32 @@ public final class OpenAIResponseService {
         .thenApply(OpenAIResponseService::parseResponse);
   }
 
-  private static String createRequestBody(
-      String model, String taskId, int step, String playerResponse) {
-    String systemPrompt =
-        "You are an NPC in a school social-skills game. Classify the player's tone and reply "
-            + "naturally in character. Return only valid JSON with integer category 1, 2, or 3 "
-            + "and string npcResponse. Category 1 is kind and polite: social standing increases "
-            + "and social battery decreases. Category 2 is blunt but not deliberately rude: social "
-            + "standing decreases and social battery increases. Category 3 is rude or hostile: both "
-            + "social standing and social battery decrease. Do not include markdown. Keep the NPC "
-            + "reply to two sentences or fewer.";
-    String userPrompt =
-        "Task: " + taskId + ", step: " + step + ". Player response: " + playerResponse;
-
-    return "{\"model\":\""
-        + escapeJson(model)
-        + "\",\"temperature\":0.7,\"response_format\":{\"type\":\"json_object\"},\"messages\":[{\"role\":\"system\",\"content\":\""
-        + escapeJson(systemPrompt)
-        + "\"},{\"role\":\"user\",\"content\":\""
-        + escapeJson(userPrompt)
-        + "\"}]}";
+  private static String createRequestBody(String taskId, int step, String playerResponse) {
+    return "{\"taskId\":\""
+        + escapeJson(taskId)
+        + "\",\"step\":"
+        + step
+        + ",\"playerResponse\":\""
+        + escapeJson(playerResponse)
+        + "\"}";
   }
 
   private static Analysis parseResponse(HttpResponse<String> response) {
     if (response.statusCode() < 200 || response.statusCode() >= 300) {
       throw new IllegalStateException(
-          "OpenAI request failed with status " + response.statusCode() + ": " + response.body());
+          "AI proxy request failed with status " + response.statusCode() + ": " + response.body());
     }
 
-    Matcher contentMatcher = CONTENT_PATTERN.matcher(response.body());
-    if (!contentMatcher.find()) {
-      throw new IllegalStateException("OpenAI response did not contain message content.");
-    }
-
-    String content = unescapeJson(contentMatcher.group(1));
+    String content = response.body();
     Matcher categoryMatcher = CATEGORY_PATTERN.matcher(content);
     Matcher npcResponseMatcher = NPC_RESPONSE_PATTERN.matcher(content);
     if (!categoryMatcher.find() || !npcResponseMatcher.find()) {
-      throw new IllegalStateException("OpenAI returned an invalid dialogue classification.");
+      throw new IllegalStateException("AI proxy returned an invalid dialogue classification.");
     }
 
     int category = Integer.parseInt(categoryMatcher.group(1));
     if (category < 1 || category > 3) {
-      throw new IllegalStateException("OpenAI returned an invalid dialogue category.");
+      throw new IllegalStateException("AI proxy returned an invalid dialogue category.");
     }
 
     return new Analysis(category, unescapeJson(npcResponseMatcher.group(1)));

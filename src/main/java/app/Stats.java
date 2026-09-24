@@ -42,7 +42,7 @@ public class Stats {
 
   private Scene buildStatsScreen(Stage stage, boolean finalScreen) {
     stage.setTitle("Home");
-    Image kitchenImg = new Image(getClass().getResource("/kitchen.png").toExternalForm());
+    Image kitchenImg = new Image(ResourceLoader.getUrl("/kitchen.png").toExternalForm());
     ImageView background = new ImageView(kitchenImg);
     background.setFitWidth(800);
     background.setFitHeight(600);

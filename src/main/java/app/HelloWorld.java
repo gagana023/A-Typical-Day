@@ -242,6 +242,7 @@ public class HelloWorld extends javafx.application.Application {
                 tutorialScene.getRoot().requestFocus();
               });
         });
+
   }
 
   public static Stage getStage() {
@@ -372,27 +373,27 @@ public class HelloWorld extends javafx.application.Application {
 
     if (cause instanceof IllegalStateException
         && cause.getMessage() != null
-        && cause.getMessage().contains("OPENAI_API_KEY is not set")) {
-      return "The OpenAI key is not available. Set OPENAI_API_KEY (not OPEN_API_KEY), then restart VS Code.";
+        && cause.getMessage().contains("AI proxy")) {
+      return "The AI proxy is unavailable or returned an invalid response. Start the local backend and try again.";
     }
 
     if (cause.getMessage() != null && cause.getMessage().contains("status 401")) {
-      return "OpenAI rejected the API key (401). Create a new key and check that it is active.";
+      return "The AI backend rejected its OpenAI credentials (401). Check the server-side key configuration.";
     }
 
     if (cause.getMessage() != null && cause.getMessage().contains("status 429")) {
-      return "OpenAI quota or rate limit reached (429). Check billing and usage for the API account.";
+      return "The AI backend hit a rate limit or quota limit (429). Check the server-side OpenAI usage.";
     }
 
     if (cause.getMessage() != null && cause.getMessage().contains("status 400")) {
-      return "OpenAI rejected the request (400). Check the selected model and API account access.";
+      return "The AI backend rejected a request (400). Check the server-side model and config.";
     }
 
     if (cause.getMessage() != null && cause.getMessage().contains("status 5")) {
-      return "OpenAI is temporarily unavailable. Check the service status and try again.";
+      return "The AI backend is temporarily unavailable. Check the local service and network connection.";
     }
 
-    return "OpenAI request failed. Check your key, internet connection, and API account.";
+    return "The AI request failed. Start the backend proxy and verify the server is running.";
   }
 
   public static void startGameTimer() {

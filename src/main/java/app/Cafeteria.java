@@ -32,7 +32,7 @@ public class Cafeteria extends JoinGroupHere {
   public AnchorPane getRoot(Stage stage) {
     AnchorPane root = new AnchorPane();
 
-    Image cafeteriaImg = new Image(getClass().getResource("/cafeteria.png").toExternalForm());
+    Image cafeteriaImg = new Image(ResourceLoader.getUrl("/cafeteria.png").toExternalForm());
     ImageView background = new ImageView(cafeteriaImg);
 
     background.setFitWidth(800);

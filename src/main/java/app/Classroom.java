@@ -33,7 +33,7 @@ public class Classroom extends Room {
 
     AnchorPane root = new AnchorPane();
 
-    Image cafeteriaImg = new Image(getClass().getResource("/classroom.png").toExternalForm());
+    Image cafeteriaImg = new Image(ResourceLoader.getUrl("/classroom.png").toExternalForm());
     ImageView background = new ImageView(cafeteriaImg);
 
     background.setFitWidth(800);

@@ -12,19 +12,33 @@ Stack Overflow was used to design the PANIC feature because we originally did no
 
 ## AI dialogue setup
 
-Typed player responses are classified through OpenAI. Start the `GameEngine` or `Run Jar File`
-debug configuration in VS Code and enter the API key when the masked prompt appears. The key is
-passed only to that launch and is not stored in the project.
+Typed player responses are classified through a local AI proxy instead of calling OpenAI directly from
+the Java client. The game sends the response to a small Python service, and that service owns the
+OpenAI API key on the server side.
 
-For terminal launches, set the API key for the current PowerShell session:
+To run the AI feature locally:
+
+1. Open a terminal in the project root.
+2. Set the key in that shell only:
 
 ```powershell
 $env:OPENAI_API_KEY = "your-api-key"
-code .
 ```
 
-Run `code .` from the same PowerShell window after setting the variable if you want the debugger to
-inherit it directly.
+3. Start the proxy:
 
-The optional `OPENAI_MODEL` variable selects a model and defaults to `gpt-4o-mini`. The API key is
-read from the environment and is not stored in the project.
+```powershell
+python ai_proxy.py
+```
+
+4. In another terminal, start the JavaFX game. If needed, set the proxy URL explicitly:
+
+```powershell
+$env:AI_PROXY_URL = "http://127.0.0.1:8001/analyze"
+```
+
+The game defaults to `http://127.0.0.1:8001/analyze`, so the key never needs to live in the repo or
+in the client runtime environment.
+
+The optional `OPENAI_MODEL` variable selects a model and defaults to `gpt-4o-mini` on the backend
+server only.

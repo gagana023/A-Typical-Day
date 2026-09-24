@@ -34,7 +34,7 @@ public class Office extends Room {
     AnchorPane root = new AnchorPane();
     root.setId("officeRoot");
 
-    Image cafeteriaImg = new Image(getClass().getResource("/office.png").toExternalForm());
+    Image cafeteriaImg = new Image(ResourceLoader.getUrl("/office.png").toExternalForm());
     ImageView background = new ImageView(cafeteriaImg);
 
     background.setFitWidth(800);

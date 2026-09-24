@@ -61,27 +61,42 @@ public class StoryIntro {
     sceneView.setFitHeight(600);
     sceneView.setVisible(false);
 
-    Image titleImg = new Image(getClass().getResource("/title.png").toExternalForm());
+    Image titleImg = new Image(ResourceLoader.getUrl("/title.png").toExternalForm());
     sceneView.setImage(titleImg);
     Rectangle flash = new Rectangle(800, 600, Color.WHITE);
 
     Button next = new Button("Next");
+    Button skip = new Button("Skip");
     Button help = new Button("Help");
     next.setPrefSize(140, 40);
+    skip.setPrefSize(90, 30);
     help.setPrefSize(140, 40);
     next.setStyle(
         "-fx-font-size: 20px; -fx-background-color: #eb4084 ; -fx-text-fill: white;"
             + " -fx-font-weight: bold; -fx-border-color: black; -fx-border-width: 2px;");
+    skip.setStyle(
+        "-fx-font-size: 14px; -fx-background-color: #f0f0f0; -fx-text-fill: #222;"
+            + " -fx-font-weight: bold; -fx-border-color: #666; -fx-border-width: 1px;");
     help.setStyle(
         "-fx-font-size: 20px; -fx-background-color: #eb4084 ; -fx-text-fill: white;"
             + " -fx-font-weight: bold; -fx-border-color: black; -fx-border-width: 2px;");
     HBox storyLayout = new HBox(20, next, help);
     storyLayout.setStyle("-fx-alignment: bottom-center; -fx-padding: 0 0 115 0;");
     storyLayout.setVisible(false);
-    next.setOnAction(
-        e -> {
+
+    Runnable skipToTutorial =
+        () -> {
           stage.setScene(tutorialScene);
           tutorialScene.getRoot().requestFocus();
+        };
+
+    next.setOnAction(
+        e -> {
+          skipToTutorial.run();
+        });
+    skip.setOnAction(
+        e -> {
+          skipToTutorial.run();
         });
     Help h = new Help(stage);
 
