@@ -25,7 +25,7 @@ public class BullyScene {
     AnchorPane.setBottomAnchor(bully, 200.0);
 
     Rectangle dialogueBox = new Rectangle(500, 120);
-    dialogueBox.setFill(Color.GRAY);
+    dialogueBox.setFill(Color.GRAY); //UI Line
 
     // TODO - aadi - WIP
     ArrayList<Label> dialogueTexts = new ArrayList<>();
