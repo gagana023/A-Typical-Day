@@ -10,7 +10,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/** Sends player dialogue to the local AI proxy and converts it into one of the game's three outcomes. */
+/** Sends player dialogue to the AI proxy and converts it into one of the game's three outcomes. */
 public final class OpenAIResponseService {
 
   private static final HttpClient CLIENT = HttpClient.newHttpClient();
@@ -33,12 +33,12 @@ public final class OpenAIResponseService {
    */
   public static CompletableFuture<Analysis> analyze(
       String taskId, int step, String playerResponse) {
-    String proxyUrl = System.getenv().getOrDefault("AI_PROXY_URL", "http://127.0.0.1:8001/analyze");
+    String proxyUrl = System.getenv().getOrDefault("AI_PROXY_URL", "https://a-typical-day.onrender.com/analyze");
 
     String body = createRequestBody(taskId, step, playerResponse);
     HttpRequest request =
         HttpRequest.newBuilder(URI.create(proxyUrl))
-            .timeout(Duration.ofSeconds(30))
+            .timeout(Duration.ofSeconds(90))
             .header("Content-Type", "application/json")
             .POST(HttpRequest.BodyPublishers.ofString(body))
             .build();

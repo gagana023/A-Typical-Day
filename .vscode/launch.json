@@ -45,7 +45,7 @@
                 "JAVA_HOME": "C:\\Program Files\\Eclipse Adoptium\\jdk-25.0.0.36-hotspot",
                 "JAVAFX_HOME": "${workspaceFolder}\\javafx-sdk-25",
                 "JAVAFX_JMODS": "${workspaceFolder}\\javafx-sdk-25\\jmods",
-                "AI_PROXY_URL": "https://a-typical-day.onrender.comanalyze"
+                "AI_PROXY_URL": "https://a-typical-day.onrender.com/analyze"
             },
             // "linux": {
             //     "vmArgs": "--module-path ${env:JAVAFX_JMODS}:${env:JAVAFX_HOME}/lib --add-modules javafx.controls,javafx.graphics,javafx.base --enable-native-access=javafx.graphics",
