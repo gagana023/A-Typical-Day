@@ -33,11 +33,9 @@ public final class OpenAIResponseService {
    */
   public static CompletableFuture<Analysis> analyze(
       String taskId, int step, String playerResponse) {
-    String proxyUrl = System.getenv().getOrDefault("AI_PROXY_URL", "https://a-typical-day.onrender.com/analyze");
-
     String body = createRequestBody(taskId, step, playerResponse);
     HttpRequest request =
-        HttpRequest.newBuilder(URI.create(proxyUrl))
+        HttpRequest.newBuilder(URI.create(proxyUrl()))
             .timeout(Duration.ofSeconds(90))
             .header("Content-Type", "application/json")
             .POST(HttpRequest.BodyPublishers.ofString(body))
@@ -45,6 +43,11 @@ public final class OpenAIResponseService {
 
     return CLIENT.sendAsync(request, HttpResponse.BodyHandlers.ofString())
         .thenApply(OpenAIResponseService::parseResponse);
+  }
+
+  /** Returns the AI proxy endpoint, overridable with the AI_PROXY_URL environment variable. */
+  public static String proxyUrl() {
+    return System.getenv().getOrDefault("AI_PROXY_URL", "https://a-typical-day.onrender.com/analyze");
   }
 
   private static String createRequestBody(String taskId, int step, String playerResponse) {

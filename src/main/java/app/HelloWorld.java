@@ -371,29 +371,28 @@ public class HelloWorld extends javafx.application.Application {
       cause = cause.getCause();
     }
 
-    if (cause instanceof IllegalStateException
-        && cause.getMessage() != null
-        && cause.getMessage().contains("AI proxy")) {
-      return "The AI proxy is unavailable or returned an invalid response. Start the local backend and try again.";
+    String message = cause.getMessage() == null ? "" : cause.getMessage();
+    String summary;
+    if (message.contains("status 401")) {
+      summary = "The AI backend rejected its OpenAI credentials (401). Check the server-side key configuration.";
+    } else if (message.contains("status 429")) {
+      summary = "The AI backend hit a rate limit or quota limit (429). Check the server-side OpenAI usage.";
+    } else if (message.contains("status 400")) {
+      summary = "The AI backend rejected a request (400). Check the server-side model and config.";
+    } else if (message.contains("status 5")) {
+      summary = "The AI backend is temporarily unavailable. Try again in a minute.";
+    } else if (message.contains("AI proxy")) {
+      summary = "The AI proxy returned an invalid response.";
+    } else {
+      summary = "The AI proxy could not be reached. Check your internet connection.";
     }
 
-    if (cause.getMessage() != null && cause.getMessage().contains("status 401")) {
-      return "The AI backend rejected its OpenAI credentials (401). Check the server-side key configuration.";
-    }
-
-    if (cause.getMessage() != null && cause.getMessage().contains("status 429")) {
-      return "The AI backend hit a rate limit or quota limit (429). Check the server-side OpenAI usage.";
-    }
-
-    if (cause.getMessage() != null && cause.getMessage().contains("status 400")) {
-      return "The AI backend rejected a request (400). Check the server-side model and config.";
-    }
-
-    if (cause.getMessage() != null && cause.getMessage().contains("status 5")) {
-      return "The AI backend is temporarily unavailable. Check the local service and network connection.";
-    }
-
-    return "The AI request failed. Start the backend proxy and verify the server is running.";
+    return summary
+        + "\nDetails: "
+        + cause.getClass().getSimpleName()
+        + (message.isEmpty() ? "" : ": " + message)
+        + "\nProxy: "
+        + OpenAIResponseService.proxyUrl();
   }
 
   public static void startGameTimer() {
