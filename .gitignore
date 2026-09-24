@@ -336,3 +336,6 @@ ASALocalRun/
 
 *.class
 target
+# JavaFX SDK
+javafx-sdk-25.0.4/
+openjfx-25.0.4_linux-x64_bin-sdk.zip

@@ -1,8 +1,8 @@
 {
     "java.server.launchMode": "Standard",
     "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "${workspaceFolder}/javafx-sdk-25/lib/*.jar"
+    "lib/**/*.jar",
+    "javafx-sdk-25.0.4/lib/*.jar"
     ],
     "java.project.sourcePaths": [
         "src/test/java/",
@@ -10,9 +10,9 @@
         "src/main/resources"
     ],
     "java.configuration.runtimes": [
-        {
-            "name": "JavaSE-25",
-            "path": "C:\\Program Files\\Eclipse Adoptium\\jdk-25.0.0.36-hotspot",
+    {
+        "name": "JavaSE-25",
+        "path": "/usr/local/sdkman/candidates/java/25-tem",
             "default": true
         }
     ],
