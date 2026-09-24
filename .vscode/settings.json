@@ -2,7 +2,7 @@
     "java.server.launchMode": "Standard",
     "java.project.referencedLibraries": [
     "lib/**/*.jar",
-    "javafx-sdk-25.0.4/lib/*.jar"
+    "javafx-sdk-25*/lib/*.jar"
     ],
     "java.project.sourcePaths": [
         "src/test/java/",
