@@ -4,7 +4,7 @@ import sys
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib import request, error
 
-PORT = int(os.getenv("AI_PROXY_PORT", "8001"))
+PORT = int(os.getenv("PORT", os.getenv("AI_PROXY_PORT", "8001")))
 API_URL = os.getenv("OPENAI_API_URL", "https://api.openai.com/v1/chat/completions")
 MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
 API_KEY = os.getenv("OPENAI_API_KEY")
@@ -72,6 +72,24 @@ def call_openai(task_id: str, step: int, player_response: str):
 class ProxyHandler(BaseHTTPRequestHandler):
     server_version = "ATypicalDayProxy/1.0"
 
+    def do_HEAD(self):
+        if self.path == "/":
+            self.send_response(200)
+            self.end_headers()
+            return
+        self.send_error(404, "Not Found")
+
+    def do_GET(self):
+        if self.path == "/":
+            response = b"AI proxy is running."
+            self.send_response(200)
+            self.send_header("Content-Type", "text/plain")
+            self.send_header("Content-Length", str(len(response)))
+            self.end_headers()
+            self.wfile.write(response)
+            return
+        self.send_error(404, "Not Found")
+
     def do_POST(self):
         if self.path not in ("/analyze", "/api/analyze"):
             self.send_error(404, "Not Found")
@@ -106,9 +124,9 @@ class ProxyHandler(BaseHTTPRequestHandler):
 
 
 if __name__ == "__main__":
-    print(f"AI proxy running on http://localhost:{PORT}/analyze")
+    print(f"AI proxy running on http://0.0.0.0:{PORT}/analyze")
     print("Set OPENAI_API_KEY in this shell before starting the proxy.")
-    httpd = ThreadingHTTPServer(("127.0.0.1", PORT), ProxyHandler)
+    httpd = ThreadingHTTPServer(("0.0.0.0", PORT), ProxyHandler)
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
