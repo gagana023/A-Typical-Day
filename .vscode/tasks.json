@@ -2,6 +2,19 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Compile game",
+      "type": "shell",
+      "options": { "cwd": "${workspaceFolder}" },
+      "windows": {
+        "command": "& 'C:\\Program Files\\Eclipse Adoptium\\jdk-25.0.0.36-hotspot\\bin\\javac.exe' -encoding UTF-8 -d out --module-path javafx-sdk-25/lib --add-modules javafx.controls,javafx.graphics,javafx.base (Get-ChildItem -Recurse src/main/java -Filter *.java).FullName"
+      },
+      "linux": {
+        "command": "javac -encoding UTF-8 -d out --module-path \"$JAVAFX_HOME/lib\" --add-modules javafx.controls,javafx.graphics,javafx.base $(find src/main/java -name '*.java')"
+      },
+      "presentation": { "reveal": "silent", "clear": true },
+      "problemMatcher": []
+    },
+    {
         "label": "Generate Javadoc",
         "type": "shell",
         "command": "javadoc",

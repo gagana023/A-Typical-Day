@@ -8,6 +8,7 @@
             "type": "java",
             "name": "GameEngine",
             "request": "launch",
+            "preLaunchTask": "Compile game",
             "mainClass": "app.HelloWorld",
             "projectName": "",
             "classPaths": [
